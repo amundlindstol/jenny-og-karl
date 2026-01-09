@@ -1,20 +1,16 @@
 import { z } from 'zod';
 import { googleSheetsClient, handleSheetsError, type SheetsError } from './google-sheets';
-import type { GuestEntry, RSVPFormData } from '../types';
-
-// Validation schemas
-const invitationCodeSchema = z.string().regex(/^[A-Za-z0-9]{4,8}$/, 'Invalid invitation code format');
-
-const rsvpResponseSchema = z.object({
-  invitationCode: z.string(),
-  guests: z.array(z.object({
-    name: z.string().min(1),
-    attending: z.boolean(),
-    dietaryRestrictions: z.string().optional().default(''),
-  })),
-  personalMessage: z.string().optional().default(''),
-  contactEmail: z.string().email().optional(),
-});
+import type { 
+  GuestEntry, 
+  RSVPFormData, 
+  RSVPFormDataValidated,
+  GuestEntryValidated 
+} from '../types';
+import { 
+  invitationCodeSchema, 
+  rsvpFormDataSchema, 
+  guestEntrySchema 
+} from '../types';
 
 // Google Sheets column mapping (based on design document)
 const SHEET_COLUMNS = {
@@ -44,7 +40,7 @@ export class SheetsService {
   async validateInvitationCode(code: string): Promise<GuestEntry | null> {
     try {
       // Validate code format first
-      const validatedCode = invitationCodeSchema.parse(code.toUpperCase());
+      const validatedCode = invitationCodeSchema.parse(code);
 
       // Read all data from the sheet
       const response = await this.sheets.spreadsheets.values.get({
@@ -58,7 +54,7 @@ export class SheetsService {
       for (let i = 1; i < rows.length; i++) {
         const row = rows[i];
         if (row[0] && row[0].toUpperCase() === validatedCode) {
-          return this.parseRowToGuestEntry(row, i + 1);
+          return this.parseRowToGuestEntry(row);
         }
       }
 
@@ -85,8 +81,8 @@ export class SheetsService {
   async updateRSVPResponse(response: RSVPFormData): Promise<boolean> {
     try {
       // Validate the response data
-      const validatedResponse = rsvpResponseSchema.parse(response);
-      const code = validatedResponse.invitationCode.toUpperCase();
+      const validatedResponse: RSVPFormDataValidated = rsvpFormDataSchema.parse(response);
+      const code = validatedResponse.invitationCode;
 
       // Find the row with the matching invitation code
       const rowIndex = await this.findRowByInvitationCode(code);
@@ -167,7 +163,7 @@ export class SheetsService {
       for (let i = 1; i < rows.length; i++) {
         const row = rows[i];
         if (row[0]) { // Only process rows with invitation codes
-          guestEntries.push(this.parseRowToGuestEntry(row, i + 1));
+          guestEntries.push(this.parseRowToGuestEntry(row));
         }
       }
 
@@ -198,17 +194,28 @@ export class SheetsService {
   }
 
   /**
-   * Private helper: Parse spreadsheet row to GuestEntry
+   * Private helper: Parse spreadsheet row to GuestEntry with validation
    */
-  private parseRowToGuestEntry(row: any[], rowIndex: number): GuestEntry {
-    return {
+  private parseRowToGuestEntry(row: any[]): GuestEntry {
+    const rawEntry = {
       invitationCode: row[0] || '',
       guestNames: row[1] ? row[1].split(',').map((name: string) => name.trim()) : [],
       rsvpStatus: (row[2] as 'pending' | 'attending' | 'not_attending') || 'pending',
       dietaryRestrictions: row[3] ? row[3].split(';').map((item: string) => item.trim()) : [],
       personalMessage: row[4] || '',
       submissionDate: row[5] || '',
+      email: row[6] || '',
     };
+
+    // Validate the parsed data
+    try {
+      const validatedEntry: GuestEntryValidated = guestEntrySchema.parse(rawEntry);
+      return validatedEntry;
+    } catch (error) {
+      // If validation fails, return the raw entry but log the error
+      console.warn('Failed to validate guest entry from spreadsheet:', error);
+      return rawEntry;
+    }
   }
 
   /**
