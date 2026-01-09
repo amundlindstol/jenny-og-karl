@@ -80,41 +80,41 @@ export default function ConfirmationPage() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 py-6 sm:py-8 lg:py-12 px-4">
         <div className="max-w-2xl mx-auto">
           {/* Success Header */}
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-4xl font-serif text-gray-800 mb-4">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 mb-2 sm:mb-4 leading-tight">
               Thank You!
             </h1>
-            <p className="text-xl text-gray-600">
+            <p className="text-lg sm:text-xl text-gray-600">
               Your RSVP has been successfully submitted
             </p>
           </div>
 
           {/* RSVP Summary */}
-          <Card className="p-8 mb-8">
-            <h2 className="text-2xl font-serif text-gray-800 mb-6 text-center">
+          <Card className="p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-serif text-gray-800 mb-4 sm:mb-6 text-center">
               RSVP Summary
             </h2>
             
             {/* Attending Guests */}
             {attendingGuests.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-green-700 mb-3">
+              <div className="mb-4 sm:mb-6">
+                <h3 className="text-base sm:text-lg font-semibold text-green-700 mb-2 sm:mb-3">
                   ✓ Attending ({attendingGuests.length} guest{attendingGuests.length !== 1 ? 's' : ''})
                 </h3>
                 <div className="space-y-2">
                   {attendingGuests.map((guest, index) => (
                     <div key={index} className="bg-green-50 p-3 rounded-md">
-                      <p className="font-medium text-gray-800">{guest.name}</p>
+                      <p className="font-medium text-gray-800 text-sm sm:text-base">{guest.name}</p>
                       {guest.dietaryRestrictions && (
-                        <p className="text-sm text-gray-600">
+                        <p className="text-xs sm:text-sm text-gray-600 mt-1">
                           Dietary restrictions: {guest.dietaryRestrictions}
                         </p>
                       )}
@@ -126,14 +126,14 @@ export default function ConfirmationPage() {
 
             {/* Not Attending Guests */}
             {notAttendingGuests.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-600 mb-3">
+              <div className="mb-4 sm:mb-6">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-600 mb-2 sm:mb-3">
                   ✗ Unable to Attend ({notAttendingGuests.length} guest{notAttendingGuests.length !== 1 ? 's' : ''})
                 </h3>
                 <div className="space-y-2">
                   {notAttendingGuests.map((guest, index) => (
                     <div key={index} className="bg-gray-50 p-3 rounded-md">
-                      <p className="font-medium text-gray-600">{guest.name}</p>
+                      <p className="font-medium text-gray-600 text-sm sm:text-base">{guest.name}</p>
                     </div>
                   ))}
                 </div>
@@ -142,31 +142,31 @@ export default function ConfirmationPage() {
 
             {/* Personal Message */}
             {rsvpData.personalMessage && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Your Message</h3>
-                <div className="bg-blue-50 p-4 rounded-md">
-                  <p className="text-gray-700 italic">"{rsvpData.personalMessage}"</p>
+              <div className="mb-4 sm:mb-6">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 sm:mb-3">Your Message</h3>
+                <div className="bg-blue-50 p-3 sm:p-4 rounded-md">
+                  <p className="text-gray-700 italic text-sm sm:text-base">"{rsvpData.personalMessage}"</p>
                 </div>
               </div>
             )}
 
             {/* Contact Email */}
             {rsvpData.contactEmail && (
-              <div className="text-sm text-gray-600">
+              <div className="text-xs sm:text-sm text-gray-600">
                 <p>Contact email: {rsvpData.contactEmail}</p>
               </div>
             )}
           </Card>
 
           {/* Next Steps */}
-          <Card className="p-6 mb-8">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">What's Next?</h3>
-            <div className="space-y-3 text-gray-600">
+          <Card className="p-4 sm:p-6 mb-6 sm:mb-8">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">What's Next?</h3>
+            <div className="space-y-2 sm:space-y-3 text-gray-600 text-sm sm:text-base">
               <p>• You'll receive a confirmation email shortly with all the wedding details</p>
               <p>• Check our website closer to the date for any updates</p>
               <p>• If you need to make changes, you can modify your RSVP anytime</p>
               <p>• For questions, contact us at{' '}
-                <a href="mailto:sarah.michael.wedding@email.com" className="text-rose-600 hover:text-rose-700">
+                <a href="mailto:sarah.michael.wedding@email.com" className="text-rose-600 hover:text-rose-700 underline break-all">
                   sarah.michael.wedding@email.com
                 </a>
               </p>
@@ -174,29 +174,31 @@ export default function ConfirmationPage() {
           </Card>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Button
               onClick={handleModifyRSVP}
               variant="outline"
-              className="flex-1"
+              className="w-full sm:flex-1"
             >
               Modify This RSVP
             </Button>
             <Button
               onClick={handleNewRSVP}
-              className="flex-1"
+              className="w-full sm:flex-1"
             >
               Submit Another RSVP
             </Button>
           </div>
 
           {/* Wedding Details Reminder */}
-          <div className="mt-12 text-center text-gray-600">
-            <h4 className="font-semibold mb-2">Save the Date</h4>
-            <p>Saturday, June 15th, 2024</p>
-            <p>4:00 PM Ceremony • 6:00 PM Reception</p>
-            <p>Beautiful Wedding Venue</p>
-            <p className="text-sm mt-2">We can't wait to celebrate with you! 💕</p>
+          <div className="mt-8 sm:mt-12 text-center text-gray-600">
+            <h4 className="font-semibold mb-2 text-sm sm:text-base">Save the Date</h4>
+            <div className="text-sm sm:text-base space-y-1">
+              <p>Saturday, June 15th, 2024</p>
+              <p>4:00 PM Ceremony • 6:00 PM Reception</p>
+              <p>Beautiful Wedding Venue</p>
+              <p className="text-xs sm:text-sm mt-2">We can't wait to celebrate with you! 💕</p>
+            </div>
           </div>
         </div>
       </div>

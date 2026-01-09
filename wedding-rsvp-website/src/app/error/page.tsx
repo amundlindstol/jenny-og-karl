@@ -97,30 +97,31 @@ function ErrorContent() {
   const errorContent = getErrorContent();
 
   return (
-    <Card className="max-w-md mx-auto p-8 text-center">
+    <Card className="max-w-md mx-auto p-4 sm:p-6 lg:p-8 text-center mx-4 sm:mx-auto">
       {/* Error Icon */}
-      <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
         {errorContent.icon}
       </div>
 
       {/* Error Title */}
-      <h1 className="text-2xl font-serif text-gray-800 mb-4">
+      <h1 className="text-xl sm:text-2xl font-serif text-gray-800 mb-3 sm:mb-4 leading-tight">
         {errorContent.title}
       </h1>
 
       {/* Error Message */}
-      <p className="text-gray-600 mb-8 leading-relaxed">
+      <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed">
         {errorContent.message}
       </p>
 
       {/* Action Buttons */}
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         {errorContent.actions.map((action, index) => (
           <Button
             key={index}
             onClick={action.action}
             variant={action.primary ? 'primary' : 'outline'}
             className="w-full"
+            size="md"
           >
             {action.label}
           </Button>
@@ -128,13 +129,13 @@ function ErrorContent() {
       </div>
 
       {/* Additional Help */}
-      <div className="mt-8 pt-6 border-t border-gray-200">
-        <p className="text-sm text-gray-500 mb-2">Need help?</p>
-        <p className="text-sm text-gray-600">
+      <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+        <p className="text-xs sm:text-sm text-gray-500 mb-2">Need help?</p>
+        <p className="text-xs sm:text-sm text-gray-600">
           Email us at{' '}
           <a 
             href="mailto:sarah.michael.wedding@email.com" 
-            className="text-rose-600 hover:text-rose-700 underline"
+            className="text-rose-600 hover:text-rose-700 underline break-all"
           >
             sarah.michael.wedding@email.com
           </a>
@@ -146,14 +147,14 @@ function ErrorContent() {
 
 function ErrorPageFallback() {
   return (
-    <Card className="max-w-md mx-auto p-8 text-center">
-      <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <Card className="max-w-md mx-auto p-4 sm:p-6 lg:p-8 text-center mx-4 sm:mx-auto">
+      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+        <svg className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
-      <h1 className="text-2xl font-serif text-gray-800 mb-4">Something Went Wrong</h1>
-      <p className="text-gray-600 mb-8">An unexpected error occurred. Please try again.</p>
+      <h1 className="text-xl sm:text-2xl font-serif text-gray-800 mb-3 sm:mb-4 leading-tight">Something Went Wrong</h1>
+      <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">An unexpected error occurred. Please try again.</p>
       <Button onClick={() => window.location.href = '/'} className="w-full">
         Go Home
       </Button>
@@ -164,7 +165,7 @@ function ErrorPageFallback() {
 export default function ErrorPage() {
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center py-6 sm:py-8 lg:py-12 px-4">
         <Suspense fallback={<ErrorPageFallback />}>
           <ErrorContent />
         </Suspense>

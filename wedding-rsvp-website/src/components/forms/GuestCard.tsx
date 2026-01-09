@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Input, Textarea } from '@/components/ui';
+import { Card, CardContent, Textarea } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import type { GuestResponse } from '@/types';
 
@@ -31,21 +31,21 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
   return (
     <Card className={cn('transition-all duration-200', className)} variant="outlined">
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {/* Guest Name Display */}
           <div>
-            <h3 className="text-lg font-semibold text-rose-900 mb-2">
+            <h3 className="text-base sm:text-lg font-semibold text-rose-900 mb-2">
               {guest.name}
             </h3>
           </div>
 
           {/* Attendance Selection */}
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             <label className="text-sm font-medium text-rose-900 block">
               Will you be attending?
             </label>
-            <div className="flex gap-4">
-              <label className="flex items-center space-x-2 cursor-pointer">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-rose-50 transition-colors">
                 <input
                   type="radio"
                   name={`attending-${index}`}
@@ -53,9 +53,9 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
                   onChange={() => handleAttendingChange(true)}
                   className="w-4 h-4 text-rose-600 border-rose-300 focus:ring-rose-500"
                 />
-                <span className="text-rose-800 font-medium">Yes, I'll be there!</span>
+                <span className="text-rose-800 font-medium text-sm sm:text-base">Yes, I'll be there!</span>
               </label>
-              <label className="flex items-center space-x-2 cursor-pointer">
+              <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-rose-50 transition-colors">
                 <input
                   type="radio"
                   name={`attending-${index}`}
@@ -63,7 +63,7 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
                   onChange={() => handleAttendingChange(false)}
                   className="w-4 h-4 text-rose-600 border-rose-300 focus:ring-rose-500"
                 />
-                <span className="text-rose-800 font-medium">Sorry, can't make it</span>
+                <span className="text-rose-800 font-medium text-sm sm:text-base">Sorry, can't make it</span>
               </label>
             </div>
           </div>

@@ -2,22 +2,23 @@ import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'elevated' | 'outlined';
+  variant?: 'default' | 'elevated' | 'outlined' | 'glass';
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = 'default', ...props }, ref) => {
     const variants = {
-      default: 'bg-white border border-rose-100 shadow-sm',
-      elevated: 'bg-white shadow-lg border border-rose-100',
-      outlined: 'bg-white border-2 border-rose-200'
+      default: 'bg-white border border-rose-100 shadow-sm hover:shadow-md transition-all duration-300',
+      elevated: 'bg-white shadow-lg hover:shadow-xl border border-rose-100 hover:border-rose-200 transition-all duration-300 hover:-translate-y-1',
+      outlined: 'bg-white border-2 border-rose-200 hover:border-rose-300 hover:shadow-sm transition-all duration-300',
+      glass: 'glass border border-rose-200/50 hover:border-rose-300/50 transition-all duration-300'
     };
     
     return (
       <div
         ref={ref}
         className={cn(
-          'rounded-xl p-6',
+          'rounded-xl p-6 animate-fade-in',
           variants[variant],
           className
         )}
@@ -45,7 +46,7 @@ const CardTitle = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHead
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn('text-xl font-semibold text-rose-900', className)}
+      className={cn('text-xl font-semibold text-rose-900 font-serif', className)}
       {...props}
     />
   )
@@ -57,7 +58,7 @@ const CardDescription = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn('text-rose-600', className)}
+      className={cn('text-rose-600 leading-relaxed', className)}
       {...props}
     />
   )

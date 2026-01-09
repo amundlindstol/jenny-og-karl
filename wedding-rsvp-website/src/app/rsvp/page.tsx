@@ -96,31 +96,31 @@ export default function RSVPPage() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 py-6 sm:py-8 lg:py-12 px-4">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-serif text-gray-800 mb-4">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 mb-2 sm:mb-4 leading-tight">
               RSVP for Sarah & Michael's Wedding
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Saturday, June 15th, 2024 • Beautiful Wedding Venue
             </p>
           </div>
 
           {/* Guest Information */}
-          <Card className="p-6 mb-8">
-            <div className="flex justify-between items-start">
-              <div>
-                <h2 className="text-lg font-semibold text-gray-800 mb-2">
+          <Card className="p-4 sm:p-6 mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+              <div className="flex-1">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">
                   Invitation for:
                 </h2>
                 <div className="space-y-1">
                   {guestEntry.guestNames.map((name, index) => (
-                    <p key={index} className="text-gray-700">{name}</p>
+                    <p key={index} className="text-sm sm:text-base text-gray-700">{name}</p>
                   ))}
                 </div>
-                <p className="text-sm text-gray-500 mt-2">
+                <p className="text-xs sm:text-sm text-gray-500 mt-2">
                   Code: {guestEntry.invitationCode}
                 </p>
               </div>
@@ -128,7 +128,7 @@ export default function RSVPPage() {
                 variant="outline"
                 size="sm"
                 onClick={handleStartOver}
-                className="text-sm"
+                className="text-xs sm:text-sm w-full sm:w-auto"
               >
                 Start Over
               </Button>
@@ -136,7 +136,7 @@ export default function RSVPPage() {
           </Card>
 
           {/* RSVP Form */}
-          <Card className="p-8">
+          <Card className="p-4 sm:p-6 lg:p-8">
             <RSVPForm
               guestEntry={guestEntry}
               onSubmit={handleRSVPSubmit}

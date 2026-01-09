@@ -17,17 +17,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     children, 
     ...props 
   }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
+    const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transform active:scale-95';
     
     const variants = {
-      primary: 'bg-rose-600 text-white hover:bg-rose-700 focus:ring-rose-500 shadow-sm',
-      secondary: 'bg-rose-100 text-rose-900 hover:bg-rose-200 focus:ring-rose-500',
-      outline: 'border border-rose-300 text-rose-700 hover:bg-rose-50 focus:ring-rose-500',
-      ghost: 'text-rose-700 hover:bg-rose-100 focus:ring-rose-500'
+      primary: 'bg-gradient-to-r from-rose-600 to-rose-700 text-white hover:from-rose-700 hover:to-rose-800 focus:ring-rose-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5',
+      secondary: 'bg-gradient-to-r from-rose-100 to-rose-200 text-rose-900 hover:from-rose-200 hover:to-rose-300 focus:ring-rose-500 shadow-sm hover:shadow-md',
+      outline: 'border-2 border-rose-300 text-rose-700 hover:bg-rose-50 hover:border-rose-400 focus:ring-rose-500 shadow-sm hover:shadow-md',
+      ghost: 'text-rose-700 hover:bg-rose-100 focus:ring-rose-500 hover:shadow-sm'
     };
     
     const sizes = {
-      sm: 'h-9 px-3 text-sm',
+      sm: 'h-9 px-4 text-sm',
       md: 'h-12 px-6 text-base',
       lg: 'h-14 px-8 text-lg'
     };
