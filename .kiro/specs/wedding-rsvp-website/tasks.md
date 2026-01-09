@@ -71,15 +71,15 @@
     - Add duplicate submission prevention
     - _Requirements: 3.1, 4.2, 3.5_
 
-- [ ] 7. Create main application pages
-  - [ ] 7.1 Build homepage with wedding information
+- [x] 7. Create main application pages
+  - [x] 7.1 Build homepage with wedding information
     - Create homepage layout with wedding details
     - Display date, time, venue information
     - Add event schedule and directions
     - Include invitation code entry form
     - _Requirements: 2.1, 2.2, 2.3_
   
-  - [ ] 7.2 Implement RSVP and confirmation pages
+  - [x] 7.2 Implement RSVP and confirmation pages
     - Create RSVP page with form display
     - Build confirmation page for successful submissions
     - Add error page for handling failures
