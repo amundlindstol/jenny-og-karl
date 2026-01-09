@@ -1,4 +1,4 @@
 // Layout component exports
-// Components will be added in subsequent tasks
-
-export {};
+export { MainLayout } from './MainLayout';
+export { Header } from './Header';
+export { Footer } from './Footer';

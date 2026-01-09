@@ -1,4 +1,5 @@
 // UI component exports
-// Components will be added in subsequent tasks
-
-export {};
+export { Input } from './Input';
+export { Button } from './Button';
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './Card';
+export { LoadingSpinner } from './LoadingSpinner';

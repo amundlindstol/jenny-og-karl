@@ -28,14 +28,14 @@
     - Add validation schemas using Zod
     - _Requirements: 4.4, 3.2, 3.3_
 
-- [ ] 4. Build core UI components and layout
-  - [ ] 4.1 Create layout components
+- [x] 4. Build core UI components and layout
+  - [x] 4.1 Create layout components
     - Implement MainLayout with header and footer
     - Design Header component with wedding information
     - Create Footer with contact details
     - _Requirements: 2.1, 2.2, 5.1, 5.5_
   
-  - [ ] 4.2 Build reusable form components
+  - [x] 4.2 Build reusable form components
     - Create Input component with validation states
     - Implement Button component with elegant styling
     - Design Card component for content containers
