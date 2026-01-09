@@ -1,6 +1,5 @@
 import React from 'react';
-import { Header } from './Header';
-import { Footer } from './Footer';
+import { Header, Footer } from './';
 import { ToastProvider, NetworkStatus } from '@/components/ui';
 import { ErrorBoundary } from '@/components/error';
 

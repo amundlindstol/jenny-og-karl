@@ -12,7 +12,7 @@ export default function Home() {
   const router = useRouter();
   const [error, setError] = useState('');
   const [mounted, setMounted] = useState(false);
-  const toast = mounted ? useToast() : null;
+  const { showSuccess, showError } = useToast();
 
   // Handle client-side mounting
   useEffect(() => {
@@ -22,13 +22,17 @@ export default function Home() {
   const handleValidCode = (guestEntry: GuestEntry) => {
     // Store guest data in sessionStorage for the RSVP page
     sessionStorage.setItem('guestEntry', JSON.stringify(guestEntry));
-    toast?.showSuccess('Invitation code validated successfully!');
+    if (mounted) {
+      showSuccess('Invitation code validated successfully!');
+    }
     router.push('/rsvp');
   };
 
   const handleError = (errorMessage: string) => {
     setError(errorMessage);
-    toast?.showError(errorMessage);
+    if (mounted) {
+      showError(errorMessage);
+    }
   };
 
   return (
