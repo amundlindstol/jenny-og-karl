@@ -7,14 +7,14 @@
   - Create basic folder structure (components, lib, app, types)
   - _Requirements: 2.4, 2.5, 5.2, 5.3_
 
-- [ ] 2. Implement Google Sheets API integration service
-  - [ ] 2.1 Create Google Sheets service configuration
+- [x] 2. Implement Google Sheets API integration service
+  - [x] 2.1 Create Google Sheets service configuration
     - Set up Google Service Account authentication
     - Configure environment variables for API credentials
     - Create sheets client initialization
     - _Requirements: 4.1, 4.3_
   
-  - [ ] 2.2 Implement core Google Sheets operations
+  - [x] 2.2 Implement core Google Sheets operations
     - Write function to validate invitation codes against spreadsheet
     - Create function to read guest names by invitation code
     - Implement RSVP response writing to spreadsheet
