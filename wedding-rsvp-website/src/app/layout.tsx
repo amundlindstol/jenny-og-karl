@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sarah & Michael's Wedding",
-  description: "Join us in celebrating our special day - June 15th, 2024",
-  keywords: "wedding, RSVP, Sarah, Michael, celebration",
+  title: "Jenny & Karls bryllup",
+  description: "Bli med oss og feir vår spesielle dag - 15. juni 2024",
+  keywords: "bryllup, RSVP, Jenny, Karl, feiring",
   authors: [{ name: "Wedding RSVP System" }],
   robots: "noindex, nofollow", // Prevent search engine indexing for privacy
   viewport: "width=device-width, initial-scale=1",

@@ -156,7 +156,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
           <CardHeader>
             <CardTitle className="text-lg sm:text-xl">RSVP for {guestEntry.invitationCode}</CardTitle>
             <p className="text-rose-600 text-sm sm:text-base">
-              Please let us know if you'll be joining us for our special day!
+              Vennligst la oss vite om du blir med oss på vår spesielle dag!
             </p>
           </CardHeader>
 
@@ -165,7 +165,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
               {/* Guest Responses */}
               <div className="space-y-3 sm:space-y-4">
                 <h3 className="text-base sm:text-lg font-semibold text-rose-900 border-b border-rose-200 pb-2">
-                  Guest Responses
+                  Gjestesvar
                 </h3>
                 
                 {formData.guests.map((guest, index) => (
@@ -183,7 +183,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
               {totalGuests > 1 && (
                 <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 sm:p-4">
                   <p className="text-rose-800 font-medium text-sm sm:text-base">
-                    RSVP Summary: {attendingCount} of {totalGuests} guests attending
+                    RSVP-sammendrag: {attendingCount} av {totalGuests} gjester deltar
                   </p>
                 </div>
               )}
@@ -191,13 +191,13 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
               {/* Contact Email */}
               <div>
                 <Input
-                  label="Contact Email (Optional)"
+                  label="Kontakt e-post (valgfritt)"
                   type="email"
                   value={formData.contactEmail}
                   onChange={handleContactEmailChange}
-                  placeholder="your.email@example.com"
+                  placeholder="din.epost@example.com"
                   error={getFieldError('contactEmail')}
-                  helperText="We'll use this to send you any important updates about the wedding"
+                  helperText="Vi bruker denne til å sende deg viktige oppdateringer om bryllupet"
                   disabled={isSubmitting}
                 />
               </div>
@@ -205,19 +205,19 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
               {/* Personal Message */}
               <div>
                 <Textarea
-                  label="Personal Message (Optional)"
+                  label="Personlig melding (valgfritt)"
                   value={formData.personalMessage}
                   onChange={handlePersonalMessageChange}
-                  placeholder="Share your excitement, well wishes, or any questions you might have..."
+                  placeholder="Del din glede, ønsker eller spørsmål du måtte ha..."
                   error={getFieldError('personalMessage')}
-                  helperText="Let us know how excited you are or if you have any questions!"
+                  helperText="La oss vite hvor glade dere er eller om dere har spørsmål!"
                   rows={4}
                   maxLength={1000}
                   disabled={isSubmitting}
                 />
                 {formData.personalMessage && (
                   <p className="text-xs text-rose-500 text-right mt-1">
-                    {formData.personalMessage.length}/1000 characters
+                    {formData.personalMessage.length}/1000 tegn
                   </p>
                 )}
               </div>
@@ -231,7 +231,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
                   </p>
                   {submitAttempts > 1 && (
                     <p className="text-red-500 text-xs mt-2">
-                      Attempt {submitAttempts}. If this continues, please contact us directly.
+                      Forsøk {submitAttempts}. Hvis dette fortsetter, vennligst kontakt oss direkte.
                     </p>
                   )}
                 </div>
@@ -244,7 +244,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
                     <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    Validating form...
+                    Validerer skjema...
                   </p>
                 </div>
               )}
@@ -259,7 +259,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
                     disabled={isSubmitting}
                     className="w-full sm:w-auto order-2 sm:order-1"
                   >
-                    Back to Code Entry
+                    Tilbake til kodeinntasting
                   </Button>
                 )}
                 
@@ -270,16 +270,16 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
                   className="w-full sm:flex-1 sm:min-w-[200px] order-1 sm:order-2"
                   size="lg"
                 >
-                  {isSubmitting ? 'Submitting RSVP...' : 'Submit RSVP'}
+                  {isSubmitting ? 'Sender inn RSVP...' : 'Send inn RSVP'}
                 </Button>
               </div>
 
               {/* Helpful Note */}
               <div className="text-xs sm:text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-3">
-                <p className="font-medium mb-1">📝 Note:</p>
+                <p className="font-medium mb-1">📝 Merk:</p>
                 <p>
-                  You can change your RSVP later by re-entering your invitation code. 
-                  We'll update your response with the latest information.
+                  Du kan endre RSVP-en din senere ved å skrive inn invitasjonskoden din på nytt. 
+                  Vi oppdaterer svaret ditt med den nyeste informasjonen.
                 </p>
               </div>
             </form>

@@ -67,7 +67,7 @@ export default function RSVPPage() {
         <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading your RSVP form...</p>
+            <p className="text-gray-600">Laster inn RSVP-skjemaet ditt...</p>
           </div>
         </div>
       </MainLayout>
@@ -80,13 +80,13 @@ export default function RSVPPage() {
         <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center">
           <Card className="max-w-md mx-auto p-8 text-center">
             <h1 className="text-2xl font-serif text-gray-800 mb-4">
-              RSVP Access Required
+              RSVP-tilgang kreves
             </h1>
             <p className="text-gray-600 mb-6">
-              Please enter your invitation code to access the RSVP form.
+              Vennligst skriv inn din invitasjonskode for å få tilgang til RSVP-skjemaet.
             </p>
             <Button onClick={() => router.push('/')} className="w-full">
-              Enter Invitation Code
+              Skriv inn invitasjonskode
             </Button>
           </Card>
         </div>
@@ -101,10 +101,10 @@ export default function RSVPPage() {
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 mb-2 sm:mb-4 leading-tight">
-              RSVP for Sarah & Michael's Wedding
+              RSVP for Jenny & Karls bryllup
             </h1>
             <p className="text-sm sm:text-base text-gray-600">
-              Saturday, June 15th, 2024 • Beautiful Wedding Venue
+              Lørdag, 15. juni 2024 • Vakre Bryllupslokaler
             </p>
           </div>
 
@@ -113,7 +113,7 @@ export default function RSVPPage() {
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
               <div className="flex-1">
                 <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">
-                  Invitation for:
+                  Invitasjon til:
                 </h2>
                 <div className="space-y-1">
                   {guestEntry.guestNames.map((name, index) => (
@@ -121,7 +121,7 @@ export default function RSVPPage() {
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm text-gray-500 mt-2">
-                  Code: {guestEntry.invitationCode}
+                  Kode: {guestEntry.invitationCode}
                 </p>
               </div>
               <Button
@@ -130,7 +130,7 @@ export default function RSVPPage() {
                 onClick={handleStartOver}
                 className="text-xs sm:text-sm w-full sm:w-auto"
               >
-                Start Over
+                Start på nytt
               </Button>
             </div>
           </Card>

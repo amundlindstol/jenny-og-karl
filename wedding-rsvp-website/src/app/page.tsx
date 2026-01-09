@@ -48,29 +48,29 @@ export default function Home() {
           
           <div className="max-w-4xl mx-auto relative z-10">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-gray-800 mb-4 sm:mb-6 leading-tight animate-fade-in gradient-text">
-              Sarah & Michael
+              Jenny & Karl
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-6 sm:mb-8 font-light px-4 sm:px-0 animate-slide-in-up">
-              Together with our families, we invite you to celebrate our wedding
+              Sammen med våre familier inviterer vi deg til å feire vårt bryllup
             </p>
             
             {/* Wedding Date & Venue */}
             <div className="glass rounded-2xl p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12 shadow-xl mx-4 sm:mx-0 animate-scale-in hover-lift">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 <div className="text-center sm:text-left">
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 font-serif">Date & Time</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 font-serif">Dato & Tid</h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    Saturday, June 15th, 2024<br />
-                    4:00 PM Ceremony<br />
-                    6:00 PM Reception
+                    Lørdag, 15. juni 2024<br />
+                    16:00 Vielse<br />
+                    18:00 Bryllupsfest
                   </p>
                 </div>
                 <div className="text-center sm:text-left border-t sm:border-t-0 sm:border-l border-gray-200 pt-4 sm:pt-0 sm:pl-4 lg:pl-8">
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 font-serif">Venue</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 font-serif">Lokale</h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    Beautiful Wedding Venue<br />
-                    123 Wedding St<br />
-                    City, State 12345
+                    Vakre Bryllupslokaler<br />
+                    Bryllupsgata 123<br />
+                    Oslo, Norge 0123
                   </p>
                 </div>
               </div>
@@ -80,7 +80,7 @@ export default function Home() {
             <Card variant="glass" className="max-w-md mx-auto p-4 sm:p-6 lg:p-8 mx-4 sm:mx-auto hover-lift">
               <h2 className="text-xl sm:text-2xl font-serif text-gray-800 mb-4 sm:mb-6 gradient-text">RSVP</h2>
               <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
-                Please enter your invitation code to respond to our wedding invitation.
+                Vennligst skriv inn din invitasjonskode for å svare på bryllupsinvitasjonen vår.
               </p>
               <FormErrorBoundary onReset={() => setError('')}>
                 <InvitationCodeForm
@@ -101,34 +101,34 @@ export default function Home() {
         <section className="py-12 sm:py-16 px-4 bg-white/30 backdrop-blur-sm">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-serif text-gray-800 text-center mb-8 sm:mb-12 gradient-text animate-fade-in">
-              Schedule of Events
+              Program for dagen
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               <Card variant="glass" className="p-4 sm:p-6 text-center hover-lift animate-fade-in">
                 <div className="w-12 h-12 bg-gradient-to-r from-rose-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white font-bold">3:30</span>
+                  <span className="text-white font-bold">15:30</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Guest Arrival</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Gjesteankomst</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Please arrive early for seating and to enjoy pre-ceremony music
+                  Vennligst kom tidlig for å finne plass og nyte musikk før vielsen
                 </p>
               </Card>
               <Card variant="glass" className="p-4 sm:p-6 text-center hover-lift animate-fade-in" style={{animationDelay: '0.2s'}}>
                 <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white font-bold">4:00</span>
+                  <span className="text-white font-bold">16:00</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Ceremony</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Vielse</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Join us as we exchange vows in the beautiful garden setting
+                  Bli med oss når vi utveksler løfter i de vakre hageomgivelsene
                 </p>
               </Card>
               <Card variant="glass" className="p-4 sm:p-6 text-center hover-lift animate-fade-in sm:col-span-2 lg:col-span-1" style={{animationDelay: '0.4s'}}>
                 <div className="w-12 h-12 bg-gradient-to-r from-rose-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white font-bold">6:00</span>
+                  <span className="text-white font-bold">18:00</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Reception</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Bryllupsfest</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Dinner, dancing, and celebration in the main ballroom
+                  Middag, dans og feiring i hovedsalen
                 </p>
               </Card>
             </div>
@@ -139,7 +139,7 @@ export default function Home() {
         <section className="py-12 sm:py-16 px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-serif text-gray-800 text-center mb-8 sm:mb-12 gradient-text animate-fade-in">
-              Venue & Directions
+              Lokale & Veibeskrivelse
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
               <Card variant="glass" className="p-4 sm:p-6 lg:p-8 hover-lift animate-fade-in">
@@ -150,27 +150,27 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 font-serif">Getting There</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 font-serif">Hvordan komme seg dit</h3>
                 </div>
                 <div className="space-y-3 sm:space-y-4 text-gray-600">
                   <div>
-                    <p className="font-medium text-gray-800">Address:</p>
+                    <p className="font-medium text-gray-800">Adresse:</p>
                     <p className="text-sm sm:text-base">
-                      Beautiful Wedding Venue<br />
-                      123 Wedding St<br />
-                      City, State 12345
+                      Vakre Bryllupslokaler<br />
+                      Bryllupsgata 123<br />
+                      Oslo, Norge 0123
                     </p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-800">Parking:</p>
+                    <p className="font-medium text-gray-800">Parkering:</p>
                     <p className="text-sm sm:text-base">
-                      Complimentary valet parking available on-site
+                      Gratis valet-parkering tilgjengelig på stedet
                     </p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-800">Transportation:</p>
+                    <p className="font-medium text-gray-800">Transport:</p>
                     <p className="text-sm sm:text-base">
-                      Shuttle service available from downtown hotels
+                      Shuttleservice tilgjengelig fra hoteller i sentrum
                     </p>
                   </div>
                 </div>
@@ -183,21 +183,21 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 font-serif">Accommodations</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 font-serif">Overnatting</h3>
                 </div>
                 <div className="space-y-3 sm:space-y-4 text-gray-600">
                   <div className="bg-white/50 p-3 rounded-lg">
-                    <p className="font-medium text-gray-800">Grand Hotel Downtown</p>
-                    <p className="text-sm">456 Main St • (555) 123-4567</p>
-                    <p className="text-sm">Group rate available with code: SARAH2024</p>
+                    <p className="font-medium text-gray-800">Grand Hotel Sentrum</p>
+                    <p className="text-sm">Hovedgata 456 • 22 12 34 56</p>
+                    <p className="text-sm">Gruppepris tilgjengelig med kode: JENNY2024</p>
                   </div>
                   <div className="bg-white/50 p-3 rounded-lg">
                     <p className="font-medium text-gray-800">Garden Inn & Suites</p>
-                    <p className="text-sm">789 Park Ave • (555) 987-6543</p>
-                    <p className="text-sm">Complimentary breakfast included</p>
+                    <p className="text-sm">Parkveien 789 • 22 98 76 54</p>
+                    <p className="text-sm">Gratis frokost inkludert</p>
                   </div>
                   <p className="text-sm italic text-rose-600 bg-rose-50 p-2 rounded animate-pulse">
-                    Please book by May 15th for group rates
+                    Vennligst book innen 15. mai for gruppepriser
                   </p>
                 </div>
               </Card>
@@ -209,7 +209,7 @@ export default function Home() {
         <section className="py-12 sm:py-16 px-4 bg-white/30 backdrop-blur-sm">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl font-serif text-gray-800 mb-6 sm:mb-8 gradient-text animate-fade-in">
-              Additional Information
+              Tilleggsinformasjon
             </h2>
             <div className="space-y-4 sm:space-y-6 text-gray-600 text-left sm:text-center">
               <Card variant="glass" className="p-4 sm:p-6 hover-lift animate-fade-in">
@@ -221,8 +221,8 @@ export default function Home() {
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Dress Code:</span> Cocktail attire. We suggest garden party elegant - 
-                      think flowy dresses and light suits in soft colors.
+                      <span className="font-semibold text-gray-800">Klesskode:</span> Cocktailantrekk. Vi foreslår elegant hagefest-stil - 
+                      tenk luftige kjoler og lette dresser i myke farger.
                     </p>
                   </div>
                 </div>
@@ -237,8 +237,8 @@ export default function Home() {
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Weather:</span> Our ceremony will be outdoors with an indoor backup plan. 
-                      The reception is indoors with air conditioning.
+                      <span className="font-semibold text-gray-800">Vær:</span> Vielsen vår vil være utendørs med en innendørs reserveplan. 
+                      Bryllupsfesten er innendørs med klimaanlegg.
                     </p>
                   </div>
                 </div>
@@ -253,8 +253,8 @@ export default function Home() {
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Registry:</span> Your presence is the only present we need! 
-                      If you wish to give a gift, we have registries at Target and Williams Sonoma.
+                      <span className="font-semibold text-gray-800">Ønskeliste:</span> Din tilstedeværelse er den eneste gaven vi trenger! 
+                      Hvis du ønsker å gi en gave, har vi ønskelister hos Elkjøp og Jernia.
                     </p>
                   </div>
                 </div>
@@ -269,9 +269,9 @@ export default function Home() {
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Questions?</span> Please contact us at{' '}
-                      <a href="mailto:sarah.michael.wedding@email.com" className="text-rose-600 hover:text-rose-700 underline break-all transition-colors">
-                        sarah.michael.wedding@email.com
+                      <span className="font-semibold text-gray-800">Spørsmål?</span> Vennligst kontakt oss på{' '}
+                      <a href="mailto:jenny.karl.bryllup@email.com" className="text-rose-600 hover:text-rose-700 underline break-all transition-colors">
+                        jenny.karl.bryllup@email.com
                       </a>
                     </p>
                   </div>

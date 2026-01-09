@@ -65,18 +65,18 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
             {/* Error Title */}
             <h2 className="text-lg font-serif text-gray-800 mb-3">
-              Something went wrong
+              Noe gikk galt
             </h2>
 
             {/* Error Message */}
             <p className="text-gray-600 mb-6 text-sm leading-relaxed">
-              We encountered an unexpected error. Please try refreshing the page or contact us if the problem persists.
+              Vi støtte på en uventet feil. Vennligst prøv å oppdatere siden eller kontakt oss hvis problemet vedvarer.
             </p>
 
             {/* Action Buttons */}
             <div className="space-y-2">
               <Button onClick={this.handleRetry} className="w-full" size="sm">
-                Try Again
+                Prøv igjen
               </Button>
               <Button 
                 onClick={() => window.location.reload()} 
@@ -84,19 +84,19 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                 className="w-full"
                 size="sm"
               >
-                Refresh Page
+                Oppdater siden
               </Button>
             </div>
 
             {/* Contact Info */}
             <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-xs text-gray-500">
-                Need help?{' '}
+                Trenger hjelp?{' '}
                 <a 
-                  href="mailto:sarah.michael.wedding@email.com" 
+                  href="mailto:jenny.karl.bryllup@email.com" 
                   className="text-rose-600 hover:text-rose-700 underline"
                 >
-                  Contact us
+                  Kontakt oss
                 </a>
               </p>
             </div>
