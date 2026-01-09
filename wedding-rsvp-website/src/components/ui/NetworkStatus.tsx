@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -7,10 +9,17 @@ interface NetworkStatusProps {
 }
 
 export function NetworkStatus({ className, showWhenOnline = false }: NetworkStatusProps) {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
-  const [showStatus, setShowStatus] = useState(!navigator.onLine);
+  const [isOnline, setIsOnline] = useState(true); // Default to true for SSR
+  const [showStatus, setShowStatus] = useState(false);
 
   useEffect(() => {
+    // Only run on client-side
+    if (typeof window === 'undefined') return;
+    
+    // Initialize state after component mounts (client-side only)
+    setIsOnline(navigator.onLine);
+    setShowStatus(!navigator.onLine);
+
     const handleOnline = () => {
       setIsOnline(true);
       if (showWhenOnline) {

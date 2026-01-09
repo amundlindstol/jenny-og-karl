@@ -1,5 +1,8 @@
 import { z } from 'zod';
 import { googleSheetsClient, handleSheetsError, withRetry, type SheetsError } from './google-sheets';
+import { logger } from './logger';
+import { PerformanceMonitor } from './performance';
+import { globalCache } from './cache';
 import type { 
   GuestEntry, 
   RSVPFormData, 
@@ -38,35 +41,69 @@ export class SheetsService {
    * Validate invitation code against spreadsheet data
    */
   async validateInvitationCode(code: string): Promise<GuestEntry | null> {
-    try {
-      // Validate code format first
-      const validatedCode = invitationCodeSchema.parse(code);
+    return await PerformanceMonitor.measureAsync(
+      'validateInvitationCode',
+      async () => {
+        try {
+          logger.info('Validating invitation code', { code: code.substring(0, 3) + '***' });
+          
+          // Check cache first
+          const cacheKey = `invitation_code_${code}`;
+          const cached = globalCache.get<GuestEntry | null>(cacheKey);
+          if (cached !== null) {
+            logger.debug('Invitation code validation cache hit', { code: code.substring(0, 3) + '***' });
+            return cached;
+          }
 
-      // Read all data from the sheet with retry logic
-      const response = await withRetry(async () => {
-        return await this.sheets.spreadsheets.values.get({
-          spreadsheetId: this.spreadsheetId,
-          range: `${SHEET_NAME}!A:G`,
-        });
-      });
+          // Validate code format first
+          const validatedCode = invitationCodeSchema.parse(code);
 
-      const rows = response.data.values || [];
-      
-      // Skip header row and find matching invitation code
-      for (let i = 1; i < rows.length; i++) {
-        const row = rows[i];
-        if (row[0] && row[0].toUpperCase() === validatedCode) {
-          return this.parseRowToGuestEntry(row);
+          // Read all data from the sheet with retry logic
+          const response = await withRetry(async () => {
+            return await this.sheets.spreadsheets.values.get({
+              spreadsheetId: this.spreadsheetId,
+              range: `${SHEET_NAME}!A:G`,
+            });
+          });
+
+          const rows = response.data.values || [];
+          
+          // Skip header row and find matching invitation code
+          for (let i = 1; i < rows.length; i++) {
+            const row = rows[i];
+            if (row[0] && row[0].toUpperCase() === validatedCode) {
+              const result = this.parseRowToGuestEntry(row);
+              
+              // Cache the result for 5 minutes
+              globalCache.set(cacheKey, result, 300000);
+              
+              logger.info('Invitation code validated successfully', { 
+                code: code.substring(0, 3) + '***',
+                guestCount: result.guestNames.length 
+              });
+              
+              return result;
+            }
+          }
+
+          // Cache null result for 1 minute to prevent repeated invalid lookups
+          globalCache.set(cacheKey, null, 60000);
+          
+          logger.warn('Invitation code not found', { code: code.substring(0, 3) + '***' });
+          return null; // Code not found
+        } catch (error) {
+          logger.error('Failed to validate invitation code', error as Error, { 
+            code: code.substring(0, 3) + '***' 
+          });
+          
+          if (error instanceof z.ZodError) {
+            throw new Error('Invalid invitation code format');
+          }
+          throw handleSheetsError(error);
         }
-      }
-
-      return null; // Code not found
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        throw new Error('Invalid invitation code format');
-      }
-      throw handleSheetsError(error);
-    }
+      },
+      { code: code.substring(0, 3) + '***' }
+    );
   }
 
   /**
@@ -81,64 +118,88 @@ export class SheetsService {
    * Update RSVP response in spreadsheet
    */
   async updateRSVPResponse(response: RSVPFormData): Promise<boolean> {
-    try {
-      // Validate the response data
-      const validatedResponse: RSVPFormDataValidated = rsvpFormDataSchema.parse(response);
-      const code = validatedResponse.invitationCode;
+    return await PerformanceMonitor.measureAsync(
+      'updateRSVPResponse',
+      async () => {
+        try {
+          logger.info('Updating RSVP response', { 
+            code: response.invitationCode.substring(0, 3) + '***',
+            guestCount: response.guests.length 
+          });
 
-      // Find the row with the matching invitation code with retry logic
-      const rowIndex = await withRetry(async () => {
-        return await this.findRowByInvitationCode(code);
-      });
+          // Validate the response data
+          const validatedResponse: RSVPFormDataValidated = rsvpFormDataSchema.parse(response);
+          const code = validatedResponse.invitationCode;
 
-      if (!rowIndex) {
-        throw new Error('Invitation code not found');
-      }
+          // Find the row with the matching invitation code with retry logic
+          const rowIndex = await withRetry(async () => {
+            return await this.findRowByInvitationCode(code);
+          });
 
-      // Prepare the update data
-      const guestNames = validatedResponse.guests.map(g => g.name).join(', ');
-      const attendingGuests = validatedResponse.guests.filter(g => g.attending);
-      const rsvpStatus = attendingGuests.length === 0 ? 'not_attending' : 
-                        attendingGuests.length === validatedResponse.guests.length ? 'attending' : 'attending';
-      
-      const dietaryRestrictions = validatedResponse.guests
-        .filter(g => g.attending && g.dietaryRestrictions)
-        .map(g => `${g.name}: ${g.dietaryRestrictions}`)
-        .join('; ');
+          if (!rowIndex) {
+            throw new Error('Invitation code not found');
+          }
 
-      const submissionDate = new Date().toISOString();
+          // Prepare the update data
+          const guestNames = validatedResponse.guests.map(g => g.name).join(', ');
+          const attendingGuests = validatedResponse.guests.filter(g => g.attending);
+          const rsvpStatus = attendingGuests.length === 0 ? 'not_attending' : 
+                            attendingGuests.length === validatedResponse.guests.length ? 'attending' : 'attending';
+          
+          const dietaryRestrictions = validatedResponse.guests
+            .filter(g => g.attending && g.dietaryRestrictions)
+            .map(g => `${g.name}: ${g.dietaryRestrictions}`)
+            .join('; ');
 
-      // Update the row with retry logic
-      const updateRange = `${SHEET_NAME}!A${rowIndex}:G${rowIndex}`;
-      const updateValues = [
-        code,
-        guestNames,
-        rsvpStatus,
-        dietaryRestrictions,
-        validatedResponse.personalMessage,
-        submissionDate,
-        validatedResponse.contactEmail || '',
-      ];
+          const submissionDate = new Date().toISOString();
 
-      await withRetry(async () => {
-        return await this.sheets.spreadsheets.values.update({
-          spreadsheetId: this.spreadsheetId,
-          range: updateRange,
-          valueInputOption: 'RAW',
-          resource: {
-            values: [updateValues],
-          },
-        });
-      });
+          // Update the row with retry logic
+          const updateRange = `${SHEET_NAME}!A${rowIndex}:G${rowIndex}`;
+          const updateValues = [
+            code,
+            guestNames,
+            rsvpStatus,
+            dietaryRestrictions,
+            validatedResponse.personalMessage,
+            submissionDate,
+            validatedResponse.contactEmail || '',
+          ];
 
-      return true;
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const errorMessages = error.issues.map((issue) => issue.message).join(', ');
-        throw new Error(`Validation error: ${errorMessages}`);
-      }
-      throw handleSheetsError(error);
-    }
+          await withRetry(async () => {
+            return await this.sheets.spreadsheets.values.update({
+              spreadsheetId: this.spreadsheetId,
+              range: updateRange,
+              valueInputOption: 'RAW',
+              resource: {
+                values: [updateValues],
+              },
+            });
+          });
+
+          // Invalidate cache for this invitation code
+          globalCache.delete(`invitation_code_${code}`);
+          
+          logger.info('RSVP response updated successfully', { 
+            code: code.substring(0, 3) + '***',
+            status: rsvpStatus,
+            attendingCount: attendingGuests.length 
+          });
+
+          return true;
+        } catch (error) {
+          logger.error('Failed to update RSVP response', error as Error, { 
+            code: response.invitationCode.substring(0, 3) + '***' 
+          });
+          
+          if (error instanceof z.ZodError) {
+            const errorMessages = error.issues.map((issue) => issue.message).join(', ');
+            throw new Error(`Validation error: ${errorMessages}`);
+          }
+          throw handleSheetsError(error);
+        }
+      },
+      { code: response.invitationCode.substring(0, 3) + '***' }
+    );
   }
 
   /**

@@ -167,11 +167,15 @@ export class APIClient {
 // Network status monitoring
 export class NetworkMonitor {
   private listeners: Set<(online: boolean) => void> = new Set();
-  private isOnline: boolean = navigator.onLine;
+  private isOnline: boolean = true; // Default to true for SSR
 
   constructor() {
-    window.addEventListener('online', this.handleOnline);
-    window.addEventListener('offline', this.handleOffline);
+    // Only initialize on client-side
+    if (typeof window !== 'undefined') {
+      this.isOnline = navigator.onLine;
+      window.addEventListener('online', this.handleOnline);
+      window.addEventListener('offline', this.handleOffline);
+    }
   }
 
   private handleOnline = () => {
@@ -198,20 +202,27 @@ export class NetworkMonitor {
   }
 
   public destroy() {
-    window.removeEventListener('online', this.handleOnline);
-    window.removeEventListener('offline', this.handleOffline);
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('online', this.handleOnline);
+      window.removeEventListener('offline', this.handleOffline);
+    }
     this.listeners.clear();
   }
 }
 
-// Singleton network monitor instance
-export const networkMonitor = new NetworkMonitor();
+// Singleton network monitor instance - only create on client-side
+export const networkMonitor = typeof window !== 'undefined' ? new NetworkMonitor() : null;
 
 // Hook for React components to use network status
 export function useNetworkStatus(): boolean {
-  const [isOnline, setIsOnline] = React.useState(networkMonitor.getStatus());
+  const [isOnline, setIsOnline] = React.useState(true); // Default to true for SSR
 
   React.useEffect(() => {
+    if (!networkMonitor) return; // No network monitor on server-side
+    
+    // Initialize with current status
+    setIsOnline(networkMonitor.getStatus());
+    
     const unsubscribe = networkMonitor.addListener(setIsOnline);
     return unsubscribe;
   }, []);

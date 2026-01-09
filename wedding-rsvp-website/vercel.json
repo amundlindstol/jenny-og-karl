@@ -1,0 +1,31 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "env": {
+    "GOOGLE_SHEETS_PRIVATE_KEY": "@google_sheets_private_key",
+    "GOOGLE_SHEETS_CLIENT_EMAIL": "@google_sheets_client_email", 
+    "GOOGLE_SHEETS_SPREADSHEET_ID": "@google_sheets_spreadsheet_id",
+    "NEXT_PUBLIC_WEDDING_DATE": "@next_public_wedding_date",
+    "NEXT_PUBLIC_VENUE_NAME": "@next_public_venue_name",
+    "NEXT_PUBLIC_VENUE_ADDRESS": "@next_public_venue_address"
+  },
+  "functions": {
+    "app/api/**/*.ts": {
+      "maxDuration": 10
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { MainLayout } from '@/components/layout';
 import { InvitationCodeForm } from '@/components/forms';
@@ -11,18 +11,24 @@ import type { GuestEntry } from '@/types';
 export default function Home() {
   const router = useRouter();
   const [error, setError] = useState('');
-  const { showSuccess, showError } = useToast();
+  const [mounted, setMounted] = useState(false);
+  const toast = mounted ? useToast() : null;
+
+  // Handle client-side mounting
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleValidCode = (guestEntry: GuestEntry) => {
     // Store guest data in sessionStorage for the RSVP page
     sessionStorage.setItem('guestEntry', JSON.stringify(guestEntry));
-    showSuccess('Invitation code validated successfully!');
+    toast?.showSuccess('Invitation code validated successfully!');
     router.push('/rsvp');
   };
 
   const handleError = (errorMessage: string) => {
     setError(errorMessage);
-    showError(errorMessage);
+    toast?.showError(errorMessage);
   };
 
   return (
