@@ -4,21 +4,25 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MainLayout } from '@/components/layout';
 import { InvitationCodeForm } from '@/components/forms';
-import { Card } from '@/components/ui';
+import { FormErrorBoundary } from '@/components/error';
+import { Card, useToast } from '@/components/ui';
 import type { GuestEntry } from '@/types';
 
 export default function Home() {
   const router = useRouter();
   const [error, setError] = useState('');
+  const { showSuccess, showError } = useToast();
 
   const handleValidCode = (guestEntry: GuestEntry) => {
     // Store guest data in sessionStorage for the RSVP page
     sessionStorage.setItem('guestEntry', JSON.stringify(guestEntry));
+    showSuccess('Invitation code validated successfully!');
     router.push('/rsvp');
   };
 
   const handleError = (errorMessage: string) => {
     setError(errorMessage);
+    showError(errorMessage);
   };
 
   return (
@@ -68,10 +72,12 @@ export default function Home() {
               <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
                 Please enter your invitation code to respond to our wedding invitation.
               </p>
-              <InvitationCodeForm
-                onValidCode={handleValidCode}
-                onError={handleError}
-              />
+              <FormErrorBoundary onReset={() => setError('')}>
+                <InvitationCodeForm
+                  onValidCode={handleValidCode}
+                  onError={handleError}
+                />
+              </FormErrorBoundary>
               {error && (
                 <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md animate-slide-in-up">
                   <p className="text-red-700 text-sm">{error}</p>

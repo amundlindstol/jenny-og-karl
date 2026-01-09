@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { validateInvitationCodeDetailed } from '@/lib/validation';
+import { fetchWithRecovery, NetworkErrorType } from '@/lib/network-recovery';
 import type { GuestEntry } from '@/types';
 
 interface InvitationCodeFormProps {
@@ -15,12 +16,14 @@ export function InvitationCodeForm({ onValidCode, onError, className }: Invitati
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [validationError, setValidationError] = useState('');
+  const [retryCount, setRetryCount] = useState(0);
 
   // Real-time validation as user types
   const handleCodeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toUpperCase();
     setCode(value);
     setError('');
+    setRetryCount(0); // Reset retry count when user changes input
     
     // Clear validation error when user starts typing
     if (validationError) {
@@ -58,8 +61,11 @@ export function InvitationCodeForm({ onValidCode, onError, className }: Invitati
     setValidationError('');
 
     try {
-      // Call API to validate code against Google Sheets
-      const response = await fetch(`/api/guests/${validation.normalizedCode}`);
+      // Use enhanced fetch with retry logic
+      const response = await fetchWithRecovery(`/api/guests/${validation.normalizedCode}`, {
+        method: 'GET',
+      });
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -68,14 +74,30 @@ export function InvitationCodeForm({ onValidCode, onError, className }: Invitati
 
       if (data.success && data.data) {
         onValidCode(data.data);
+        setRetryCount(0);
       } else {
         const errorMessage = data.error || 'Invalid invitation code. Please check your code and try again.';
         setError(errorMessage);
         onError?.(errorMessage);
       }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unable to validate invitation code. Please try again.';
+    } catch (err: any) {
+      let errorMessage = 'Unable to validate invitation code. Please try again.';
+      
+      // Handle different types of network errors
+      if (err.type === NetworkErrorType.TIMEOUT) {
+        errorMessage = 'Request timed out. Please check your connection and try again.';
+      } else if (err.type === NetworkErrorType.CONNECTION_FAILED) {
+        errorMessage = 'Connection failed. Please check your internet connection.';
+      } else if (err.type === NetworkErrorType.RATE_LIMITED) {
+        errorMessage = 'Too many requests. Please wait a moment and try again.';
+      } else if (err.type === NetworkErrorType.SERVER_ERROR) {
+        errorMessage = 'Server error. Please try again in a moment.';
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      
       setError(errorMessage);
+      setRetryCount(prev => prev + 1);
       onError?.(errorMessage);
     } finally {
       setIsLoading(false);
@@ -83,6 +105,7 @@ export function InvitationCodeForm({ onValidCode, onError, className }: Invitati
   };
 
   const displayError = validationError || error;
+  const showRetryHint = retryCount > 0 && error;
 
   return (
     <div className={className}>
@@ -101,6 +124,18 @@ export function InvitationCodeForm({ onValidCode, onError, className }: Invitati
             autoComplete="off"
             autoFocus
           />
+          
+          {/* Retry hint */}
+          {showRetryHint && (
+            <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm text-blue-700">
+              <p className="flex items-center gap-1">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Attempt {retryCount}. If this continues, please contact us for assistance.
+              </p>
+            </div>
+          )}
         </div>
         
         <Button

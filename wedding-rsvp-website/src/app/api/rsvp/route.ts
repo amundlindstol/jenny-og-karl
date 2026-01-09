@@ -98,39 +98,60 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   } catch (error) {
     console.error('RSVP submission error:', error);
     
-    // Handle specific error types
+    // Enhanced error handling with better classification
+    let errorMessage = 'Something went wrong while processing your RSVP. Please try again or contact us directly.';
+    let statusCode = 500;
+    let errorType = 'Internal server error';
+
     if (error instanceof Error) {
-      if (error.message.includes('rate limit') || error.message.includes('quota')) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'Service temporarily unavailable',
-            message: 'Our system is experiencing high traffic. Please try again in a few minutes.'
-          } as APIResponse,
-          { status: 503 }
-        );
-      }
+      const message = error.message.toLowerCase();
       
-      if (error.message.includes('permission') || error.message.includes('access')) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'Service configuration error',
-            message: 'There was a problem with our system. Please contact us directly to submit your RSVP.'
-          } as APIResponse,
-          { status: 503 }
-        );
+      // Rate limiting and quota errors
+      if (message.includes('rate limit') || message.includes('quota') || message.includes('high traffic')) {
+        errorMessage = 'Our system is experiencing high traffic. Please try again in a few minutes.';
+        errorType = 'Service temporarily unavailable';
+        statusCode = 503;
+      }
+      // Authentication/permission errors
+      else if (message.includes('permission') || message.includes('access') || message.includes('authentication')) {
+        errorMessage = 'There was a problem with our system. Please contact us directly to submit your RSVP.';
+        errorType = 'Service configuration error';
+        statusCode = 503;
+      }
+      // Network and connection errors
+      else if (message.includes('network') || message.includes('timeout') || message.includes('connection')) {
+        errorMessage = 'Network connection error. Please check your internet connection and try again.';
+        errorType = 'Network error';
+        statusCode = 503;
+      }
+      // Validation errors
+      else if (message.includes('validation')) {
+        errorMessage = 'There was an issue with the form data. Please check your entries and try again.';
+        errorType = 'Validation error';
+        statusCode = 400;
+      }
+      // Spreadsheet/data errors
+      else if (message.includes('spreadsheet') || message.includes('not found')) {
+        errorMessage = 'Unable to process your RSVP. Please contact us directly.';
+        errorType = 'Data error';
+        statusCode = 503;
+      }
+      // Server errors
+      else if (message.includes('server') || message.includes('unavailable')) {
+        errorMessage = 'Service temporarily unavailable. Please try again later.';
+        errorType = 'Server error';
+        statusCode = 503;
       }
     }
 
-    // Generic error response
+    // Return structured error response
     return NextResponse.json(
       {
         success: false,
-        error: 'Internal server error',
-        message: 'Something went wrong while processing your RSVP. Please try again or contact us directly.'
+        error: errorType,
+        message: errorMessage
       } as APIResponse,
-      { status: 500 }
+      { status: statusCode }
     );
   }
 }

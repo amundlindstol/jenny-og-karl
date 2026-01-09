@@ -43,18 +43,45 @@ export async function GET(
   } catch (error) {
     console.error('Error validating invitation code:', error);
     
-    // Handle specific error types
+    // Handle specific error types with enhanced error classification
     let errorMessage = 'Unable to validate invitation code. Please try again.';
     let statusCode = 500;
 
     if (error instanceof Error) {
-      if (error.message.includes('Invalid invitation code format')) {
+      const message = error.message.toLowerCase();
+      
+      // Client-side validation errors
+      if (message.includes('invalid invitation code format')) {
         errorMessage = error.message;
         statusCode = 400;
-      } else if (error.message.includes('not found')) {
+      } 
+      // Not found errors
+      else if (message.includes('not found') || message.includes('code not found')) {
         errorMessage = 'Invitation code not found. Please check your code and try again.';
         statusCode = 404;
-      } else if (error.message.includes('API')) {
+      }
+      // Rate limiting and quota errors
+      else if (message.includes('rate limit') || message.includes('quota') || message.includes('high traffic')) {
+        errorMessage = 'Service is experiencing high traffic. Please try again in a moment.';
+        statusCode = 503;
+      }
+      // Authentication/authorization errors
+      else if (message.includes('authentication') || message.includes('access denied') || message.includes('permission')) {
+        errorMessage = 'Service configuration error. Please contact us for assistance.';
+        statusCode = 503;
+      }
+      // Network and connection errors
+      else if (message.includes('network') || message.includes('timeout') || message.includes('connection')) {
+        errorMessage = 'Network connection error. Please check your internet connection and try again.';
+        statusCode = 503;
+      }
+      // Server errors
+      else if (message.includes('server') || message.includes('unavailable')) {
+        errorMessage = 'Service temporarily unavailable. Please try again later.';
+        statusCode = 503;
+      }
+      // API-specific errors
+      else if (message.includes('api')) {
         errorMessage = 'Service temporarily unavailable. Please try again in a moment.';
         statusCode = 503;
       }

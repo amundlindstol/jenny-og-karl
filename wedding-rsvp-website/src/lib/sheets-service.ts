@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { googleSheetsClient, handleSheetsError, type SheetsError } from './google-sheets';
+import { googleSheetsClient, handleSheetsError, withRetry, type SheetsError } from './google-sheets';
 import type { 
   GuestEntry, 
   RSVPFormData, 
@@ -42,10 +42,12 @@ export class SheetsService {
       // Validate code format first
       const validatedCode = invitationCodeSchema.parse(code);
 
-      // Read all data from the sheet
-      const response = await this.sheets.spreadsheets.values.get({
-        spreadsheetId: this.spreadsheetId,
-        range: `${SHEET_NAME}!A:G`,
+      // Read all data from the sheet with retry logic
+      const response = await withRetry(async () => {
+        return await this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: `${SHEET_NAME}!A:G`,
+        });
       });
 
       const rows = response.data.values || [];
@@ -84,8 +86,11 @@ export class SheetsService {
       const validatedResponse: RSVPFormDataValidated = rsvpFormDataSchema.parse(response);
       const code = validatedResponse.invitationCode;
 
-      // Find the row with the matching invitation code
-      const rowIndex = await this.findRowByInvitationCode(code);
+      // Find the row with the matching invitation code with retry logic
+      const rowIndex = await withRetry(async () => {
+        return await this.findRowByInvitationCode(code);
+      });
+
       if (!rowIndex) {
         throw new Error('Invitation code not found');
       }
@@ -103,7 +108,7 @@ export class SheetsService {
 
       const submissionDate = new Date().toISOString();
 
-      // Update the row
+      // Update the row with retry logic
       const updateRange = `${SHEET_NAME}!A${rowIndex}:G${rowIndex}`;
       const updateValues = [
         code,
@@ -115,13 +120,15 @@ export class SheetsService {
         validatedResponse.contactEmail || '',
       ];
 
-      await this.sheets.spreadsheets.values.update({
-        spreadsheetId: this.spreadsheetId,
-        range: updateRange,
-        valueInputOption: 'RAW',
-        resource: {
-          values: [updateValues],
-        },
+      await withRetry(async () => {
+        return await this.sheets.spreadsheets.values.update({
+          spreadsheetId: this.spreadsheetId,
+          range: updateRange,
+          valueInputOption: 'RAW',
+          resource: {
+            values: [updateValues],
+          },
+        });
       });
 
       return true;
@@ -177,9 +184,11 @@ export class SheetsService {
    * Private helper: Find row index by invitation code
    */
   private async findRowByInvitationCode(code: string): Promise<number | null> {
-    const response = await this.sheets.spreadsheets.values.get({
-      spreadsheetId: this.spreadsheetId,
-      range: `${SHEET_NAME}!A:A`,
+    const response = await withRetry(async () => {
+      return await this.sheets.spreadsheets.values.get({
+        spreadsheetId: this.spreadsheetId,
+        range: `${SHEET_NAME}!A:A`,
+      });
     });
 
     const rows = response.data.values || [];
@@ -223,7 +232,9 @@ export class SheetsService {
    */
   async healthCheck(): Promise<{ status: 'healthy' | 'unhealthy'; message: string }> {
     try {
-      const isConnected = await googleSheetsClient.testConnection();
+      const isConnected = await withRetry(async () => {
+        return await googleSheetsClient.testConnection();
+      });
       return {
         status: isConnected ? 'healthy' : 'unhealthy',
         message: isConnected ? 'Google Sheets API connection successful' : 'Failed to connect to Google Sheets API'
