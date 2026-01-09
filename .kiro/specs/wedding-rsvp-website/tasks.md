@@ -42,14 +42,14 @@
     - Add LoadingSpinner for async operations
     - _Requirements: 5.1, 5.3, 1.4_
 
-- [ ] 5. Implement invitation code validation system
-  - [ ] 5.1 Create invitation code entry form
+- [x] 5. Implement invitation code validation system
+  - [x] 5.1 Create invitation code entry form
     - Build InvitationCodeForm component with validation
     - Add real-time code validation feedback
     - Implement loading states during validation
     - _Requirements: 1.1, 1.2, 1.4_
   
-  - [ ] 5.2 Create API route for code validation
+  - [x] 5.2 Create API route for code validation
     - Implement GET /api/guests/[code] endpoint
     - Add invitation code validation logic
     - Return guest information for valid codes
