@@ -5,10 +5,10 @@ import type { APIResponse, GuestEntry } from '@/types';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
-    const { code } = params;
+    const { code } = await params;
 
     // Validate code format first
     const validation = validateInvitationCodeDetailed(code);

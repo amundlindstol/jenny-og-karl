@@ -56,15 +56,15 @@
     - Handle invalid codes with appropriate errors
     - _Requirements: 1.1, 1.2, 1.3, 4.5_
 
-- [ ] 6. Build RSVP form system
-  - [ ] 6.1 Create RSVP form components
+- [x] 6. Build RSVP form system
+  - [x] 6.1 Create RSVP form components
     - Implement RSVPForm with guest attendance options
     - Create GuestCard for individual guest responses
     - Add dietary restrictions input fields
     - Include personal message textarea
     - _Requirements: 3.1, 3.2, 3.3, 1.5_
   
-  - [ ] 6.2 Implement RSVP submission API
+  - [x] 6.2 Implement RSVP submission API
     - Create POST /api/rsvp endpoint
     - Add form data validation and sanitization
     - Implement Google Sheets update functionality
