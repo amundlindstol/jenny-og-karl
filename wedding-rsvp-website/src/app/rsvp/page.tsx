@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { MainLayout } from '@/components/layout';
-import { RSVPForm } from '@/components/forms';
-import { Card, Button } from '@/components/ui';
-import type { GuestEntry, RSVPFormData } from '@/types';
+import {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation';
+import {MainLayout} from '@/components/layout';
+import {RSVPForm} from '@/components/forms';
+import {Button, Card} from '@/components/ui';
+import type {GuestEntry, RSVPFormData} from '@/types';
 
 export default function RSVPPage() {
   const router = useRouter();
@@ -48,6 +48,29 @@ export default function RSVPPage() {
 
       // Store RSVP data for confirmation page
       sessionStorage.setItem('rsvpSubmission', JSON.stringify(formData));
+      
+      // Update the stored guestEntry with the new data to ensure consistency
+      const storedGuestEntry = sessionStorage.getItem('guestEntry');
+      if (storedGuestEntry) {
+        try {
+          const guestEntry = JSON.parse(storedGuestEntry) as GuestEntry;
+          const updatedGuestEntry: GuestEntry = {
+            ...guestEntry,
+            guestStatuses: formData.guests.map(g => g.attending ? 'attending' : 'not_attending'),
+            rsvpStatus: formData.guests.some(g => g.attending) ? 'attending' : 'not_attending',
+            dietaryRestrictions: formData.guests
+              .filter(g => g.attending && g.dietaryRestrictions)
+              .map(g => `${g.name}: ${g.dietaryRestrictions}`),
+            personalMessage: formData.personalMessage,
+            email: formData.contactEmail,
+            submissionDate: new Date().toISOString()
+          };
+          sessionStorage.setItem('guestEntry', JSON.stringify(updatedGuestEntry));
+        } catch (e) {
+          console.error('Error updating guestEntry in sessionStorage:', e);
+        }
+      }
+
       router.push('/confirmation');
     } catch (error) {
       console.error('RSVP submission error:', error);

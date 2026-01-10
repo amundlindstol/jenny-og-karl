@@ -17,10 +17,10 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
   // Initialize form data with guest names from the invitation
   const [formData, setFormData] = useState<RSVPFormData>(() => ({
     invitationCode: guestEntry.invitationCode,
-    guests: guestEntry.guestNames.map(name => ({
+    guests: guestEntry.guestNames.map((name, index) => ({
       name,
-      attending: false,
-      dietaryRestrictions: guestEntry.dietaryRestrictions?.find(it => it.includes(name))?.split(':')?.[1] || ''
+      attending: guestEntry.guestStatuses?.[index] === 'attending',
+      dietaryRestrictions: guestEntry.dietaryRestrictions?.find(it => it.toLowerCase().startsWith(name.toLowerCase() + ':'))?.split(':')?.[1]?.trim() || ''
     })),
     personalMessage: guestEntry.personalMessage ?? '',
     contactEmail: guestEntry.email ?? ''

@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import {z} from 'zod';
 
 // Core types for the wedding RSVP website
 
@@ -15,6 +15,7 @@ export type RSVPStatusType = typeof RSVPStatus[keyof typeof RSVPStatus];
 export interface GuestEntry {
   invitationCode: string;
   guestNames: string[];
+  guestStatuses: RSVPStatusType[];
   rsvpStatus: RSVPStatusType;
   dietaryRestrictions: string[];
   personalMessage: string;
@@ -113,6 +114,7 @@ export const guestEntrySchema = z.object({
   guestNames: z
     .array(z.string().min(1, 'Guest name cannot be empty'))
     .min(1, 'At least one guest name is required'),
+  guestStatuses: z.array(rsvpStatusSchema).default([]),
   rsvpStatus: rsvpStatusSchema,
   dietaryRestrictions: z.array(z.string()).default([]),
   personalMessage: z.string().default(''),

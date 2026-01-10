@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { MainLayout } from '@/components/layout';
-import { InvitationCodeForm } from '@/components/forms';
-import { FormErrorBoundary } from '@/components/error';
-import { Card, useToast } from '@/components/ui';
-import type { GuestEntry } from '@/types';
+import {useEffect, useState} from 'react';
+import {useRouter} from 'next/navigation';
+import {MainLayout} from '@/components/layout';
+import {InvitationCodeForm} from '@/components/forms';
+import {FormErrorBoundary} from '@/components/error';
+import {Card, useToast} from '@/components/ui';
+import type {GuestEntry} from '@/types';
 
 export default function Home() {
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100">
+      <div className="min-h-screen bg-linear-to-br from-rose-50 via-pink-50 to-rose-100">
         {/* Hero Section */}
         <section className="relative py-12 sm:py-16 lg:py-20 px-4 text-center overflow-hidden">
           {/* Background decoration */}

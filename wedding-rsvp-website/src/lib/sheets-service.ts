@@ -133,9 +133,7 @@ export class SheetsService {
 
           // Prepare the update data
           const guestNames = validatedResponse.guests.map(g => g.name).join(', ');
-          const attendingGuests = validatedResponse.guests.filter(g => g.attending);
-          const rsvpStatus = attendingGuests.length === 0 ? 'not_attending' : 
-                            attendingGuests.length === validatedResponse.guests.length ? 'attending' : 'attending';
+          const guestStatuses = validatedResponse.guests.map(g => g.attending ? 'attending' : 'not_attending').join(', ');
           
           const dietaryRestrictions = validatedResponse.guests
             .filter(g => g.attending && g.dietaryRestrictions)
@@ -149,7 +147,7 @@ export class SheetsService {
           const updateValues = [
             code,
             guestNames,
-            rsvpStatus,
+            guestStatuses,
             dietaryRestrictions,
             validatedResponse.personalMessage,
             submissionDate,
@@ -170,9 +168,12 @@ export class SheetsService {
           // Invalidate cache for this invitation code
           globalCache.delete(`invitation_code_${code}`);
           
+          const attendingGuests = validatedResponse.guests.filter(g => g.attending);
+          const derivedOverallStatus = attendingGuests.length === 0 ? 'not_attending' : 'attending';
+          
           logger.info('RSVP response updated successfully', { 
             code: code.substring(0, 3) + '***',
-            status: rsvpStatus,
+            status: derivedOverallStatus,
             attendingCount: attendingGuests.length 
           });
 
@@ -258,10 +259,44 @@ export class SheetsService {
    * Private helper: Parse spreadsheet row to GuestEntry with validation
    */
   private parseRowToGuestEntry(row: any[]): GuestEntry {
+    const guestNames = row[1] ? row[1].split(',').map((name: string) => name.trim()) : [];
+    const rsvpStatusValue = row[2] || '';
+    
+    // Parse individual guest statuses if they exist (comma-separated in Column C)
+    let guestStatuses: ('pending' | 'attending' | 'not_attending')[] = [];
+    let rsvpStatus: 'pending' | 'attending' | 'not_attending' = 'pending';
+
+    if (rsvpStatusValue.includes(',')) {
+      guestStatuses = rsvpStatusValue.split(',').map((s: string) => {
+        const trimmed = s.trim().toLowerCase();
+        return (trimmed === 'attending' || trimmed === 'not_attending' || trimmed === 'pending') 
+          ? trimmed as 'pending' | 'attending' | 'not_attending'
+          : 'pending';
+      });
+      
+      // Determine overall status
+      if (guestStatuses.every(s => s === 'attending')) {
+        rsvpStatus = 'attending';
+      } else if (guestStatuses.every(s => s === 'not_attending')) {
+        rsvpStatus = 'not_attending';
+      } else if (guestStatuses.some(s => s === 'attending')) {
+        rsvpStatus = 'attending'; // Mixed, but at least one attending
+      } else if (guestStatuses.some(s => s === 'not_attending')) {
+        rsvpStatus = 'not_attending'; // Mixed, but if no one is attending and some are not_attending
+      } else {
+        rsvpStatus = 'pending';
+      }
+    } else {
+      rsvpStatus = (rsvpStatusValue as 'pending' | 'attending' | 'not_attending') || 'pending';
+      // If only one status but multiple guests, replicate it or default to pending
+      guestStatuses = guestNames.map(() => rsvpStatus);
+    }
+
     const rawEntry = {
       invitationCode: row[0] || '',
-      guestNames: row[1] ? row[1].split(',').map((name: string) => name.trim()) : [],
-      rsvpStatus: (row[2] as 'pending' | 'attending' | 'not_attending') || 'pending',
+      guestNames,
+      guestStatuses,
+      rsvpStatus,
       dietaryRestrictions: row[3] ? row[3].split(';').map((item: string) => item.trim()) : [],
       personalMessage: row[4] || '',
       submissionDate: row[5] || '',
