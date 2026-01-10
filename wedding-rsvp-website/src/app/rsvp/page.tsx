@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import {useEffect, useState} from 'react';
-import {useRouter} from 'next/navigation';
-import {MainLayout} from '@/components/layout';
-import {RSVPForm} from '@/components/forms';
-import {Button, Card} from '@/components/ui';
-import type {GuestEntry, RSVPFormData} from '@/types';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { MainLayout } from "@/components/layout";
+import { RSVPForm } from "@/components/forms";
+import { Button, Card } from "@/components/ui";
+import type { GuestEntry, RSVPFormData } from "@/types";
 
 export default function RSVPPage() {
   const router = useRouter();
@@ -14,28 +14,28 @@ export default function RSVPPage() {
 
   useEffect(() => {
     // Get guest data from sessionStorage
-    const storedGuestEntry = sessionStorage.getItem('guestEntry');
+    const storedGuestEntry = sessionStorage.getItem("guestEntry");
     if (storedGuestEntry) {
       try {
         const parsedGuestEntry = JSON.parse(storedGuestEntry);
         setGuestEntry(parsedGuestEntry);
       } catch (error) {
-        console.error('Error parsing guest entry:', error);
-        router.push('/');
+        console.error("Error parsing guest entry:", error);
+        router.push("/");
       }
     } else {
       // No guest data found, redirect to homepage
-      router.push('/');
+      router.push("/");
     }
     setIsLoading(false);
   }, [router]);
 
   const handleRSVPSubmit = async (formData: RSVPFormData) => {
     try {
-      const response = await fetch('/api/rsvp', {
-        method: 'POST',
+      const response = await fetch("/api/rsvp", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -43,45 +43,52 @@ export default function RSVPPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to submit RSVP');
+        throw new Error(result.error || "Failed to submit RSVP");
       }
 
       // Store RSVP data for confirmation page
-      sessionStorage.setItem('rsvpSubmission', JSON.stringify(formData));
-      
+      sessionStorage.setItem("rsvpSubmission", JSON.stringify(formData));
+
       // Update the stored guestEntry with the new data to ensure consistency
-      const storedGuestEntry = sessionStorage.getItem('guestEntry');
+      const storedGuestEntry = sessionStorage.getItem("guestEntry");
       if (storedGuestEntry) {
         try {
           const guestEntry = JSON.parse(storedGuestEntry) as GuestEntry;
           const updatedGuestEntry: GuestEntry = {
             ...guestEntry,
-            guestStatuses: formData.guests.map(g => g.attending ? 'attending' : 'not_attending'),
-            rsvpStatus: formData.guests.some(g => g.attending) ? 'attending' : 'not_attending',
+            guestStatuses: formData.guests.map((g) =>
+              g.attending ? "attending" : "not_attending",
+            ),
+            rsvpStatus: formData.guests.some((g) => g.attending)
+              ? "attending"
+              : "not_attending",
             dietaryRestrictions: formData.guests
-              .filter(g => g.attending && g.dietaryRestrictions)
-              .map(g => `${g.name}: ${g.dietaryRestrictions}`),
+              .filter((g) => g.attending && g.dietaryRestrictions)
+              .map((g) => `${g.name}: ${g.dietaryRestrictions}`),
             personalMessage: formData.personalMessage,
             email: formData.contactEmail,
-            submissionDate: new Date().toISOString()
+            submissionDate: new Date().toISOString(),
           };
-          sessionStorage.setItem('guestEntry', JSON.stringify(updatedGuestEntry));
+          sessionStorage.setItem(
+            "guestEntry",
+            JSON.stringify(updatedGuestEntry),
+          );
         } catch (e) {
-          console.error('Error updating guestEntry in sessionStorage:', e);
+          console.error("Error updating guestEntry in sessionStorage:", e);
         }
       }
 
-      router.push('/confirmation');
+      router.push("/confirmation");
     } catch (error) {
-      console.error('RSVP submission error:', error);
+      console.error("RSVP submission error:", error);
       // The RSVPForm component will handle displaying the error
       throw error;
     }
   };
 
   const handleStartOver = () => {
-    sessionStorage.removeItem('guestEntry');
-    router.push('/');
+    sessionStorage.removeItem("guestEntry");
+    router.push("/");
   };
 
   if (isLoading) {
@@ -90,7 +97,9 @@ export default function RSVPPage() {
         <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-900 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 dark:border-primary-400 mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">Laster inn RSVP-skjemaet ditt...</p>
+            <p className="text-gray-600 dark:text-gray-400">
+              Laster inn RSVP-skjemaet ditt...
+            </p>
           </div>
         </div>
       </MainLayout>
@@ -106,9 +115,10 @@ export default function RSVPPage() {
               RSVP-tilgang kreves
             </h1>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Vennligst skriv inn din invitasjonskode for å få tilgang til RSVP-skjemaet.
+              Vennligst skriv inn din invitasjonskode for å få tilgang til
+              RSVP-skjemaet.
             </p>
-            <Button onClick={() => router.push('/')} className="w-full">
+            <Button onClick={() => router.push("/")} className="w-full">
               Skriv inn invitasjonskode
             </Button>
           </Card>
@@ -140,7 +150,12 @@ export default function RSVPPage() {
                 </h2>
                 <div className="space-y-1">
                   {guestEntry.guestNames.map((name, index) => (
-                    <p key={index} className="text-sm sm:text-base text-gray-700 dark:text-gray-300">{name}</p>
+                    <p
+                      key={index}
+                      className="text-sm sm:text-base text-gray-700 dark:text-gray-300"
+                    >
+                      {name}
+                    </p>
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
@@ -153,18 +168,21 @@ export default function RSVPPage() {
                 onClick={handleStartOver}
                 className="text-xs sm:text-sm w-full sm:w-auto"
               >
-                Start på nytt
+                Start på nytt og bruk annen kode
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => router.push("/")}
+                className="text-xs sm:text-sm w-full sm:w-auto"
+              >
+                Hjem
               </Button>
             </div>
           </Card>
 
           {/* RSVP Form */}
-          <Card className="p-4 sm:p-6 lg:p-8">
-            <RSVPForm
-              guestEntry={guestEntry}
-              onSubmit={handleRSVPSubmit}
-            />
-          </Card>
+          <RSVPForm guestEntry={guestEntry} onSubmit={handleRSVPSubmit} />
         </div>
       </div>
     </MainLayout>

@@ -1,7 +1,7 @@
-import React from 'react';
-import {Card, CardContent, Textarea} from '@/components/ui';
-import {cn} from '@/lib/utils';
-import type {GuestResponse} from '@/types';
+import React from "react";
+import { Card, CardContent, Textarea } from "@/components/ui";
+import { cn } from "@/lib/utils";
+import type { GuestResponse } from "@/types";
 
 interface GuestCardProps {
   guest: GuestResponse;
@@ -11,25 +11,36 @@ interface GuestCardProps {
   className?: string;
 }
 
-export function GuestCard({ guest, index, onChange, error, className }: GuestCardProps) {
+export function GuestCard({
+  guest,
+  index,
+  onChange,
+  error,
+  className,
+}: GuestCardProps) {
   const handleAttendingChange = (attending: boolean) => {
     onChange(index, {
       ...guest,
       attending,
       // Clear dietary restrictions if not attending
-      dietaryRestrictions: attending ? guest.dietaryRestrictions : ''
+      dietaryRestrictions: attending ? guest.dietaryRestrictions : "",
     });
   };
 
-  const handleDietaryRestrictionsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleDietaryRestrictionsChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     onChange(index, {
       ...guest,
-      dietaryRestrictions: e.target.value
+      dietaryRestrictions: e.target.value,
     });
   };
 
   return (
-    <Card className={cn('transition-all duration-200', className)} variant="outlined">
+    <Card
+      className={cn("transition-all duration-200", className)}
+      variant="outlined"
+    >
       <CardContent>
         <div className="space-y-3 sm:space-y-4">
           {/* Guest Name Display */}
@@ -42,7 +53,7 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
           {/* Attendance Selection */}
           <div className="space-y-2 sm:space-y-3">
             <label className="text-sm font-medium text-primary-900 dark:text-primary-100 block">
-              Will you be attending?
+              Kommer du?
             </label>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/50 transition-colors">
@@ -53,7 +64,9 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
                   onChange={() => handleAttendingChange(true)}
                   className="w-4 h-4 text-primary-600 dark:text-primary-400 border-primary-300 dark:border-primary-700 focus:ring-primary-500"
                 />
-                <span className="text-primary-800 dark:text-primary-200 font-medium text-sm sm:text-base">Yes, I'll be there!</span>
+                <span className="text-primary-800 dark:text-primary-200 font-medium text-sm sm:text-base">
+                  Ja, jeg kommer!
+                </span>
               </label>
               <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/50 transition-colors">
                 <input
@@ -63,7 +76,9 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
                   onChange={() => handleAttendingChange(false)}
                   className="w-4 h-4 text-primary-600 dark:text-primary-400 border-primary-300 dark:border-primary-700 focus:ring-primary-500"
                 />
-                <span className="text-primary-800 dark:text-primary-200 font-medium text-sm sm:text-base">Sorry, can't make it</span>
+                <span className="text-primary-800 dark:text-primary-200 font-medium text-sm sm:text-base">
+                  Beklager, jeg kan ikke komme
+                </span>
               </label>
             </div>
           </div>
@@ -72,17 +87,17 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
           {guest.attending && (
             <div className="space-y-2">
               <Textarea
-                label="Dietary Restrictions or Special Requests"
+                label="Allergier"
                 value={guest.dietaryRestrictions}
                 onChange={handleDietaryRestrictionsChange}
-                placeholder="Please let us know about any dietary restrictions, allergies, or special meal requests..."
-                helperText="Optional - Leave blank if no special requirements"
+                placeholder="Vennligst gi oss beskjed om eventuelle kostholdsrestriksjoner eller allergier..."
+                helperText="Valgfritt - La stå tomt hvis ingen spesielle krav"
                 rows={3}
                 maxLength={500}
               />
               {guest.dietaryRestrictions && (
                 <p className="text-xs text-primary-500 dark:text-primary-400 text-right">
-                  {guest.dietaryRestrictions.length}/500 characters
+                  {guest.dietaryRestrictions.length}/500 tegn
                 </p>
               )}
             </div>

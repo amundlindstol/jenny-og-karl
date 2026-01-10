@@ -13,15 +13,14 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
 export const metadata: Metadata = {
   title: "Jenny & Karls bryllup",
-  description: "Bli med oss og feir vår spesielle dag - 15. juni 2024",
+  description: "Bli med oss og feire vår dag - 15. juni 2024",
   keywords: "bryllup, RSVP, Jenny, Karl, feiring",
-  authors: [{ name: "Wedding RSVP System" }],
-  robots: "noindex, nofollow", // Prevent search engine indexing for privacy
-  viewport: "width=device-width, initial-scale=1",
+  authors: [{ name: "Bryllup RSVP System" }],
+  robots: "noindex, nofollow",
 };
+export const viewport = "width=device-width, initial-scale=1";
 
 export default function RootLayout({
   children,
@@ -34,9 +33,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <PerformanceProvider>
-          <ToastProvider>
-            {children}
-          </ToastProvider>
+          <ToastProvider>{children}</ToastProvider>
         </PerformanceProvider>
       </body>
     </html>
