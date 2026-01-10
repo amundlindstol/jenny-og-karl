@@ -87,10 +87,10 @@ export default function RSVPPage() {
   if (isLoading) {
     return (
       <MainLayout>
-        <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-900 flex items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Laster inn RSVP-skjemaet ditt...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 dark:border-primary-400 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400">Laster inn RSVP-skjemaet ditt...</p>
           </div>
         </div>
       </MainLayout>
@@ -100,12 +100,12 @@ export default function RSVPPage() {
   if (!guestEntry) {
     return (
       <MainLayout>
-        <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-900 flex items-center justify-center">
           <Card className="max-w-md mx-auto p-8 text-center">
-            <h1 className="text-2xl font-serif text-gray-800 mb-4">
+            <h1 className="text-2xl font-serif text-gray-800 dark:text-white mb-4">
               RSVP-tilgang kreves
             </h1>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
               Vennligst skriv inn din invitasjonskode for å få tilgang til RSVP-skjemaet.
             </p>
             <Button onClick={() => router.push('/')} className="w-full">
@@ -119,14 +119,14 @@ export default function RSVPPage() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 py-6 sm:py-8 lg:py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-900 py-6 sm:py-8 lg:py-12 px-4">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 mb-2 sm:mb-4 leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 dark:text-white mb-2 sm:mb-4 leading-tight">
               RSVP for Jenny & Karls bryllup
             </h1>
-            <p className="text-sm sm:text-base text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
               Lørdag, 15. juni 2024 • Vakre Bryllupslokaler
             </p>
           </div>
@@ -135,15 +135,15 @@ export default function RSVPPage() {
           <Card className="p-4 sm:p-6 mb-6 sm:mb-8">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
               <div className="flex-1">
-                <h2 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-white mb-2">
                   Invitasjon til:
                 </h2>
                 <div className="space-y-1">
                   {guestEntry.guestNames.map((name, index) => (
-                    <p key={index} className="text-sm sm:text-base text-gray-700">{name}</p>
+                    <p key={index} className="text-sm sm:text-base text-gray-700 dark:text-gray-300">{name}</p>
                   ))}
                 </div>
-                <p className="text-xs sm:text-sm text-gray-500 mt-2">
+                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
                   Kode: {guestEntry.invitationCode}
                 </p>
               </div>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardContent, Textarea } from '@/components/ui';
-import { cn } from '@/lib/utils';
-import type { GuestResponse } from '@/types';
+import {Card, CardContent, Textarea} from '@/components/ui';
+import {cn} from '@/lib/utils';
+import type {GuestResponse} from '@/types';
 
 interface GuestCardProps {
   guest: GuestResponse;
@@ -34,36 +34,36 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
         <div className="space-y-3 sm:space-y-4">
           {/* Guest Name Display */}
           <div>
-            <h3 className="text-base sm:text-lg font-semibold text-rose-900 mb-2">
+            <h3 className="text-base sm:text-lg font-semibold text-primary-900 dark:text-primary-100 mb-2">
               {guest.name}
             </h3>
           </div>
 
           {/* Attendance Selection */}
           <div className="space-y-2 sm:space-y-3">
-            <label className="text-sm font-medium text-rose-900 block">
+            <label className="text-sm font-medium text-primary-900 dark:text-primary-100 block">
               Will you be attending?
             </label>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-rose-50 transition-colors">
+              <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/50 transition-colors">
                 <input
                   type="radio"
                   name={`attending-${index}`}
                   checked={guest.attending === true}
                   onChange={() => handleAttendingChange(true)}
-                  className="w-4 h-4 text-rose-600 border-rose-300 focus:ring-rose-500"
+                  className="w-4 h-4 text-primary-600 dark:text-primary-400 border-primary-300 dark:border-primary-700 focus:ring-primary-500"
                 />
-                <span className="text-rose-800 font-medium text-sm sm:text-base">Yes, I'll be there!</span>
+                <span className="text-primary-800 dark:text-primary-200 font-medium text-sm sm:text-base">Yes, I'll be there!</span>
               </label>
-              <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-rose-50 transition-colors">
+              <label className="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/50 transition-colors">
                 <input
                   type="radio"
                   name={`attending-${index}`}
                   checked={guest.attending === false}
                   onChange={() => handleAttendingChange(false)}
-                  className="w-4 h-4 text-rose-600 border-rose-300 focus:ring-rose-500"
+                  className="w-4 h-4 text-primary-600 dark:text-primary-400 border-primary-300 dark:border-primary-700 focus:ring-primary-500"
                 />
-                <span className="text-rose-800 font-medium text-sm sm:text-base">Sorry, can't make it</span>
+                <span className="text-primary-800 dark:text-primary-200 font-medium text-sm sm:text-base">Sorry, can't make it</span>
               </label>
             </div>
           </div>
@@ -81,7 +81,7 @@ export function GuestCard({ guest, index, onChange, error, className }: GuestCar
                 maxLength={500}
               />
               {guest.dietaryRestrictions && (
-                <p className="text-xs text-rose-500 text-right">
+                <p className="text-xs text-primary-500 dark:text-primary-400 text-right">
                   {guest.dietaryRestrictions.length}/500 characters
                 </p>
               )}

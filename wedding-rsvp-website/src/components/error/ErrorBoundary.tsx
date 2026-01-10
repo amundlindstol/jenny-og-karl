@@ -1,7 +1,7 @@
 'use client';
 
-import React, { Component, ReactNode } from 'react';
-import { Button } from '@/components/ui';
+import React, {Component, ReactNode} from 'react';
+import {Button} from '@/components/ui';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -55,21 +55,21 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       // Default error UI
       return (
         <div className="min-h-[400px] flex items-center justify-center p-4">
-          <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 text-center border border-red-200">
+          <div className="max-w-md mx-auto bg-white dark:bg-stone-900 rounded-lg shadow-lg p-6 text-center border border-red-200 dark:border-red-900/50">
             {/* Error Icon */}
-            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
 
             {/* Error Title */}
-            <h2 className="text-lg font-serif text-gray-800 mb-3">
+            <h2 className="text-lg font-serif text-gray-800 dark:text-white mb-3">
               Noe gikk galt
             </h2>
 
             {/* Error Message */}
-            <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
               Vi støtte på en uventet feil. Vennligst prøv å oppdatere siden eller kontakt oss hvis problemet vedvarer.
             </p>
 
@@ -89,12 +89,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             </div>
 
             {/* Contact Info */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
-              <p className="text-xs text-gray-500">
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Trenger hjelp?{' '}
                 <a 
                   href="mailto:jenny.karl.bryllup@email.com" 
-                  className="text-rose-600 hover:text-rose-700 underline"
+                  className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline"
                 >
                   Kontakt oss
                 </a>

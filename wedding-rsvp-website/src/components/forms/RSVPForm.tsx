@@ -155,7 +155,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
         <Card variant="elevated">
           <CardHeader>
             <CardTitle className="text-lg sm:text-xl">RSVP for {guestEntry.invitationCode}</CardTitle>
-            <p className="text-rose-600 text-sm sm:text-base">
+            <p className="text-primary-600 dark:text-primary-400 text-sm sm:text-base">
               Vennligst la oss vite om du blir med oss på vår spesielle dag!
             </p>
           </CardHeader>
@@ -164,7 +164,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {/* Guest Responses */}
               <div className="space-y-3 sm:space-y-4">
-                <h3 className="text-base sm:text-lg font-semibold text-rose-900 border-b border-rose-200 pb-2">
+                <h3 className="text-base sm:text-lg font-semibold text-primary-900 dark:text-primary-100 border-b border-primary-200 dark:border-primary-800 pb-2">
                   Gjestesvar
                 </h3>
                 
@@ -181,8 +181,8 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
 
               {/* RSVP Summary */}
               {totalGuests > 1 && (
-                <div className="bg-rose-50 border border-rose-200 rounded-lg p-3 sm:p-4">
-                  <p className="text-rose-800 font-medium text-sm sm:text-base">
+                <div className="bg-primary-50 dark:bg-primary-900/50 border border-primary-200 dark:border-primary-800 rounded-lg p-3 sm:p-4">
+                  <p className="text-primary-800 dark:text-primary-200 font-medium text-sm sm:text-base">
                     RSVP-sammendrag: {attendingCount} av {totalGuests} gjester deltar
                   </p>
                 </div>
@@ -216,7 +216,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
                   disabled={isSubmitting}
                 />
                 {formData.personalMessage && (
-                  <p className="text-xs text-rose-500 text-right mt-1">
+                  <p className="text-xs text-primary-500 dark:text-primary-400 text-right mt-1">
                     {formData.personalMessage.length}/1000 tegn
                   </p>
                 )}
@@ -250,7 +250,7 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
               )}
 
               {/* Form Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-rose-200">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-primary-200 dark:border-primary-800">
                 {onCancel && (
                   <Button
                     type="button"
@@ -275,8 +275,8 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
               </div>
 
               {/* Helpful Note */}
-              <div className="text-xs sm:text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-3">
-                <p className="font-medium mb-1">📝 Merk:</p>
+              <div className="text-xs sm:text-sm text-primary-600 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/50 border border-primary-200 dark:border-primary-800 rounded-lg p-3">
+                <p className="font-medium mb-1 dark:text-primary-100">📝 Merk:</p>
                 <p>
                   Du kan endre RSVP-en din senere ved å skrive inn invitasjonskoden din på nytt. 
                   Vi oppdaterer svaret ditt med den nyeste informasjonen.

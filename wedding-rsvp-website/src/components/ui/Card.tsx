@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { cn } from '@/lib/utils';
+import React, {forwardRef} from 'react';
+import {cn} from '@/lib/utils';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'elevated' | 'outlined' | 'glass';
@@ -8,10 +8,10 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = 'default', ...props }, ref) => {
     const variants = {
-      default: 'bg-white border border-rose-100 shadow-sm hover:shadow-md transition-all duration-300',
-      elevated: 'bg-white shadow-lg hover:shadow-xl border border-rose-100 hover:border-rose-200 transition-all duration-300 hover:-translate-y-1',
-      outlined: 'bg-white border-2 border-rose-200 hover:border-rose-300 hover:shadow-sm transition-all duration-300',
-      glass: 'glass border border-rose-200/50 hover:border-rose-300/50 transition-all duration-300'
+      default: 'bg-white dark:bg-stone-900 border border-primary-100 dark:border-primary-800 shadow-sm hover:shadow-md transition-all duration-300',
+      elevated: 'bg-white dark:bg-stone-900 shadow-lg hover:shadow-xl border border-primary-100 dark:border-primary-800 hover:border-primary-200 dark:hover:border-primary-700 transition-all duration-300 hover:-translate-y-1',
+      outlined: 'bg-white dark:bg-stone-900 border-2 border-primary-200 dark:border-primary-700 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-sm transition-all duration-300',
+      glass: 'glass border border-primary-200/50 dark:border-primary-700/50 hover:border-primary-300/50 dark:hover:border-primary-600/50 transition-all duration-300'
     };
     
     return (
@@ -46,7 +46,7 @@ const CardTitle = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHead
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn('text-xl font-semibold text-rose-900 font-serif', className)}
+      className={cn('text-xl font-semibold text-primary-900 dark:text-primary-100 font-serif', className)}
       {...props}
     />
   )
@@ -58,7 +58,7 @@ const CardDescription = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HT
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn('text-rose-600 leading-relaxed', className)}
+      className={cn('text-primary-600 dark:text-primary-300 leading-relaxed', className)}
       {...props}
     />
   )
@@ -78,7 +78,7 @@ const CardFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('flex items-center pt-4 border-t border-rose-100', className)}
+      className={cn('flex items-center pt-4 border-t border-primary-100 dark:border-primary-800', className)}
       {...props}
     />
   )

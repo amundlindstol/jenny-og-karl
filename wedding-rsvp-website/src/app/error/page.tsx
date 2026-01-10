@@ -1,9 +1,9 @@
 'use client';
 
-import { Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { MainLayout } from '@/components/layout';
-import { Card, Button } from '@/components/ui';
+import {Suspense} from 'react';
+import {useRouter, useSearchParams} from 'next/navigation';
+import {MainLayout} from '@/components/layout';
+import {Button, Card} from '@/components/ui';
 
 function ErrorContent() {
   const router = useRouter();
@@ -99,17 +99,17 @@ function ErrorContent() {
   return (
     <Card className="max-w-md mx-auto p-4 sm:p-6 lg:p-8 text-center mx-4 sm:mx-auto">
       {/* Error Icon */}
-      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
         {errorContent.icon}
       </div>
 
       {/* Error Title */}
-      <h1 className="text-xl sm:text-2xl font-serif text-gray-800 mb-3 sm:mb-4 leading-tight">
+      <h1 className="text-xl sm:text-2xl font-serif text-gray-800 dark:text-white mb-3 sm:mb-4 leading-tight">
         {errorContent.title}
       </h1>
 
       {/* Error Message */}
-      <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 leading-relaxed">
+      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 leading-relaxed">
         {errorContent.message}
       </p>
 
@@ -129,13 +129,13 @@ function ErrorContent() {
       </div>
 
       {/* Additional Help */}
-      <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
-        <p className="text-xs sm:text-sm text-gray-500 mb-2">Need help?</p>
-        <p className="text-xs sm:text-sm text-gray-600">
+      <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-800">
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-2">Need help?</p>
+        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
           Send en epost til{' '}
           <a 
             href="mailto:jenny.karl.bryllup@email.com" 
-            className="text-rose-600 hover:text-rose-700 underline break-all"
+            className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all"
           >
             jenny.karl.bryllup@email.com
           </a>
@@ -148,13 +148,13 @@ function ErrorContent() {
 function ErrorPageFallback() {
   return (
     <Card className="max-w-md mx-auto p-4 sm:p-6 lg:p-8 text-center mx-4 sm:mx-auto">
-      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-        <svg className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+        <svg className="w-6 h-6 sm:w-8 sm:h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       </div>
-      <h1 className="text-xl sm:text-2xl font-serif text-gray-800 mb-3 sm:mb-4 leading-tight">Noe gikk galt</h1>
-      <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">En ukjent feil oppstod. Vennligst prøv igjen</p>
+      <h1 className="text-xl sm:text-2xl font-serif text-gray-800 dark:text-white mb-3 sm:mb-4 leading-tight">Noe gikk galt</h1>
+      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6 sm:mb-8">En ukjent feil oppstod. Vennligst prøv igjen</p>
       <Button onClick={() => window.location.href = '/'} className="w-full">
         Hjem
       </Button>
@@ -165,7 +165,7 @@ function ErrorPageFallback() {
 export default function ErrorPage() {
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center py-6 sm:py-8 lg:py-12 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-900 flex items-center justify-center py-6 sm:py-8 lg:py-12 px-4">
         <Suspense fallback={<ErrorPageFallback />}>
           <ErrorContent />
         </Suspense>

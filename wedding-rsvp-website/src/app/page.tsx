@@ -37,13 +37,13 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-linear-to-br from-rose-50 via-pink-50 to-rose-100">
+      <div className="min-h-screen bg-linear-to-br from-primary-50 via-secondary-50 to-primary-100 dark:from-primary-950 dark:via-secondary-900 dark:to-primary-950">
         {/* Hero Section */}
         <section className="relative py-12 sm:py-16 lg:py-20 px-4 text-center overflow-hidden">
           {/* Background decoration */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-20 left-10 w-32 h-32 bg-rose-300 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-10 w-40 h-40 bg-pink-300 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+            <div className="absolute top-20 left-10 w-32 h-32 bg-primary-300 dark:bg-primary-700 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-20 right-10 w-40 h-40 bg-secondary-300 dark:bg-secondary-700 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
           </div>
           
           <div className="max-w-4xl mx-auto relative z-10">
@@ -105,29 +105,29 @@ export default function Home() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               <Card variant="glass" className="p-4 sm:p-6 text-center hover-lift animate-fade-in">
-                <div className="w-12 h-12 bg-gradient-to-r from-rose-400 to-pink-400 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-bold">15:30</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Gjesteankomst</h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2 font-serif">Gjesteankomst</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                   Vennligst kom tidlig for å finne plass og nyte musikk før vielsen
                 </p>
               </Card>
               <Card variant="glass" className="p-4 sm:p-6 text-center hover-lift animate-fade-in" style={{animationDelay: '0.2s'}}>
-                <div className="w-12 h-12 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-bold">16:00</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Vielse</h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2 font-serif">Vielse</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                   Bli med oss når vi utveksler løfter i de vakre hageomgivelsene
                 </p>
               </Card>
               <Card variant="glass" className="p-4 sm:p-6 text-center hover-lift animate-fade-in sm:col-span-2 lg:col-span-1" style={{animationDelay: '0.4s'}}>
-                <div className="w-12 h-12 bg-gradient-to-r from-rose-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-bold">18:00</span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2 font-serif">Bryllupsfest</h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2 font-serif">Bryllupsfest</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                   Middag, dans og feiring i hovedsalen
                 </p>
               </Card>
@@ -144,17 +144,17 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
               <Card variant="glass" className="p-4 sm:p-6 lg:p-8 hover-lift animate-fade-in">
                 <div className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mr-3">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 font-serif">Hvordan komme seg dit</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white font-serif">Hvordan komme seg dit</h3>
                 </div>
-                <div className="space-y-3 sm:space-y-4 text-gray-600">
+                <div className="space-y-3 sm:space-y-4 text-gray-600 dark:text-gray-300">
                   <div>
-                    <p className="font-medium text-gray-800">Adresse:</p>
+                    <p className="font-medium text-gray-800 dark:text-gray-100">Adresse:</p>
                     <p className="text-sm sm:text-base">
                       Vakre Bryllupslokaler<br />
                       Bryllupsgata 123<br />
@@ -162,13 +162,13 @@ export default function Home() {
                     </p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-800">Parkering:</p>
+                    <p className="font-medium text-gray-800 dark:text-gray-100">Parkering:</p>
                     <p className="text-sm sm:text-base">
                       Gratis valet-parkering tilgjengelig på stedet
                     </p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-800">Transport:</p>
+                    <p className="font-medium text-gray-800 dark:text-gray-100">Transport:</p>
                     <p className="text-sm sm:text-base">
                       Shuttleservice tilgjengelig fra hoteller i sentrum
                     </p>
@@ -178,25 +178,25 @@ export default function Home() {
               
               <Card variant="glass" className="p-4 sm:p-6 lg:p-8 hover-lift animate-fade-in" style={{animationDelay: '0.2s'}}>
                 <div className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mr-3">
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 font-serif">Overnatting</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white font-serif">Overnatting</h3>
                 </div>
-                <div className="space-y-3 sm:space-y-4 text-gray-600">
-                  <div className="bg-white/50 p-3 rounded-lg">
-                    <p className="font-medium text-gray-800">Grand Hotel Sentrum</p>
+                <div className="space-y-3 sm:space-y-4 text-gray-600 dark:text-gray-300">
+                  <div className="bg-white/50 dark:bg-gray-800/50 p-3 rounded-lg">
+                    <p className="font-medium text-gray-800 dark:text-gray-100">Grand Hotel Sentrum</p>
                     <p className="text-sm">Hovedgata 456 • 22 12 34 56</p>
                     <p className="text-sm">Gruppepris tilgjengelig med kode: JENNY2024</p>
                   </div>
-                  <div className="bg-white/50 p-3 rounded-lg">
-                    <p className="font-medium text-gray-800">Garden Inn & Suites</p>
+                  <div className="bg-white/50 dark:bg-gray-800/50 p-3 rounded-lg">
+                    <p className="font-medium text-gray-800 dark:text-gray-100">Garden Inn & Suites</p>
                     <p className="text-sm">Parkveien 789 • 22 98 76 54</p>
                     <p className="text-sm">Gratis frokost inkludert</p>
                   </div>
-                  <p className="text-sm italic text-rose-600 bg-rose-50 p-2 rounded animate-pulse">
+                  <p className="text-sm italic text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/50 p-2 rounded animate-pulse">
                     Vennligst book innen 15. mai for gruppepriser
                   </p>
                 </div>
@@ -211,17 +211,17 @@ export default function Home() {
             <h2 className="text-2xl sm:text-3xl font-serif text-gray-800 mb-6 sm:mb-8 gradient-text animate-fade-in">
               Tilleggsinformasjon
             </h2>
-            <div className="space-y-4 sm:space-y-6 text-gray-600 text-left sm:text-center">
+            <div className="space-y-4 sm:space-y-6 text-gray-600 dark:text-gray-300 text-left sm:text-center">
               <Card variant="glass" className="p-4 sm:p-6 hover-lift animate-fade-in">
                 <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
+                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Klesskode:</span> Cocktailantrekk. Vi foreslår elegant hagefest-stil - 
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">Klesskode:</span> Cocktailantrekk. Vi foreslår elegant hagefest-stil - 
                       tenk luftige kjoler og lette dresser i myke farger.
                     </p>
                   </div>
@@ -230,14 +230,14 @@ export default function Home() {
               
               <Card variant="glass" className="p-4 sm:p-6 hover-lift animate-fade-in" style={{animationDelay: '0.1s'}}>
                 <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
+                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
                     </svg>
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Vær:</span> Vielsen vår vil være utendørs med en innendørs reserveplan. 
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">Vær:</span> Vielsen vår vil være utendørs med en innendørs reserveplan. 
                       Bryllupsfesten er innendørs med klimaanlegg.
                     </p>
                   </div>
@@ -246,14 +246,14 @@ export default function Home() {
               
               <Card variant="glass" className="p-4 sm:p-6 hover-lift animate-fade-in" style={{animationDelay: '0.2s'}}>
                 <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
+                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                     </svg>
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Ønskeliste:</span> Din tilstedeværelse er den eneste gaven vi trenger! 
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">Ønskeliste:</span> Din tilstedeværelse er den eneste gaven vi trenger! 
                       Hvis du ønsker å gi en gave, har vi ønskelister hos Elkjøp og Jernia.
                     </p>
                   </div>
@@ -262,15 +262,15 @@ export default function Home() {
               
               <Card variant="glass" className="p-4 sm:p-6 hover-lift animate-fade-in" style={{animationDelay: '0.3s'}}>
                 <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
+                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                   </div>
                   <div className="text-left sm:text-center">
                     <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800">Spørsmål?</span> Vennligst kontakt oss på{' '}
-                      <a href="mailto:jenny.karl.bryllup@email.com" className="text-rose-600 hover:text-rose-700 underline break-all transition-colors">
+                      <span className="font-semibold text-gray-800 dark:text-gray-100">Spørsmål?</span> Vennligst kontakt oss på{' '}
+                      <a href="mailto:jenny.karl.bryllup@email.com" className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all transition-colors">
                         jenny.karl.bryllup@email.com
                       </a>
                     </p>

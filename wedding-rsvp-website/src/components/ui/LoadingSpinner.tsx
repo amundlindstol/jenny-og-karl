@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '@/lib/utils';
+import {cn} from '@/lib/utils';
 
 export interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
@@ -23,7 +23,7 @@ export function LoadingSpinner({
       <div className="relative">
         <svg
           className={cn(
-            'animate-spin text-rose-600',
+            'animate-spin text-primary-600 dark:text-primary-400',
             sizes[size]
           )}
           xmlns="http://www.w3.org/2000/svg"
@@ -46,12 +46,12 @@ export function LoadingSpinner({
         </svg>
         {/* Decorative ring */}
         <div className={cn(
-          'absolute inset-0 rounded-full border-2 border-rose-200 animate-pulse',
+          'absolute inset-0 rounded-full border-2 border-primary-200 dark:border-primary-800 animate-pulse',
           sizes[size]
         )}></div>
       </div>
       {text && (
-        <p className="text-sm text-rose-600 animate-pulse font-medium">{text}</p>
+        <p className="text-sm text-primary-600 dark:text-primary-400 animate-pulse font-medium">{text}</p>
       )}
     </div>
   );

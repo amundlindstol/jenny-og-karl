@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { cn } from '@/lib/utils';
+import React, {forwardRef} from 'react';
+import {cn} from '@/lib/utils';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -20,10 +20,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transform active:scale-95';
     
     const variants = {
-      primary: 'bg-gradient-to-r from-rose-600 to-rose-700 text-white hover:from-rose-700 hover:to-rose-800 focus:ring-rose-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5',
-      secondary: 'bg-gradient-to-r from-rose-100 to-rose-200 text-rose-900 hover:from-rose-200 hover:to-rose-300 focus:ring-rose-500 shadow-sm hover:shadow-md',
-      outline: 'border-2 border-rose-300 text-rose-700 hover:bg-rose-50 hover:border-rose-400 focus:ring-rose-500 shadow-sm hover:shadow-md',
-      ghost: 'text-rose-700 hover:bg-rose-100 focus:ring-rose-500 hover:shadow-sm'
+      primary: 'bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 focus:ring-primary-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5',
+      secondary: 'bg-gradient-to-r from-primary-100 to-primary-200 text-primary-900 hover:from-primary-200 hover:to-primary-300 dark:from-primary-800 dark:to-primary-900 dark:text-primary-100 dark:hover:from-primary-700 dark:hover:to-primary-800 focus:ring-primary-500 shadow-sm hover:shadow-md',
+      outline: 'border-2 border-primary-300 text-primary-700 hover:bg-primary-50 hover:border-primary-400 dark:border-primary-600 dark:text-primary-300 dark:hover:bg-primary-900/50 dark:hover:border-primary-500 focus:ring-primary-500 shadow-sm hover:shadow-md',
+      ghost: 'text-primary-700 dark:text-primary-300 hover:bg-primary-100 dark:hover:bg-primary-900/50 focus:ring-primary-500 hover:shadow-sm'
     };
     
     const sizes = {
