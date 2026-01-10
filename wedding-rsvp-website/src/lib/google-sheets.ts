@@ -1,10 +1,10 @@
-import { google } from 'googleapis';
-import { z } from 'zod';
+import {google} from 'googleapis';
+import {z} from 'zod';
 
 // Environment variable validation schema
 const envSchema = z.object({
   GOOGLE_SHEETS_PRIVATE_KEY: z.string().min(1, 'Google Sheets private key is required'),
-  GOOGLE_SHEETS_CLIENT_EMAIL: z.string().email('Valid Google Sheets client email is required'),
+  GOOGLE_SHEETS_CLIENT_EMAIL: z.email('Valid Google Sheets client email is required'),
   GOOGLE_SHEETS_SPREADSHEET_ID: z.string().min(1, 'Google Sheets spreadsheet ID is required'),
 });
 

@@ -1,19 +1,10 @@
-import { z } from 'zod';
-import { googleSheetsClient, handleSheetsError, withRetry, type SheetsError } from './google-sheets';
-import { logger } from './logger';
-import { PerformanceMonitor } from './performance';
-import { globalCache } from './cache';
-import type { 
-  GuestEntry, 
-  RSVPFormData, 
-  RSVPFormDataValidated,
-  GuestEntryValidated 
-} from '../types';
-import { 
-  invitationCodeSchema, 
-  rsvpFormDataSchema, 
-  guestEntrySchema 
-} from '../types';
+import {z} from 'zod';
+import {googleSheetsClient, handleSheetsError, withRetry} from './google-sheets';
+import {logger} from './logger';
+import {PerformanceMonitor} from './performance';
+import {globalCache} from './cache';
+import type {GuestEntry, GuestEntryValidated, RSVPFormData, RSVPFormDataValidated} from '../types';
+import {guestEntrySchema, invitationCodeSchema, rsvpFormDataSchema} from '../types';
 
 // Google Sheets column mapping (based on design document)
 const SHEET_COLUMNS = {
@@ -26,7 +17,7 @@ const SHEET_COLUMNS = {
   EMAIL: 'G',
 } as const;
 
-const SHEET_NAME = 'Guest_List';
+const SHEET_NAME = 'Gjesteliste';
 
 export class SheetsService {
   private sheets;

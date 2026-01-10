@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Input, Textarea, LoadingOverlay } from '@/components/ui';
-import { GuestCard } from './GuestCard';
-import { rsvpFormDataSchema } from '@/types';
-import { fetchWithRecovery, NetworkErrorType } from '@/lib/network-recovery';
-import type { RSVPFormData, GuestResponse, GuestEntry, ValidationError } from '@/types';
-import { cn } from '@/lib/utils';
+import React, {useCallback, useState} from 'react';
+import {Button, Card, CardContent, CardHeader, CardTitle, Input, LoadingOverlay, Textarea} from '@/components/ui';
+import {GuestCard} from './GuestCard';
+import type {GuestEntry, GuestResponse, RSVPFormData, ValidationError} from '@/types';
+import {rsvpFormDataSchema} from '@/types';
+import {fetchWithRecovery, NetworkErrorType} from '@/lib/network-recovery';
+import {cn} from '@/lib/utils';
 
 interface RSVPFormProps {
   guestEntry: GuestEntry;
@@ -20,10 +20,10 @@ export function RSVPForm({ guestEntry, onSubmit, onCancel, className }: RSVPForm
     guests: guestEntry.guestNames.map(name => ({
       name,
       attending: false,
-      dietaryRestrictions: ''
+      dietaryRestrictions: guestEntry.dietaryRestrictions?.find(it => it.includes(name))?.split(':')?.[1] || ''
     })),
-    personalMessage: '',
-    contactEmail: ''
+    personalMessage: guestEntry.personalMessage ?? '',
+    contactEmail: guestEntry.email ?? ''
   }));
 
   const [isSubmitting, setIsSubmitting] = useState(false);
