@@ -47,6 +47,7 @@ export function RSVPForm({
     })),
     personalMessage: guestEntry.personalMessage ?? "",
     contactEmail: guestEntry.email ?? "",
+    speechInMinutes: guestEntry.speechInMinutes,
   }));
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -104,6 +105,41 @@ export function RSVPForm({
     },
     [],
   );
+
+  // Handle speech in minutes change
+  const handleSpeechInMinutesChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value =
+        e.target.value === "" ? undefined : parseInt(e.target.value);
+      setFormData((prev) => ({
+        ...prev,
+        speechInMinutes: value,
+      }));
+
+      // Clear speech errors
+      setErrors((prev) =>
+        prev.filter((error) => error.field !== "speechInMinutes"),
+      );
+    },
+    [],
+  );
+
+  // Toggle speech input
+  const [wantsToSpeak, setWantsToSpeak] = useState(
+    formData.speechInMinutes !== undefined,
+  );
+  const handleWantsToSpeakToggle = useCallback(() => {
+    setWantsToSpeak((prev) => {
+      const newValue = !prev;
+      if (!newValue) {
+        setFormData((prevData) => ({
+          ...prevData,
+          speechInMinutes: undefined,
+        }));
+      }
+      return newValue;
+    });
+  }, []);
 
   // Validate form data with loading state
   const validateForm = useCallback((): boolean => {
@@ -243,7 +279,7 @@ export function RSVPForm({
                 <Input
                   label="Kontakt e-post"
                   type="email"
-                  required
+                  required={hasAttendingGuests}
                   value={formData.contactEmail}
                   onChange={handleContactEmailChange}
                   placeholder="din.epost@example.com"
@@ -270,6 +306,43 @@ export function RSVPForm({
                   <p className="text-xs text-primary-500 dark:text-primary-400 text-right mt-1">
                     {formData.personalMessage.length}/1000 tegn
                   </p>
+                )}
+              </div>
+
+              {/* Speech Toggle and Input */}
+              <div className="space-y-3 p-4 bg-primary-50/50 dark:bg-primary-900/20 rounded-lg border border-primary-100 dark:border-primary-800">
+                <label className="flex items-center space-x-3 cursor-pointer group">
+                  <div className="relative flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={wantsToSpeak}
+                      onChange={handleWantsToSpeakToggle}
+                      className="w-5 h-5 rounded border-2 border-primary-300 dark:border-primary-700 text-primary-600 focus:ring-primary-500 transition-all cursor-pointer"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  <span className="text-primary-900 dark:text-primary-100 font-medium group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors">
+                    Jeg/vi ønsker å si noen ord (tale/innslag)
+                  </span>
+                </label>
+
+                {wantsToSpeak && (
+                  <div className="pl-8 animate-fade-in">
+                    <Input
+                      label="Estimert varighet. Anbefalt lengede er 1-3 minutter."
+                      type="number"
+                      required
+                      min={1}
+                      max={5}
+                      value={formData.speechInMinutes ?? ""}
+                      onChange={handleSpeechInMinutesChange}
+                      placeholder="F.eks. 2"
+                      error={getFieldError("speechInMinutes")}
+                      helperText="Dette hjelper oss med planlegging av programmet. Trenger du mer tid, ta kontakt med toastmaster."
+                      disabled={isSubmitting}
+                      className="max-w-[200px]"
+                    />
+                  </div>
                 )}
               </div>
 

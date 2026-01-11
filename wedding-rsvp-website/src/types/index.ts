@@ -1,15 +1,15 @@
-import {z} from 'zod';
+import { z } from "zod";
 
 // Core types for the wedding RSVP website
 
 // RSVP Status enum
 export const RSVPStatus = {
-  PENDING: 'pending',
-  ATTENDING: 'attending',
-  NOT_ATTENDING: 'not_attending',
+  PENDING: "pending",
+  ATTENDING: "attending",
+  NOT_ATTENDING: "not_attending",
 } as const;
 
-export type RSVPStatusType = typeof RSVPStatus[keyof typeof RSVPStatus];
+export type RSVPStatusType = (typeof RSVPStatus)[keyof typeof RSVPStatus];
 
 // Guest Entry interface matching Google Sheets structure
 export interface GuestEntry {
@@ -21,6 +21,7 @@ export interface GuestEntry {
   personalMessage: string;
   submissionDate: string;
   email?: string;
+  speechInMinutes?: number;
 }
 
 // Individual guest response within an RSVP form
@@ -36,6 +37,7 @@ export interface RSVPFormData {
   guests: GuestResponse[];
   personalMessage: string;
   contactEmail?: string;
+  speechInMinutes?: number;
 }
 
 // Wedding information interface
@@ -66,27 +68,34 @@ export interface ValidationError {
 // Invitation code validation - alphanumeric, 4-8 characters
 export const invitationCodeSchema = z
   .string()
-  .min(4, 'Invitation code must be at least 4 characters')
-  .max(8, 'Invitation code must be at most 8 characters')
-  .regex(/^[A-Za-z0-9]+$/, 'Invitation code must contain only letters and numbers')
-  .transform(code => code.toUpperCase());
+  .min(4, "Invitation code must be at least 4 characters")
+  .max(8, "Invitation code must be at most 8 characters")
+  .regex(
+    /^[A-Za-z0-9]+$/,
+    "Invitation code must contain only letters and numbers",
+  )
+  .transform((code) => code.toUpperCase());
 
 // RSVP Status validation
-export const rsvpStatusSchema = z.enum(['pending', 'attending', 'not_attending']);
+export const rsvpStatusSchema = z.enum([
+  "pending",
+  "attending",
+  "not_attending",
+]);
 
 // Guest response validation
 export const guestResponseSchema = z.object({
   name: z
     .string()
-    .min(1, 'Guest name is required')
-    .max(100, 'Guest name must be less than 100 characters')
+    .min(1, "Guest name is required")
+    .max(100, "Guest name must be less than 100 characters")
     .trim(),
   attending: z.boolean(),
   dietaryRestrictions: z
     .string()
-    .max(500, 'Dietary restrictions must be less than 500 characters')
+    .max(500, "Dietary restrictions must be less than 500 characters")
     .optional()
-    .default(''),
+    .default(""),
 });
 
 // RSVP Form data validation
@@ -94,41 +103,47 @@ export const rsvpFormDataSchema = z.object({
   invitationCode: invitationCodeSchema,
   guests: z
     .array(guestResponseSchema)
-    .min(1, 'At least one guest is required')
-    .max(10, 'Maximum 10 guests allowed per invitation'),
+    .min(1, "At least one guest is required")
+    .max(10, "Maximum 10 guests allowed per invitation"),
   personalMessage: z
     .string()
-    .max(1000, 'Personal message must be less than 1000 characters')
+    .max(1000, "Personal message must be less than 1000 characters")
     .optional()
-    .default(''),
+    .default(""),
   contactEmail: z
     .string()
-    .email('Please enter a valid email address')
+    .email("Please enter a valid email address")
     .optional()
-    .or(z.literal('')),
+    .or(z.literal("")),
+  speechInMinutes: z
+    .number()
+    .min(0, "Speech duration cannot be negative")
+    .max(30, "Speech duration must be less than 30 minutes")
+    .optional(),
 });
 
 // Guest Entry validation (for data from Google Sheets)
 export const guestEntrySchema = z.object({
   invitationCode: invitationCodeSchema,
   guestNames: z
-    .array(z.string().min(1, 'Guest name cannot be empty'))
-    .min(1, 'At least one guest name is required'),
+    .array(z.string().min(1, "Guest name cannot be empty"))
+    .min(1, "At least one guest name is required"),
   guestStatuses: z.array(rsvpStatusSchema).default([]),
   rsvpStatus: rsvpStatusSchema,
   dietaryRestrictions: z.array(z.string()).default([]),
-  personalMessage: z.string().default(''),
-  submissionDate: z.string().default(''),
-  email: z.string().email().optional().or(z.literal('')),
+  personalMessage: z.string().default(""),
+  submissionDate: z.string().default(""),
+  email: z.email().optional().or(z.literal("")),
+  speechInMinutes: z.number().min(0).max(5).optional(),
 });
 
 // Wedding information validation
 export const weddingInfoSchema = z.object({
-  coupleName: z.string().min(1, 'Couple name is required'),
-  date: z.string().min(1, 'Wedding date is required'),
-  venue: z.string().min(1, 'Venue is required'),
-  address: z.string().min(1, 'Address is required'),
-  time: z.string().min(1, 'Time is required'),
+  coupleName: z.string().min(1, "Couple name is required"),
+  date: z.string().min(1, "Wedding date is required"),
+  venue: z.string().min(1, "Venue is required"),
+  address: z.string().min(1, "Address is required"),
+  time: z.string().min(1, "Time is required"),
   description: z.string().optional(),
 });
 
@@ -146,10 +161,13 @@ export type RSVPFormDataValidated = z.infer<typeof rsvpFormDataSchema>;
 export type GuestEntryValidated = z.infer<typeof guestEntrySchema>;
 export type GuestResponseValidated = z.infer<typeof guestResponseSchema>;
 export type WeddingInfoValidated = z.infer<typeof weddingInfoSchema>;
-export type APIResponseValidated<T = any> = z.infer<typeof apiResponseSchema> & { data?: T };
+export type APIResponseValidated<T = any> = z.infer<
+  typeof apiResponseSchema
+> & { data?: T };
 
 // Utility type for partial updates
-export type PartialGuestEntry = Partial<GuestEntry> & Pick<GuestEntry, 'invitationCode'>;
+export type PartialGuestEntry = Partial<GuestEntry> &
+  Pick<GuestEntry, "invitationCode">;
 
 // Form state types for UI components
 export interface FormState {
