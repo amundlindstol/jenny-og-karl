@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { MainLayout } from "@/components/layout";
 import { InvitationCodeForm } from "@/components/forms";
 import { FormErrorBoundary } from "@/components/error";
-import { Button, Card, useToast } from "@/components/ui";
+import { Button, Card, InfoCard, useToast } from "@/components/ui";
 import type { GuestEntry } from "@/types";
 
 export default function Home() {
@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-linear-to-br from-primary-50 via-secondary-50 to-primary-100 dark:from-primary-950 dark:via-secondary-900 dark:to-primary-950">
+      <div className="min-h-screen">
         {/* Hero Section */}
         <section className="relative py-12 sm:py-16 lg:py-20 px-4 text-center overflow-hidden">
           {/* Background decoration */}
@@ -92,7 +92,7 @@ export default function Home() {
             {/* RSVP Section */}
             <Card
               variant="glass"
-              className="max-w-md mx-auto p-4 sm:p-6 lg:p-8 mx-4 sm:mx-auto hover-lift"
+              className="max-w-md mx-auto p-4 sm:p-6 lg:p-8 sm:mx-auto hover-lift"
             >
               <h2 className="text-xl sm:text-2xl font-serif text-gray-800 mb-4 sm:mb-6 gradient-text">
                 RSVP
@@ -130,7 +130,7 @@ export default function Home() {
         </section>
 
         {/* Event Schedule */}
-        <section className="py-12 sm:py-16 px-4 bg-white/30 backdrop-blur-sm">
+        <section className="py-12 sm:py-16 px-4  backdrop-blur-sm">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-serif text-gray-800 text-center mb-8 sm:mb-12 gradient-text animate-fade-in">
               Program for dagen
@@ -140,7 +140,7 @@ export default function Home() {
                 variant="glass"
                 className="p-4 sm:p-6 text-center hover-lift animate-fade-in"
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-14 h-14 bg-gradient-to-r from-primary-400 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-bold">15:30</span>
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2 font-serif">
@@ -156,7 +156,7 @@ export default function Home() {
                 className="p-4 sm:p-6 text-center hover-lift animate-fade-in"
                 style={{ animationDelay: "0.2s" }}
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-14 h-14 bg-gradient-to-r from-primary-500 to-secondary-600 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-bold">16:00</span>
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2 font-serif">
@@ -171,7 +171,7 @@ export default function Home() {
                 className="p-4 sm:p-6 text-center hover-lift animate-fade-in sm:col-span-2 lg:col-span-1"
                 style={{ animationDelay: "0.4s" }}
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-14 h-14 bg-gradient-to-r from-primary-600 to-secondary-700 rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-bold">18:00</span>
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2 font-serif">
@@ -306,148 +306,104 @@ export default function Home() {
         </section>
 
         {/* Additional Information */}
-        <section className="py-12 sm:py-16 px-4 bg-white/30 backdrop-blur-sm">
+        <section className="py-12 sm:py-16 px-4  backdrop-blur-sm">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl font-serif text-gray-800 mb-6 sm:mb-8 gradient-text animate-fade-in">
               Tilleggsinformasjon
             </h2>
             <div className="space-y-4 sm:space-y-6 text-gray-600 dark:text-gray-300 text-left sm:text-center">
-              <Card
-                variant="glass"
-                className="p-4 sm:p-6 hover-lift animate-fade-in"
-              >
-                <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="text-left sm:text-center">
-                    <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800 dark:text-gray-100">
-                        Klesskode:
-                      </span>{" "}
-                      Cocktailantrekk. Vi foreslår elegant hagefest-stil - tenk
-                      luftige kjoler og lette dresser i myke farger.
-                    </p>
-                  </div>
-                </div>
-              </Card>
+              <InfoCard
+                icon={
+                  <svg
+                    className="w-3 h-3 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                }
+                title="Kleskode"
+                description="Cocktailantrekk. Vi foreslår elegant hagefest-stil - tenk luftige kjoler og lette dresser i myke farger."
+              />
 
-              <Card
-                variant="glass"
-                className="p-4 sm:p-6 hover-lift animate-fade-in"
-                style={{ animationDelay: "0.1s" }}
-              >
-                <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="text-left sm:text-center">
-                    <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800 dark:text-gray-100">
-                        Vær:
-                      </span>{" "}
-                      Vielsen vår vil være utendørs med en innendørs
-                      reserveplan. Bryllupsfesten er innendørs med klimaanlegg.
-                    </p>
-                  </div>
-                </div>
-              </Card>
+              <InfoCard
+                icon={
+                  <svg
+                    className="w-3 h-3 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
+                    />
+                  </svg>
+                }
+                title="Vær"
+                description="Vielsen vår vil være utendørs med en innendørs reserveplan. Bryllupsfesten er innendørs med klimaanlegg."
+                animationDelay="0.1s"
+              />
 
-              <Card
-                variant="glass"
-                className="p-4 sm:p-6 hover-lift animate-fade-in"
-                style={{ animationDelay: "0.2s" }}
-              >
-                <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
-                      />
-                    </svg>
-                  </div>
-                  <div className="text-left sm:text-center">
-                    <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800 dark:text-gray-100">
-                        Ønskeliste:
-                      </span>{" "}
-                      Din tilstedeværelse er den eneste gaven vi trenger! Hvis
-                      du ønsker å gi en gave, har vi ønskelister hos Elkjøp og
-                      Jernia.
-                    </p>
-                  </div>
-                </div>
-              </Card>
+              <InfoCard
+                icon={
+                  <svg
+                    className="w-3 h-3 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"
+                    />
+                  </svg>
+                }
+                title="Ønskeliste"
+                description="Din tilstedeværelse er den eneste gaven vi trenger! Hvis du ønsker å gi en gave, har vi ønskelister hos Elkjøp og Jernia."
+                animationDelay="0.2s"
+              />
 
-              <Card
-                variant="glass"
-                className="p-4 sm:p-6 hover-lift animate-fade-in"
-                style={{ animationDelay: "0.3s" }}
-              >
-                <div className="flex items-start sm:items-center sm:justify-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 sm:mt-0">
-                    <svg
-                      className="w-3 h-3 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+              <InfoCard
+                icon={
+                  <svg
+                    className="w-3 h-3 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                }
+                title="Spørsmål?"
+                description={
+                  <>
+                    Vennligst kontakt oss på{" "}
+                    <a
+                      href="mailto:jenny.karl.bryllup@email.com"
+                      className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all transition-colors"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="text-left sm:text-center">
-                    <p className="text-sm sm:text-base">
-                      <span className="font-semibold text-gray-800 dark:text-gray-100">
-                        Spørsmål?
-                      </span>{" "}
-                      Vennligst kontakt oss på{" "}
-                      <a
-                        href="mailto:jenny.karl.bryllup@email.com"
-                        className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all transition-colors"
-                      >
-                        jenny.karl.bryllup@email.com
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </Card>
+                      jenny.karl.bryllup@email.com
+                    </a>
+                  </>
+                }
+                animationDelay="0.3s"
+              />
             </div>
           </div>
         </section>

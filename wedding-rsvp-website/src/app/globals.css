@@ -221,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-950), var(--primary-500), var(--primary-300));
+  background: linear-gradient(135deg, var(--primary-800), var(--primary-500), var(--primary-400));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

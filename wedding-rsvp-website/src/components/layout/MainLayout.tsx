@@ -10,12 +10,10 @@ interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <ErrorBoundary>
-      <div className="min-h-screen flex flex-col bg-linear-to-br from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-900 transition-colors duration-300">
+      <div className="min-h-screen flex flex-col  bg-linear-to-br from-primary-100 via-secondary-50 to-primary-200 dark:from-primary-950 dark:via-secondary-900 dark:to-primary-950">
         <NetworkStatus showWhenOnline={true} />
         <Header />
-        <main className="flex-1 container mx-auto sm:py-6 lg:py-8 max-w-4xl">
-          {children}
-        </main>
+        <main className="flex-1 container mx-auto max-w-4xl">{children}</main>
         <Footer />
       </div>
     </ErrorBoundary>
