@@ -12,8 +12,8 @@ export default function ConfirmationPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Get RSVP submission data from sessionStorage
-    const storedRsvpData = sessionStorage.getItem("rsvpSubmission");
+    // Get RSVP submission data from localStorage
+    const storedRsvpData = localStorage.getItem("rsvpSubmission");
     if (storedRsvpData) {
       try {
         const parsedRsvpData = JSON.parse(storedRsvpData);
@@ -31,13 +31,13 @@ export default function ConfirmationPage() {
 
   const handleNavigateHome = () => {
     // Clear stored data and go to homepage
-    sessionStorage.removeItem("rsvpSubmission");
+    localStorage.removeItem("rsvpSubmission");
     router.push("/");
   };
 
   const handleModifyRSVP = () => {
     // Keep guest entry but remove submission to allow modification
-    sessionStorage.removeItem("rsvpSubmission");
+    localStorage.removeItem("rsvpSubmission");
     router.push("/rsvp");
   };
 

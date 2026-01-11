@@ -13,8 +13,8 @@ export default function RSVPPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Get guest data from sessionStorage
-    const storedGuestEntry = sessionStorage.getItem("guestEntry");
+    // Get guest data from localStorage
+    const storedGuestEntry = localStorage.getItem("guestEntry");
     if (storedGuestEntry) {
       try {
         const parsedGuestEntry = JSON.parse(storedGuestEntry);
@@ -47,10 +47,10 @@ export default function RSVPPage() {
       }
 
       // Store RSVP data for confirmation page
-      sessionStorage.setItem("rsvpSubmission", JSON.stringify(formData));
+      localStorage.setItem("rsvpSubmission", JSON.stringify(formData));
 
       // Update the stored guestEntry with the new data to ensure consistency
-      const storedGuestEntry = sessionStorage.getItem("guestEntry");
+      const storedGuestEntry = localStorage.getItem("guestEntry");
       if (storedGuestEntry) {
         try {
           const guestEntry = JSON.parse(storedGuestEntry) as GuestEntry;
@@ -69,12 +69,9 @@ export default function RSVPPage() {
             email: formData.contactEmail,
             submissionDate: new Date().toISOString(),
           };
-          sessionStorage.setItem(
-            "guestEntry",
-            JSON.stringify(updatedGuestEntry),
-          );
+          localStorage.setItem("guestEntry", JSON.stringify(updatedGuestEntry));
         } catch (e) {
-          console.error("Error updating guestEntry in sessionStorage:", e);
+          console.error("Error updating guestEntry in localStorage:", e);
         }
       }
 
@@ -87,7 +84,7 @@ export default function RSVPPage() {
   };
 
   const handleStartOver = () => {
-    sessionStorage.removeItem("guestEntry");
+    localStorage.removeItem("guestEntry");
     router.push("/");
   };
 

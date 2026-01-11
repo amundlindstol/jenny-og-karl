@@ -12,16 +12,18 @@ export default function Home() {
   const router = useRouter();
   const [error, setError] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [existingRSVP, setExistingRSVP] = useState<string | null>();
   const { showSuccess, showError } = useToast();
 
   // Handle client-side mounting
   useEffect(() => {
     setMounted(true);
+    setExistingRSVP(localStorage.getItem("guestEntry"));
   }, []);
 
   const handleValidCode = (guestEntry: GuestEntry) => {
-    // Store guest data in sessionStorage for the RSVP page
-    sessionStorage.setItem("guestEntry", JSON.stringify(guestEntry));
+    // Store guest data in localStorage for the RSVP page
+    localStorage.setItem("guestEntry", JSON.stringify(guestEntry));
     if (mounted) {
       showSuccess("Invitation code validated successfully!");
     }
@@ -95,7 +97,7 @@ export default function Home() {
               <h2 className="text-xl sm:text-2xl font-serif text-gray-800 mb-4 sm:mb-6 gradient-text">
                 RSVP
               </h2>
-              {sessionStorage.getItem("guestEntry") !== null ? (
+              {existingRSVP ? (
                 <Button
                   type="submit"
                   className="w-full"
