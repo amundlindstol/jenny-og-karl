@@ -141,7 +141,6 @@ export function InvitationCodeForm({
             maxLength={8}
             className="text-center text-lg font-mono tracking-wider"
             autoComplete="off"
-            autoFocus
           />
 
           {/* Retry hint */}

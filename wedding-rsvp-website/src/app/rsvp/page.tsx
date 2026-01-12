@@ -130,7 +130,7 @@ export default function RSVPPage() {
       <div className="max-w-2xl mx-auto mt-12">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 dark:text-white mb-2 sm:mb-4 leading-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-primary-900 mb-2 sm:mb-4 leading-tight">
             RSVP for Jenny & Karls bryllup
           </h1>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
@@ -170,7 +170,7 @@ export default function RSVPPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => router.push("/")}
+              onClick={() => router.push("/", { scroll: true })}
               className="text-xs sm:text-sm w-full sm:w-auto"
             >
               Hjem

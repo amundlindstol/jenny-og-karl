@@ -46,7 +46,7 @@ export default function Home() {
     <MainLayout>
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative py-12 sm:py-16 lg:py-20 px-4 text-center overflow-hidden">
+        <section className="relative py-1 sm:py-4 lg:py-8 px-4 text-center overflow-hidden">
           {/* Background decoration */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-20 left-10 w-32 h-32 bg-primary-300 dark:bg-primary-700 rounded-full blur-3xl animate-pulse"></div>
@@ -57,7 +57,7 @@ export default function Home() {
           </div>
 
           <div className="max-w-4xl mx-auto relative z-10">
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-6 sm:mb-8 font-light px-4 sm:px-0 animate-slide-in-up">
+            <p className="text-lg sm:text-xl md:text-2xl text-primary-950 mb-6 sm:mb-8 font-light px-4 sm:px-0 animate-slide-in-up">
               Sammen med våre familier inviterer vi deg til å feire vårt bryllup
             </p>
 
@@ -106,7 +106,6 @@ export default function Home() {
               </h2>
               {existingRSVP ? (
                 <Button
-                  type="submit"
                   className="w-full"
                   size="lg"
                   onClick={() => router.push("/rsvp")}
@@ -287,7 +286,7 @@ export default function Home() {
                     Overnatting
                   </h3>
                 </div>
-                <div className="space-y-3 sm:space-y-4 text-gray-600 dark:text-gray-300">
+                <div className="space-y-3 sm:space-y-2 text-gray-600 dark:text-gray-300">
                   <div className="bg-white/50 dark:bg-gray-800/50 p-3 rounded-lg">
                     <p className="font-medium text-gray-800 dark:text-gray-100">
                       Det Lille Hotel
@@ -329,6 +328,12 @@ export default function Home() {
                         37148000
                       </Link>
                     </p>
+                  </div>
+                  <div className="bg-white/50 dark:bg-gray-800/50 p-3 rounded-lg">
+                    <p className="font-medium text-gray-800 dark:text-gray-100">
+                      Grøfta
+                    </p>
+                    <p className="text-sm">I nærheten</p>
                   </div>
                   {/*<p className="text-sm italic text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/50 p-2 rounded animate-pulse">*/}
                   {/*  Vennligst book innen 15. mai for gruppepriser*/}

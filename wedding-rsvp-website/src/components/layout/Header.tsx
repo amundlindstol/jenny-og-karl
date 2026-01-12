@@ -1,16 +1,18 @@
-// src/components/layout/Header.tsx
 import React from "react";
 import { text } from "@/lib/strings";
 import { clsx } from "clsx";
 
 export function Header() {
-  const [atTop, setAtTop] = React.useState(true);
+  const [atTop, setAtTop] = React.useState(window?.scrollY === 0);
 
   React.useEffect(() => {
     const onScroll = () => setAtTop(window.scrollY === 0);
     onScroll(); // initialize
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (

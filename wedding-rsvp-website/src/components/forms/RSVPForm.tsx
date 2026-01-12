@@ -21,6 +21,7 @@ import { fetchWithRecovery, NetworkErrorType } from "@/lib/network-recovery";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { text } from "@/lib/strings";
+import { clsx } from "clsx";
 
 interface RSVPFormProps {
   guestEntry: GuestEntry;
@@ -240,7 +241,7 @@ export function RSVPForm({
         <Card variant="elevated">
           <CardHeader>
             <CardTitle className="text-lg sm:text-xl">
-              RSVP for {guestEntry.invitationCode}
+              RSVP for kode: {guestEntry.invitationCode}
             </CardTitle>
             <p className="text-primary-600 dark:text-primary-400 text-sm sm:text-base">
               Vennligst la oss vite om du blir med oss på vår dag!
@@ -328,34 +329,40 @@ export function RSVPForm({
                   </span>
                 </label>
 
-                {wantsToSpeak && (
-                  <div className="pl-8 animate-fade-in">
-                    <Input
-                      label="Estimert varighet i minutter. Anbefalt lengede er 1-3 minutter."
-                      type="number"
-                      required
-                      min={1}
-                      max={5}
-                      value={formData.speechInMinutes ?? ""}
-                      onChange={handleSpeechInMinutesChange}
-                      placeholder="F.eks. 2"
-                      error={getFieldError("speechInMinutes")}
-                      disabled={isSubmitting}
-                      className="max-w-[200px]"
-                    />
-                    <p
-                      className={
-                        "mt-4 text-primary-600 dark:text-primary-400 text-sm sm:text-base"
-                      }
+                <div
+                  className={clsx(
+                    "pl-8 animate-fade-out",
+                    !wantsToSpeak && "hidden",
+                  )}
+                >
+                  <Input
+                    label="Estimert varighet i minutter. Anbefalt lengede er 1-3 minutter."
+                    type="number"
+                    required={wantsToSpeak}
+                    min={1}
+                    max={5}
+                    value={formData.speechInMinutes ?? ""}
+                    onChange={handleSpeechInMinutesChange}
+                    placeholder="F.eks. 2"
+                    error={getFieldError("speechInMinutes")}
+                    disabled={isSubmitting}
+                    className="max-w-[200px]"
+                  />
+                  <p
+                    className={
+                      "mt-4 text-primary-600 dark:text-primary-400 text-sm sm:text-base"
+                    }
+                  >
+                    Trenger du mer tid, eller har lyst til å bidra med et
+                    spesielt innslag, ta kontakt med toastmaster på{" "}
+                    <Link
+                      href={`mailto:${text.contactToastmaster}`}
+                      className={"text-primary-900 hover:text-primary-400"}
                     >
-                      Trenger du mer tid, eller har lyst til å bidra med et
-                      spesielt innslag, ta kontakt med toastmaster på{" "}
-                      <Link href={`mailto:${text.contactToastmaster}`}>
-                        {text.contactToastmaster}
-                      </Link>
-                    </p>
-                  </div>
-                )}
+                      {text.contactToastmaster}
+                    </Link>
+                  </p>
+                </div>
               </div>
 
               {/* Submit Error */}
@@ -397,7 +404,7 @@ export function RSVPForm({
               )}
 
               {/* Form Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-primary-200 dark:border-primary-800">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 {onCancel && (
                   <Button
                     type="button"

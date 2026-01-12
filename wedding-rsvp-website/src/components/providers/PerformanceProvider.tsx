@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { WebVitalsMonitor, LoadingMonitor } from '@/lib/performance';
-import { logger } from '@/lib/logger';
+import { useEffect } from "react";
+import { LoadingMonitor, WebVitalsMonitor } from "@/lib/performance";
+import { logger } from "@/lib/logger";
 
 interface PerformanceProviderProps {
   children: React.ReactNode;
@@ -10,20 +10,25 @@ interface PerformanceProviderProps {
 
 export function PerformanceProvider({ children }: PerformanceProviderProps) {
   useEffect(() => {
+    if (process.env.PERFORMANCE_MONITORING_ENABLED !== "true") return;
+
     // Initialize performance monitoring
     try {
       WebVitalsMonitor.init();
       LoadingMonitor.logPageLoad();
       LoadingMonitor.logResourceLoading();
-      
-      logger.info('Performance monitoring initialized');
+
+      logger.info("Performance monitoring initialized");
     } catch (error) {
-      logger.error('Failed to initialize performance monitoring', error as Error);
+      logger.error(
+        "Failed to initialize performance monitoring",
+        error as Error,
+      );
     }
 
     // Global error handler for unhandled errors
     const handleError = (event: ErrorEvent) => {
-      logger.error('Unhandled JavaScript error', undefined, {
+      logger.error("Unhandled JavaScript error", undefined, {
         message: event.message,
         filename: event.filename,
         lineno: event.lineno,
@@ -34,20 +39,23 @@ export function PerformanceProvider({ children }: PerformanceProviderProps) {
 
     // Global handler for unhandled promise rejections
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      logger.error('Unhandled promise rejection', undefined, {
+      logger.error("Unhandled promise rejection", undefined, {
         reason: event.reason,
         stack: event.reason?.stack,
       });
     };
 
     // Add global error listeners
-    window.addEventListener('error', handleError);
-    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    window.addEventListener("error", handleError);
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
 
     // Cleanup
     return () => {
-      window.removeEventListener('error', handleError);
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener("error", handleError);
+      window.removeEventListener(
+        "unhandledrejection",
+        handleUnhandledRejection,
+      );
     };
   }, []);
 

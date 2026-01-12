@@ -26,7 +26,7 @@ export class PerformanceMonitor {
 
     const duration = performance.now() - startTime;
     this.timers.delete(operation);
-    
+
     logger.performance(operation, duration, context);
     return duration;
   }
@@ -83,10 +83,10 @@ export class WebVitalsMonitor {
 
     // Monitor Largest Contentful Paint (LCP)
     this.observeLCP();
-    
+
     // Monitor First Input Delay (FID)
     this.observeFID();
-    
+
     // Monitor Cumulative Layout Shift (CLS)
     this.observeCLS();
   }
@@ -96,13 +96,13 @@ export class WebVitalsMonitor {
       const observer = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1];
-        
+
         logger.performance('LCP', lastEntry.startTime, {
           metric: 'Largest Contentful Paint',
           element: (lastEntry as any).element?.tagName,
         });
       });
-      
+
       observer.observe({ entryTypes: ['largest-contentful-paint'] });
     }
   }
@@ -119,7 +119,7 @@ export class WebVitalsMonitor {
           });
         });
       });
-      
+
       observer.observe({ entryTypes: ['first-input'] });
     }
   }
@@ -127,7 +127,7 @@ export class WebVitalsMonitor {
   private static observeCLS(): void {
     if ('PerformanceObserver' in window) {
       let clsValue = 0;
-      
+
       const observer = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach((entry) => {
@@ -135,12 +135,12 @@ export class WebVitalsMonitor {
             clsValue += (entry as any).value;
           }
         });
-        
+
         logger.performance('CLS', clsValue, {
           metric: 'Cumulative Layout Shift',
         });
       });
-      
+
       observer.observe({ entryTypes: ['layout-shift'] });
     }
   }
@@ -155,7 +155,7 @@ export class LoadingMonitor {
 
     window.addEventListener('load', () => {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-      
+
       logger.performance('Page Load', navigation.loadEventEnd - navigation.fetchStart, {
         domContentLoaded: navigation.domContentLoadedEventEnd - navigation.fetchStart,
         firstByte: navigation.responseStart - navigation.fetchStart,
@@ -172,7 +172,7 @@ export class LoadingMonitor {
       entries.forEach((entry) => {
         if (entry.entryType === 'resource') {
           const resource = entry as PerformanceResourceTiming;
-          
+
           // Log slow resources (> 1 second)
           if (resource.duration > 1000) {
             logger.warn('Slow resource loading detected', {
@@ -185,7 +185,7 @@ export class LoadingMonitor {
         }
       });
     });
-    
+
     observer.observe({ entryTypes: ['resource'] });
   }
 }
