@@ -5,7 +5,7 @@ import { z } from "zod";
 // RSVP Status enum
 export const RSVPStatus = {
   PENDING: "pending",
-  ATTENDING: "attending",
+  ATTENDING: "is_attending",
   NOT_ATTENDING: "not_attending",
 } as const;
 
@@ -79,7 +79,7 @@ export const invitationCodeSchema = z
 // RSVP Status validation
 export const rsvpStatusSchema = z.enum([
   "pending",
-  "attending",
+  "is_attending",
   "not_attending",
 ]);
 

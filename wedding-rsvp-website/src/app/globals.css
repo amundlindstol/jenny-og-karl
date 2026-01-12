@@ -285,6 +285,10 @@ button, input, textarea, select, a {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+input {
+  accent-color: var(--primary-900);
+}
+
 /* Enhanced card shadows */
 .card-shadow {
   box-shadow: var(--shadow-elegant);

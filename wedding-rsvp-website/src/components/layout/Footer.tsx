@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { text } from "@/lib/strings";
 
 export function Footer() {
   return (
@@ -9,21 +10,21 @@ export function Footer() {
             <h3 className="text-lg sm:text-xl font-serif mb-2">Spørsmål?</h3>
             <div className="space-y-2">
               <p className="text-primary-200 text-sm sm:text-base">
-                Kontakt oss på{' '}
-                <a 
-                  href="mailto:jenny.karl.bryllup@example.com" 
+                Kontakt oss på{" "}
+                <a
+                  href={`mailto:${text.contactEmail}`}
                   className="text-primary-300 hover:text-white transition-colors underline break-all"
                 >
-                  jenny.karl.bryllup@example.com
+                  {text.contactEmail}
                 </a>
               </p>
               <p className="text-primary-200 text-sm sm:text-base">
-                Eller ring Jenny på{' '}
-                <a 
-                  href="tel:+4712345678" 
+                Eller ring Jenny på{" "}
+                <a
+                  href={`tel:${text.contactPhone}`}
                   className="text-primary-300 hover:text-white transition-colors"
                 >
-                  +47 12 34 56 78
+                  {text.contactPhone}
                 </a>
               </p>
             </div>

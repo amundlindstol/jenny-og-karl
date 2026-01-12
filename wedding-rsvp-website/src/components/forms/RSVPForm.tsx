@@ -19,6 +19,8 @@ import type {
 import { rsvpFormDataSchema } from "@/types";
 import { fetchWithRecovery, NetworkErrorType } from "@/lib/network-recovery";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { text } from "@/lib/strings";
 
 interface RSVPFormProps {
   guestEntry: GuestEntry;
@@ -38,7 +40,7 @@ export function RSVPForm({
     invitationCode: guestEntry.invitationCode,
     guests: guestEntry.guestNames.map((name, index) => ({
       name,
-      attending: guestEntry.guestStatuses?.[index] === "attending",
+      attending: guestEntry.guestStatuses?.[index] === "is_attending",
       dietaryRestrictions:
         guestEntry.dietaryRestrictions
           ?.find((it) => it.toLowerCase().startsWith(name.toLowerCase() + ":"))
@@ -329,7 +331,7 @@ export function RSVPForm({
                 {wantsToSpeak && (
                   <div className="pl-8 animate-fade-in">
                     <Input
-                      label="Estimert varighet. Anbefalt lengede er 1-3 minutter."
+                      label="Estimert varighet i minutter. Anbefalt lengede er 1-3 minutter."
                       type="number"
                       required
                       min={1}
@@ -338,10 +340,20 @@ export function RSVPForm({
                       onChange={handleSpeechInMinutesChange}
                       placeholder="F.eks. 2"
                       error={getFieldError("speechInMinutes")}
-                      helperText="Dette hjelper oss med planlegging av programmet. Trenger du mer tid, ta kontakt med toastmaster."
                       disabled={isSubmitting}
                       className="max-w-[200px]"
                     />
+                    <p
+                      className={
+                        "mt-4 text-primary-600 dark:text-primary-400 text-sm sm:text-base"
+                      }
+                    >
+                      Trenger du mer tid, eller har lyst til å bidra med et
+                      spesielt innslag, ta kontakt med toastmaster på{" "}
+                      <Link href={`mailto:${text.contactToastmaster}`}>
+                        {text.contactToastmaster}
+                      </Link>
+                    </p>
                   </div>
                 )}
               </div>

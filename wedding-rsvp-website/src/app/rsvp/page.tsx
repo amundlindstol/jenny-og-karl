@@ -6,6 +6,7 @@ import { MainLayout } from "@/components/layout";
 import { RSVPForm } from "@/components/forms";
 import { Button, Card } from "@/components/ui";
 import type { GuestEntry, RSVPFormData } from "@/types";
+import { text } from "@/lib/strings";
 
 export default function RSVPPage() {
   const router = useRouter();
@@ -57,10 +58,10 @@ export default function RSVPPage() {
           const updatedGuestEntry: GuestEntry = {
             ...guestEntry,
             guestStatuses: formData.guests.map((g) =>
-              g.attending ? "attending" : "not_attending",
+              g.attending ? "is_attending" : "not_attending",
             ),
             rsvpStatus: formData.guests.some((g) => g.attending)
-              ? "attending"
+              ? "is_attending"
               : "not_attending",
             dietaryRestrictions: formData.guests
               .filter((g) => g.attending && g.dietaryRestrictions)
@@ -126,61 +127,59 @@ export default function RSVPPage() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-primary-950 dark:to-secondary-900 py-6 sm:py-8 lg:py-12 px-4">
-        <div className="max-w-2xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-6 sm:mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 dark:text-white mb-2 sm:mb-4 leading-tight">
-              RSVP for Jenny & Karls bryllup
-            </h1>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-              Lørdag, 15. juni 2024 • Vakre Bryllupslokaler
-            </p>
-          </div>
-
-          {/* Guest Information */}
-          <Card className="p-4 sm:p-6 mb-6 sm:mb-8">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-              <div className="flex-1">
-                <h2 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-white mb-2">
-                  Invitasjon til:
-                </h2>
-                <div className="space-y-1">
-                  {guestEntry.guestNames.map((name, index) => (
-                    <p
-                      key={index}
-                      className="text-sm sm:text-base text-gray-700 dark:text-gray-300"
-                    >
-                      {name}
-                    </p>
-                  ))}
-                </div>
-                <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
-                  Kode: {guestEntry.invitationCode}
-                </p>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleStartOver}
-                className="text-xs sm:text-sm w-full sm:w-auto"
-              >
-                Start på nytt og bruk annen kode
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => router.push("/")}
-                className="text-xs sm:text-sm w-full sm:w-auto"
-              >
-                Hjem
-              </Button>
-            </div>
-          </Card>
-
-          {/* RSVP Form */}
-          <RSVPForm guestEntry={guestEntry} onSubmit={handleRSVPSubmit} />
+      <div className="max-w-2xl mx-auto mt-12">
+        {/* Header */}
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-gray-800 dark:text-white mb-2 sm:mb-4 leading-tight">
+            RSVP for Jenny & Karls bryllup
+          </h1>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+            {text.weddingDate} • {text.venue}
+          </p>
         </div>
+
+        {/* Guest Information */}
+        <Card className="p-4 sm:p-6 mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+            <div className="flex-1">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-800 dark:text-white mb-2">
+                Invitasjon til:
+              </h2>
+              <div className="space-y-1">
+                {guestEntry.guestNames.map((name, index) => (
+                  <p
+                    key={index}
+                    className="text-sm sm:text-base text-gray-700 dark:text-gray-300"
+                  >
+                    {name}
+                  </p>
+                ))}
+              </div>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-2">
+                Kode: {guestEntry.invitationCode}
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleStartOver}
+              className="text-xs sm:text-sm w-full sm:w-auto"
+            >
+              Start på nytt og bruk annen kode
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => router.push("/")}
+              className="text-xs sm:text-sm w-full sm:w-auto"
+            >
+              Hjem
+            </Button>
+          </div>
+        </Card>
+
+        {/* RSVP Form */}
+        <RSVPForm guestEntry={guestEntry} onSubmit={handleRSVPSubmit} />
       </div>
     </MainLayout>
   );

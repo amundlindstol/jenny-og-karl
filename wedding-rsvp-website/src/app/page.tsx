@@ -7,6 +7,8 @@ import { InvitationCodeForm } from "@/components/forms";
 import { FormErrorBoundary } from "@/components/error";
 import { Button, Card, InfoCard, useToast } from "@/components/ui";
 import type { GuestEntry } from "@/types";
+import { text } from "@/lib/strings";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -37,6 +39,9 @@ export default function Home() {
     }
   };
 
+  const linkClassName =
+    "text-primary-600 dark:text-primary-400 hover:text-primary-900 dark:hover:text-primary-300 underline transition-colors";
+
   return (
     <MainLayout>
       <div className="min-h-screen">
@@ -52,9 +57,6 @@ export default function Home() {
           </div>
 
           <div className="max-w-4xl mx-auto relative z-10">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-gray-800 mb-4 sm:mb-6 leading-tight animate-fade-in gradient-text">
-              Jenny & Karl
-            </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-6 sm:mb-8 font-light px-4 sm:px-0 animate-slide-in-up">
               Sammen med våre familier inviterer vi deg til å feire vårt bryllup
             </p>
@@ -67,7 +69,7 @@ export default function Home() {
                     Dato & Tid
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    Lørdag, 15. juni 2024
+                    {text.weddingDate}
                     <br />
                     16:00 Vielse
                     <br />
@@ -79,11 +81,16 @@ export default function Home() {
                     Lokale
                   </h3>
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                    Vakre Bryllupslokaler
+                    {text.venue}
                     <br />
-                    Bryllupsgata 123
-                    <br />
-                    Oslo, Norge 0123
+                    <Link
+                      href={text.addressUrl}
+                      rel={"noreferrer noopener"}
+                      target={"_blank"}
+                      className={linkClassName}
+                    >
+                      {text.address}
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -225,31 +232,32 @@ export default function Home() {
                 <div className="space-y-3 sm:space-y-4 text-gray-600 dark:text-gray-300">
                   <div>
                     <p className="font-medium text-gray-800 dark:text-gray-100">
-                      Adresse:
+                      Adresse
                     </p>
                     <p className="text-sm sm:text-base">
-                      Vakre Bryllupslokaler
+                      {text.venue}
                       <br />
-                      Bryllupsgata 123
-                      <br />
-                      Oslo, Norge 0123
+                      <Link
+                        href={text.addressUrl}
+                        rel={"noreferrer noopener"}
+                        target={"_blank"}
+                        className={linkClassName}
+                      >
+                        {text.address}
+                      </Link>
                     </p>
                   </div>
                   <div>
                     <p className="font-medium text-gray-800 dark:text-gray-100">
-                      Parkering:
+                      Parkering
                     </p>
-                    <p className="text-sm sm:text-base">
-                      Gratis valet-parkering tilgjengelig på stedet
-                    </p>
+                    <p className="text-sm sm:text-base">Grøfta</p>
                   </div>
                   <div>
                     <p className="font-medium text-gray-800 dark:text-gray-100">
-                      Transport:
+                      Transport
                     </p>
-                    <p className="text-sm sm:text-base">
-                      Shuttleservice tilgjengelig fra hoteller i sentrum
-                    </p>
+                    <p className="text-sm sm:text-base">Føtta</p>
                   </div>
                 </div>
               </Card>
@@ -282,23 +290,49 @@ export default function Home() {
                 <div className="space-y-3 sm:space-y-4 text-gray-600 dark:text-gray-300">
                   <div className="bg-white/50 dark:bg-gray-800/50 p-3 rounded-lg">
                     <p className="font-medium text-gray-800 dark:text-gray-100">
-                      Grand Hotel Sentrum
+                      Det Lille Hotel
                     </p>
-                    <p className="text-sm">Hovedgata 456 • 22 12 34 56</p>
                     <p className="text-sm">
-                      Gruppepris tilgjengelig med kode: JENNY2024
+                      <Link
+                        href={"https://maps.app.goo.gl/5a8SdjGcnbduGb9b9"}
+                        rel={"noreferrer noopener"}
+                        target={"_blank"}
+                        className={linkClassName}
+                      >
+                        Strandgata 10
+                      </Link>{" "}
+                      •{" "}
+                      <Link href={"tel:+4737151495"} className={linkClassName}>
+                        37151495
+                      </Link>
                     </p>
                   </div>
                   <div className="bg-white/50 dark:bg-gray-800/50 p-3 rounded-lg">
                     <p className="font-medium text-gray-800 dark:text-gray-100">
-                      Garden Inn & Suites
+                      Risør Hotell
                     </p>
-                    <p className="text-sm">Parkveien 789 • 22 98 76 54</p>
-                    <p className="text-sm">Gratis frokost inkludert</p>
+                    <p className="text-sm">
+                      <Link
+                        href={"https://maps.app.goo.gl/7We7BZgh1cyG4nRh7"}
+                        rel={"noreferrer noopener"}
+                        target={"_blank"}
+                        className={linkClassName}
+                      >
+                        Tangengata 16, 4950 Risør
+                      </Link>{" "}
+                      •{" "}
+                      <Link
+                        href={"tel:+4737148000"}
+                        rel={"noreferrer noopener"}
+                        className={linkClassName}
+                      >
+                        37148000
+                      </Link>
+                    </p>
                   </div>
-                  <p className="text-sm italic text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/50 p-2 rounded animate-pulse">
-                    Vennligst book innen 15. mai for gruppepriser
-                  </p>
+                  {/*<p className="text-sm italic text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900/50 p-2 rounded animate-pulse">*/}
+                  {/*  Vennligst book innen 15. mai for gruppepriser*/}
+                  {/*</p>*/}
                 </div>
               </Card>
             </div>
@@ -395,10 +429,10 @@ export default function Home() {
                   <>
                     Vennligst kontakt oss på{" "}
                     <a
-                      href="mailto:jenny.karl.bryllup@email.com"
+                      href={`mailto:${text.contactEmail}`}
                       className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all transition-colors"
                     >
-                      jenny.karl.bryllup@email.com
+                      {text.contactEmail}
                     </a>
                   </>
                 }

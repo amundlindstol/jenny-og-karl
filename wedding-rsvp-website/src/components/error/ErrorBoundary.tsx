@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import React, {Component, ReactNode} from 'react';
-import {Button} from '@/components/ui';
+import React, { Component, ReactNode } from "react";
+import { Button } from "@/components/ui";
+import { text } from "@/lib/strings";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -11,11 +12,18 @@ interface ErrorBoundaryState {
 
 interface ErrorBoundaryProps {
   children: ReactNode;
-  fallback?: (error: Error, errorInfo: React.ErrorInfo, retry: () => void) => ReactNode;
+  fallback?: (
+    error: Error,
+    errorInfo: React.ErrorInfo,
+    retry: () => void,
+  ) => ReactNode;
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
@@ -30,11 +38,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log error to console and external service
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
+
     // Call optional error handler
     this.props.onError?.(error, errorInfo);
-    
+
     this.setState({
       error,
       errorInfo,
@@ -49,7 +57,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     if (this.state.hasError && this.state.error && this.state.errorInfo) {
       // Use custom fallback if provided
       if (this.props.fallback) {
-        return this.props.fallback(this.state.error, this.state.errorInfo, this.handleRetry);
+        return this.props.fallback(
+          this.state.error,
+          this.state.errorInfo,
+          this.handleRetry,
+        );
       }
 
       // Default error UI
@@ -58,8 +70,18 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           <div className="max-w-md mx-auto bg-white dark:bg-stone-900 rounded-lg shadow-lg p-6 text-center border border-red-200 dark:border-red-900/50">
             {/* Error Icon */}
             <div className="w-12 h-12 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-6 h-6 text-red-600 dark:text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             </div>
 
@@ -70,7 +92,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
             {/* Error Message */}
             <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
-              Vi støtte på en uventet feil. Vennligst prøv å oppdatere siden eller kontakt oss hvis problemet vedvarer.
+              Vi støtte på en uventet feil. Vennligst prøv å oppdatere siden
+              eller kontakt oss hvis problemet vedvarer.
             </p>
 
             {/* Action Buttons */}
@@ -78,9 +101,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               <Button onClick={this.handleRetry} className="w-full" size="sm">
                 Prøv igjen
               </Button>
-              <Button 
-                onClick={() => window.location.reload()} 
-                variant="outline" 
+              <Button
+                onClick={() => window.location.reload()}
+                variant="outline"
                 className="w-full"
                 size="sm"
               >
@@ -91,9 +114,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             {/* Contact Info */}
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Trenger hjelp?{' '}
-                <a 
-                  href="mailto:jenny.karl.bryllup@email.com" 
+                Trenger hjelp?{" "}
+                <a
+                  href={`mailto:${text.contactEmail}`}
                   className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline"
                 >
                   Kontakt oss
