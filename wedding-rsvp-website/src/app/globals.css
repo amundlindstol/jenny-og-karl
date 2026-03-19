@@ -2,37 +2,37 @@
 
 :root {
   --background: #faf8f6;
-  --foreground: #433422;
-  
-  /* Wedding color palette: Delightful Brown/Beige */
-  --primary-50: #fdfaf7;
-  --primary-100: #f7f0e8;
-  --primary-200: #eee0d1;
-  --primary-300: #dec6ab;
-  --primary-400: #c9a382;
-  --primary-500: #b88a64;
-  --primary-600: #a5744f;
-  --primary-700: #8a5e41;
-  --primary-800: #714e38;
-  --primary-900: #5c4130;
-  --primary-950: #312119;
-  
-  --secondary-50: #fcfbf9;
-  --secondary-100: #f5f2ed;
-  --secondary-200: #ebe4d8;
-  --secondary-300: #d9ccb6;
-  --secondary-400: #bfa88c;
-  --secondary-500: #a68b6a;
-  --secondary-600: #8c7154;
-  --secondary-700: #735c45;
-  --secondary-800: #5e4b39;
-  --secondary-900: #4d3e2f;
-  --secondary-950: #292018;
+  --foreground: #2c3a2d;
+
+  /* Wedding color palette: Olive / Sage Green */
+  --primary-50:  #e9f5db;
+  --primary-100: #e9f5db;
+  --primary-200: #CFE1B9;
+  --primary-300: #B5C99A;
+  --primary-400: #B5C99A;
+  --primary-500: #97A97C;
+  --primary-600: #97A97C;
+  --primary-700: #87986A;
+  --primary-800: #87986A;
+  --primary-900: #718355;
+  --primary-950: #718355;
+
+  --secondary-50:  #f7f0e8;
+  --secondary-100: #eee0d1;
+  --secondary-200: #dec6ab;
+  --secondary-300: #c9a382;
+  --secondary-400: #c9a382;
+  --secondary-500: #c9a382;
+  --secondary-600: #c9a382;
+  --secondary-700: #c9a382;
+  --secondary-800: #c9a382;
+  --secondary-900: #c9a382;
+  --secondary-950: #c9a382;
 
   /* Elegant shadows */
-  --shadow-elegant: 0 4px 6px -1px rgba(67, 52, 34, 0.05), 0 2px 4px -1px rgba(67, 52, 34, 0.03);
-  --shadow-elegant-lg: 0 10px 15px -3px rgba(67, 52, 34, 0.07), 0 4px 6px -2px rgba(67, 52, 34, 0.04);
-  --shadow-elegant-xl: 0 20px 25px -5px rgba(67, 52, 34, 0.1), 0 10px 10px -5px rgba(67, 52, 34, 0.04);
+  --shadow-elegant: 0 4px 6px -1px rgba(44, 58, 45, 0.05), 0 2px 4px -1px rgba(44, 58, 45, 0.03);
+  --shadow-elegant-lg: 0 10px 15px -3px rgba(44, 58, 45, 0.07), 0 4px 6px -2px rgba(44, 58, 45, 0.04);
+  --shadow-elegant-xl: 0 20px 25px -5px rgba(44, 58, 45, 0.1), 0 10px 10px -5px rgba(44, 58, 45, 0.04);
 }
 
 @theme inline {
@@ -75,39 +75,6 @@
 }
 
 @variant dark (&:where(.dark, .dark *));
-
-.dark {
-  --background: #1c1917;
-  --foreground: #f5f5f4;
-
-  --primary-50: #312119;
-  --primary-100: #5c4130;
-  --primary-200: #714e38;
-  --primary-300: #8a5e41;
-  --primary-400: #a5744f;
-  --primary-500: #b88a64;
-  --primary-600: #c9a382;
-  --primary-700: #dec6ab;
-  --primary-800: #eee0d1;
-  --primary-900: #f7f0e8;
-  --primary-950: #fdfaf7;
-
-  --secondary-50: #292018;
-  --secondary-100: #4d3e2f;
-  --secondary-200: #5e4b39;
-  --secondary-300: #735c45;
-  --secondary-400: #8c7154;
-  --secondary-500: #a68b6a;
-  --secondary-600: #bfa88c;
-  --secondary-700: #d9ccb6;
-  --secondary-800: #ebe4d8;
-  --secondary-900: #f5f2ed;
-  --secondary-950: #fcfbf9;
-
-  --shadow-elegant: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --shadow-elegant-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  --shadow-elegant-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-}
 
 /* Base styles */
 * {

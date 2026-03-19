@@ -62,7 +62,7 @@ export default function Home() {
             </p>
 
             {/* Wedding Date & Venue */}
-            <div className="glass rounded-2xl p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12 shadow-xl mx-4 sm:mx-0 animate-scale-in hover-lift">
+            <div className="glass rounded-2xl p-4 sm:p-6 lg:p-8 mb-8 sm:mb-12 shadow-xl animate-scale-in hover-lift">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 <div className="text-center sm:text-left">
                   <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2 font-serif">
@@ -71,7 +71,7 @@ export default function Home() {
                   <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     {text.weddingDate}
                     <br />
-                    16:00 Vielse
+                    13:00 Vielse
                     <br />
                     18:00 Bryllupsfest
                   </p>
@@ -163,7 +163,7 @@ export default function Home() {
                 style={{ animationDelay: "0.2s" }}
               >
                 <div className="w-14 h-14 bg-gradient-to-r from-primary-500 to-secondary-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white font-bold">16:00</span>
+                  <span className="text-white font-bold">13:00</span>
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-2 font-serif">
                   Vielse

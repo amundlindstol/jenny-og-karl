@@ -3,7 +3,9 @@ import { text } from "@/lib/strings";
 import { clsx } from "clsx";
 
 export function Header() {
-  const [atTop, setAtTop] = React.useState(window?.scrollY === 0);
+  const [atTop, setAtTop] = React.useState(
+    typeof window !== "undefined" ? window?.scrollY === 0 : true,
+  );
 
   React.useEffect(() => {
     const onScroll = () => setAtTop(window.scrollY === 0);
