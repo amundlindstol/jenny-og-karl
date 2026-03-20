@@ -19,6 +19,8 @@ import {
   rsvpFormDataSchema,
 } from "../types";
 
+const SPEECH_SHEET_NAME = "Taler";
+
 // Google Sheets column mapping (based on design document)
 const SHEET_COLUMNS = {
   INVITATION_CODE: "A",
@@ -518,6 +520,61 @@ export class SheetsService {
       // If validation fails, return the raw entry but log the error
       console.warn("Failed to validate guest entry from spreadsheet:", error);
       return rawEntry;
+    }
+  }
+
+  /**
+   * Register a speech in the Taler sheet
+   */
+  async registerSpeech(data: {
+    name: string;
+    email?: string;
+    durationMinutes: number;
+    message?: string;
+  }): Promise<boolean> {
+    try {
+      logger.info("Registering speech", { name: data.name });
+
+      const submissionDate = new Date().toISOString();
+      const values = [
+        [data.name, data.email || "", data.durationMinutes.toString(), data.message || "", submissionDate],
+      ];
+
+      // Ensure header row exists by checking first
+      const existing = await withRetry(async () => {
+        return await this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: `${SPEECH_SHEET_NAME}!A1:E1`,
+        });
+      });
+
+      const rows = existing.data.values || [];
+      if (rows.length === 0) {
+        // Write header first
+        await withRetry(async () => {
+          await this.sheets.spreadsheets.values.update({
+            spreadsheetId: this.spreadsheetId,
+            range: `${SPEECH_SHEET_NAME}!A1:E1`,
+            valueInputOption: "RAW",
+            resource: { values: [["Navn", "E-post", "Varighet (min)", "Melding", "Registrert"]] },
+          });
+        });
+      }
+
+      await withRetry(async () => {
+        await this.sheets.spreadsheets.values.append({
+          spreadsheetId: this.spreadsheetId,
+          range: `${SPEECH_SHEET_NAME}!A:E`,
+          valueInputOption: "RAW",
+          resource: { values },
+        });
+      });
+
+      logger.info("Speech registered successfully", { name: data.name });
+      return true;
+    } catch (error) {
+      logger.error("Failed to register speech", error as Error);
+      throw handleSheetsError(error);
     }
   }
 

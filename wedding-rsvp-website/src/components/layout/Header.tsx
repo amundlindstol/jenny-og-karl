@@ -1,11 +1,11 @@
+"use client";
+
 import React from "react";
 import { text } from "@/lib/strings";
 import { clsx } from "clsx";
 
 export function Header() {
-  const [atTop, setAtTop] = React.useState(
-    typeof window !== "undefined" ? window?.scrollY === 0 : true,
-  );
+  const [atTop, setAtTop] = React.useState(window?.scrollY === 0);
 
   React.useEffect(() => {
     const onScroll = () => setAtTop(window.scrollY === 0);
@@ -37,7 +37,7 @@ export function Header() {
             Jenny 💕 Karl
           </h1>
           <p className="text-sm sm:text-base lg:text-lg text-primary-700 dark:text-primary-300 font-light px-2 sm:px-0 transition-opacity duration-300">
-            {text.weddingDate} • {text.venue}
+            {text.weddingDate} • {text.churchName}
           </p>
         </div>
       </div>

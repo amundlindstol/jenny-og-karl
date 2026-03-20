@@ -356,10 +356,10 @@ export function RSVPForm({
                     Trenger du mer tid, eller har lyst til å bidra med et
                     spesielt innslag, ta kontakt med toastmaster på{" "}
                     <Link
-                      href={`mailto:${text.contactToastmaster}`}
+                      href={`mailto:${text.contactEmailToastmaster}`}
                       className={"text-primary-900 hover:text-primary-400"}
                     >
-                      {text.contactToastmaster}
+                      {text.contactEmailToastmaster}
                     </Link>
                   </p>
                 </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { MainLayout } from "@/components/layout";
 import { Button, Card } from "@/components/ui";
 import type { RSVPFormData } from "@/types";
+import { text } from "@/lib/strings";
 
 export default function ConfirmationPage() {
   const router = useRouter();
@@ -203,10 +204,10 @@ export default function ConfirmationPage() {
             <p>
               • For spørsmål, kontakt oss på{" "}
               <a
-                href="mailto:sarah.michael.wedding@email.com"
+                href={`mailto:${text.contactEmail}`}
                 className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all"
               >
-                sarah.michael.wedding@email.com
+                {text.contactEmail}
               </a>
             </p>
           </div>
@@ -236,7 +237,7 @@ export default function ConfirmationPage() {
             <p>4:00 PM Ceremony • 6:00 PM Reception</p>
             <p>Beautiful Wedding Venue</p>
             <p className="text-xs sm:text-sm mt-2">
-              Vi ser frem til å feire med deg! 💕
+              Vi ser frem til å feire med deg! 💚
             </p>
           </div>
         </div>
