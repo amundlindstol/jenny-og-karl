@@ -32,9 +32,6 @@
    GOOGLE_SHEETS_PRIVATE_KEY=<your_service_account_private_key>
    GOOGLE_SHEETS_CLIENT_EMAIL=<your_service_account_email>
    GOOGLE_SHEETS_SPREADSHEET_ID=<your_spreadsheet_id>
-   NEXT_PUBLIC_WEDDING_DATE=<your_wedding_date>
-   NEXT_PUBLIC_VENUE_NAME=<your_venue_name>
-   NEXT_PUBLIC_VENUE_ADDRESS=<your_venue_address>
    ```
 
    **Important Notes:**

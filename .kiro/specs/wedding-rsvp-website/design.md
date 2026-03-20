@@ -191,8 +191,6 @@ interface RSVPFormData {
 GOOGLE_SHEETS_PRIVATE_KEY=<service_account_private_key>
 GOOGLE_SHEETS_CLIENT_EMAIL=<service_account_email>
 GOOGLE_SHEETS_SPREADSHEET_ID=<target_spreadsheet_id>
-NEXT_PUBLIC_WEDDING_DATE=<wedding_date>
-NEXT_PUBLIC_VENUE_NAME=<venue_name>
 ```
 
 ### Google Sheets Setup
