@@ -2,7 +2,9 @@ import React from "react";
 
 export function PrePartySignup() {
   const [input, setInput] = React.useState("");
-  const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = React.useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [message, setMessage] = React.useState("");
 
   async function handleSubmit(e: React.FormEvent) {
@@ -23,7 +25,9 @@ export function PrePartySignup() {
       const data = await res.json();
       if (res.ok) {
         setStatus("success");
-        setMessage(`Takk! ${names.length === 1 ? names[0] : names.length + " personer"} er påmeldt.`);
+        setMessage(
+          `Takk! ${names.length === 1 ? names[0] : names.length + " personer"} er påmeldt.`,
+        );
         setInput("");
       } else {
         setStatus("error");
@@ -44,7 +48,8 @@ export function PrePartySignup() {
   return (
     <form onSubmit={handleSubmit} className="mt-5 text-left">
       <label className="block text-sm text-primary-700 mb-1 font-medium">
-        Hvem kommer? Skriv ett navn per linje
+        <p className={"font-bold"}>Hvem kommer?</p> Skriv ett navn per linje
+        slik at vi vet omtrent hvor mange som møter opp.
       </label>
       <textarea
         value={input}

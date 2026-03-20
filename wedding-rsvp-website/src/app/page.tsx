@@ -80,11 +80,6 @@ export default function Home() {
             </h2>
             <div className="glass rounded-xl px-6 py-4 inline-block shadow-elegant w-full max-w-md">
               <p className="font-serif text-primary-900">{text.prePartyName}</p>
-              <p className="text-primary-700 mb-4 leading-relaxed">
-                Fredag {text.prePartyDate} kl. {text.prePartyTime} har vi booket{" "}
-                <span className="font-medium">{text.prePartyName}</span> for en
-                uformell sammenkomst kvelden før. Alle er hjertelig velkomne!
-              </p>
               <Link
                 href={text.prePartyAddressUrl}
                 target="_blank"
@@ -93,6 +88,11 @@ export default function Home() {
               >
                 {text.prePartyAddress}
               </Link>
+              <p className="text-primary-700 my-4 leading-relaxed">
+                Fredag {text.prePartyDate} kl. {text.prePartyTime} har vi booket{" "}
+                <span className="font-medium">{text.prePartyName}</span> for en
+                uformell sammenkomst.
+              </p>
               <PrePartySignup />
             </div>
           </div>
@@ -247,10 +247,10 @@ export default function Home() {
             Jeg skal holde tale!
           </Link>
           <p className="text-primary-700 mb-6 max-w-sm mx-auto leading-relaxed">
-            Vi har satt av tid til taler under middagen, og det hadde vært så
-            hyggelig å høre noen ord fra våre kjære gjester! Hvis du ønsker å
-            holde en tale eller et annet type innslag, trykk på knappen over for
-            å gi våre toastmastere beskjed.
+            Det er satt av tid til taler under middagen, og det hadde vært så
+            hyggelig å høre noen ord fra gjestene! Hvis du ønsker å holde en
+            tale eller et annet type innslag, trykk på knappen over for å gi
+            beskjed.
           </p>
         </section>
       </div>
