@@ -55,12 +55,12 @@ export default function NotFound() {
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-300">
               Contact us at{" "}
-              <a
+              <Link
                 href={`mailto:${text.contactEmail}`}
                 className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline"
               >
                 {text.contactEmail}
-              </a>
+              </Link>
             </p>
           </div>
         </Card>

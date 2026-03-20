@@ -6,6 +6,7 @@ import { MainLayout } from "@/components/layout";
 import { Button, Card } from "@/components/ui";
 import type { RSVPFormData } from "@/types";
 import { text } from "@/lib/strings";
+import Link from "next/link";
 
 export default function ConfirmationPage() {
   const router = useRouter();
@@ -203,12 +204,12 @@ export default function ConfirmationPage() {
             </p>
             <p>
               • For spørsmål, kontakt oss på{" "}
-              <a
+              <Link
                 href={`mailto:${text.contactEmail}`}
                 className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all"
               >
                 {text.contactEmail}
-              </a>
+              </Link>
             </p>
           </div>
         </Card>

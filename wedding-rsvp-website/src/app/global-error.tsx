@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui";
 import { text } from "@/lib/strings";
+import Link from "next/link";
 
 export default function GlobalError({
   error,
@@ -70,12 +71,12 @@ export default function GlobalError({
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 Contact us at{" "}
-                <a
+                <Link
                   href={`mailto:${text.contactEmail}`}
                   className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline"
                 >
                   {text.contactEmail}
-                </a>
+                </Link>
               </p>
             </div>
           </div>

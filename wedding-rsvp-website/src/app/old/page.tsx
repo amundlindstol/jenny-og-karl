@@ -433,12 +433,12 @@ export default function Home() {
                 description={
                   <>
                     Vennligst kontakt oss på{" "}
-                    <a
+                    <Link
                       href={`mailto:${text.contactEmail}`}
                       className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all transition-colors"
                     >
                       {text.contactEmail}
-                    </a>
+                    </Link>
                   </>
                 }
                 animationDelay="0.3s"

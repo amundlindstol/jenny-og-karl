@@ -3,6 +3,7 @@
 import React, { Component, ReactNode } from "react";
 import { Button } from "@/components/ui";
 import { text } from "@/lib/strings";
+import Link from "next/link";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -115,12 +116,12 @@ export class ErrorBoundary extends Component<
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Trenger hjelp?{" "}
-                <a
+                <Link
                   href={`mailto:${text.contactEmail}`}
                   className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline"
                 >
                   Kontakt oss
-                </a>
+                </Link>
               </p>
             </div>
           </div>

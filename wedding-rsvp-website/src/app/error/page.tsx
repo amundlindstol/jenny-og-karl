@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { MainLayout } from "@/components/layout";
 import { Button, Card } from "@/components/ui";
 import { text } from "@/lib/strings";
+import Link from "next/link";
 
 function ErrorContent() {
   const router = useRouter();
@@ -237,12 +238,12 @@ function ErrorContent() {
         </p>
         <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
           Send en epost til{" "}
-          <a
+          <Link
             href={`mailto:${text.contactEmail}`}
             className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 underline break-all"
           >
             {text.contactEmail}
-          </a>
+          </Link>
         </p>
       </div>
     </Card>

@@ -1,14 +1,43 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 import { MainLayout } from "@/components/layout";
 import { text } from "@/lib/strings";
 
 const linkCls =
   "text-primary-700 hover:text-primary-900 underline underline-offset-2 transition-colors";
 
+function StickyTaleButton() {
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <Link
+      href="/tale"
+      aria-label="Registrer deg for å holde tale"
+      className={[
+        "fixed bottom-6 right-6 z-50 flex items-center gap-2",
+        "bg-primary-600 hover:bg-primary-700 text-secondary-50 font-medium",
+        "px-5 py-3 rounded-full shadow-elegant transition-all duration-300",
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
+      ].join(" ")}
+    >
+      🎤 <span>Holde tale?</span>
+    </Link>
+  );
+}
+
 export default function Home() {
   return (
     <MainLayout>
+      <StickyTaleButton />
       <div className="min-h-screen">
         {/* ── Hero ── */}
         <section className="flex flex-col items-center text-center px-4 pt-4 pb-8 sm:pt-6 sm:pb-12">
@@ -212,7 +241,7 @@ export default function Home() {
             href="/tale"
             className="inline-block bg-primary-600 hover:bg-primary-700 text-secondary-50 font-medium px-8 py-3 my-4 rounded-full shadow-elegant transition-colors"
           >
-            Jeg/vi skal holde tale!
+            Jeg skal holde tale!
           </Link>
           <p className="text-primary-700 mb-6 max-w-sm mx-auto leading-relaxed">
             Vi har satt av tid til taler under middagen, og det hadde vært så

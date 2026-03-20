@@ -1,5 +1,6 @@
 import React from "react";
 import { text } from "@/lib/strings";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -11,42 +12,42 @@ export function Footer() {
             <div className="space-y-2">
               <p className="text-primary-200 text-sm sm:text-base">
                 Kontakt Jenny på{" "}
-                <a
+                <Link
                   href={`mailto:${text.contactEmail}`}
                   className="text-primary-300 hover:text-white transition-colors underline break-all"
                 >
                   {text.contactEmail}
-                </a>
+                </Link>
               </p>
               <p className="text-primary-200 text-sm sm:text-base">
                 Eller tlf:{" "}
-                <a
+                <Link
                   href={`tel:${text.contactPhone}`}
                   className="text-primary-300 hover:text-white transition-colors underline"
                 >
                   {text.contactPhone}
-                </a>
+                </Link>
               </p>
             </div>
             <h4 className={"font-serif mb-2 mt-4"}>Toastmastere</h4>
             <div className={"space-y-2"}>
               <p className="text-primary-200 text-sm sm:text-base">
                 Amund Lindstøl{" "}
-                <a
+                <Link
                   href={`mailto:${text.contactEmailToastmaster}`}
                   className="text-primary-300 hover:text-white transition-colors underline"
                 >
                   {text.contactEmailToastmaster}
-                </a>
+                </Link>
               </p>
               <p className="text-primary-200 text-sm sm:text-base">
-                Mads Pastrana{" "}
-                <a
+                Mads Vegerstøl{" "}
+                <Link
                   href={`tel:${text.contactPhoneToastmaster}`}
                   className="text-primary-300 hover:text-white transition-colors underline"
                 >
                   {text.contactPhoneToastmaster}
-                </a>
+                </Link>
               </p>
             </div>
           </div>
