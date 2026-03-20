@@ -41,9 +41,9 @@ export default function Home() {
         </section>
 
         {/* ── Kvelden før ── */}
-        <section className="px-4">
+        <section className="pb-10 sm:py-14 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="font-serif text-2xl sm:text-3xl text-primary-900 mb-3 gradient-text">
+            <h2 className="font-serif text-2xl sm:text-3xl text-primary-900 mb-8 gradient-text">
               Kvelden før bryllupet
             </h2>
             <div className="glass rounded-xl px-6 py-4 inline-block shadow-elegant">
@@ -187,23 +187,39 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── RSVP-knapp ── */}
+        {/* ── GAVE-info ── */}
+        <section className="pb-10 sm:py-14 px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="font-serif text-2xl sm:text-3xl text-primary-900 mb-3 gradient-text">
+              Gave
+            </h2>
+            <div className="glass rounded-xl px-6 py-6 shadow-elegant">
+              <p className="text-primary-700 leading-relaxed">
+                Brudeparet ønsker seg en god fest og god stemning. Dersom man
+                likevel ønsker å gi en gave, tar de gjerne imot et bidrag til
+                bryllupsreisen.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── TALE-knapp ── */}
         <section className="py-6 px-4 text-center">
           <h2 className="font-serif text-2xl sm:text-3xl text-primary-900 mb-3 gradient-text">
             Vil du holde tale?
           </h2>
-          <p className="text-primary-700 mb-6 max-w-sm mx-auto leading-relaxed">
-            Vi har satt av tid til taler under middagen, og det hadde vært så
-            hyggelig å høre noen ord fra våre kjære gjester! Hvis du ønsker å
-            holde en tale eller et annet type innslag, trykk på knappen under
-            for å gi våre toastmastere beskjed.
-          </p>
           <Link
             href="/tale"
-            className="inline-block bg-primary-600 hover:bg-primary-700 text-secondary-50 font-medium px-8 py-3 rounded-full shadow-elegant transition-colors"
+            className="inline-block bg-primary-600 hover:bg-primary-700 text-secondary-50 font-medium px-8 py-3 my-4 rounded-full shadow-elegant transition-colors"
           >
             Jeg/vi skal holde tale!
           </Link>
+          <p className="text-primary-700 mb-6 max-w-sm mx-auto leading-relaxed">
+            Vi har satt av tid til taler under middagen, og det hadde vært så
+            hyggelig å høre noen ord fra våre kjære gjester! Hvis du ønsker å
+            holde en tale eller et annet type innslag, trykk på knappen over
+            for å gi våre toastmastere beskjed.
+          </p>
         </section>
       </div>
     </MainLayout>
