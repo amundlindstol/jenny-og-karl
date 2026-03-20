@@ -7,15 +7,17 @@ import Link from "next/link";
 
 interface FormState {
   name: string;
-  email: string;
+  contact: string;
   durationMinutes: string;
+  intro: string;
   message: string;
 }
 
 const initial: FormState = {
   name: "",
-  email: "",
+  contact: "",
   durationMinutes: "",
+  intro: "",
   message: "",
 };
 
@@ -49,8 +51,9 @@ export default function TalePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name.trim(),
-          email: form.email.trim() || undefined,
+          contact: form.contact.trim() || undefined,
           durationMinutes: duration,
+          intro: form.intro.trim() || undefined,
           message: form.message.trim(),
         }),
       });
@@ -127,7 +130,7 @@ export default function TalePage() {
                     value={form.name}
                     onChange={set("name")}
                     required
-                    placeholder="Ditt fulle navn"
+                    placeholder="Navnet ditt"
                     className="w-full rounded-lg border border-primary-200 bg-secondary-50 px-4 py-2.5 text-primary-900 placeholder-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
                   />
                 </div>
@@ -135,16 +138,16 @@ export default function TalePage() {
                 <div>
                   <label
                     className="block text-sm font-medium text-primary-800 mb-1"
-                    htmlFor="email"
+                    htmlFor="contact"
                   >
-                    E-post
+                    E-post eller telefon
                   </label>
                   <input
-                    id="email"
-                    type="email"
-                    value={form.email}
-                    onChange={set("email")}
-                    placeholder="din@epost.no"
+                    id="contact"
+                    type="text"
+                    value={form.contact}
+                    onChange={set("contact")}
+                    placeholder="din@epost.no eller 99887766"
                     className="w-full rounded-lg border border-primary-200 bg-secondary-50 px-4 py-2.5 text-primary-900 placeholder-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
                   />
                 </div>
@@ -168,6 +171,31 @@ export default function TalePage() {
                     placeholder="f.eks. 2"
                     className="w-full rounded-lg border border-primary-200 bg-secondary-50 px-4 py-2.5 text-primary-900 placeholder-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition"
                   />
+                  <p className="mt-1.5 text-xs text-primary-500">
+                    Vi anbefaler 2 minutter. Og husk: litt humor i talen
+                    anbefales på det sterkeste 😄
+                  </p>
+                </div>
+
+                <div>
+                  <label
+                    className="block text-sm font-medium text-primary-800 mb-1"
+                    htmlFor="intro"
+                  >
+                    Introduksjon av deg selv (valgfritt)
+                  </label>
+                  <textarea
+                    id="intro"
+                    rows={3}
+                    value={form.intro}
+                    onChange={set("intro")}
+                    placeholder="Feks. Hvem er du og hvordan kjenner du brudeparet? Fun fact? Gjerne litt gøy! 🎉"
+                    className="w-full rounded-lg border border-primary-200 bg-secondary-50 px-4 py-2.5 text-primary-900 placeholder-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400 transition resize-none"
+                  />
+                  <p className="mt-1.5 text-xs text-primary-500">
+                    Toastmaster bruker dette til å introdusere deg før du tar
+                    ordet - så vær gjerne kreativ!
+                  </p>
                 </div>
 
                 <div>

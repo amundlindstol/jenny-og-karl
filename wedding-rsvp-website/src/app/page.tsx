@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { MainLayout } from "@/components/layout";
 import { text } from "@/lib/strings";
+import { PrePartySignup } from "@/components/forms/PrePartySignup";
 
 const linkCls =
   "text-primary-700 hover:text-primary-900 underline underline-offset-2 transition-colors";
@@ -26,7 +27,9 @@ function StickyTaleButton() {
         "fixed bottom-6 right-6 z-50 flex items-center gap-2",
         "bg-primary-600 hover:bg-primary-700 text-secondary-50 font-medium",
         "px-5 py-3 rounded-full shadow-elegant transition-all duration-300",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none",
+        visible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-4 pointer-events-none",
       ].join(" ")}
     >
       🎤 <span>Holde tale?</span>
@@ -40,7 +43,7 @@ export default function Home() {
       <StickyTaleButton />
       <div className="min-h-screen">
         {/* ── Hero ── */}
-        <section className="flex flex-col items-center text-center px-4 pt-4 pb-8 sm:pt-6 sm:pb-12">
+        <section className="flex flex-col items-center text-center px-4 pt-4 pb-8">
           <p className="text-sm tracking-[0.25em] uppercase text-primary-600 mb-4 font-light">
             Vi gleder oss til å feire med dere
           </p>
@@ -70,19 +73,18 @@ export default function Home() {
         </section>
 
         {/* ── Kvelden før ── */}
-        <section className="pb-10 sm:py-14 px-4">
+        <section className="pb-10 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-serif text-2xl sm:text-3xl text-primary-900 mb-8 gradient-text">
               Kvelden før bryllupet
             </h2>
-            <div className="glass rounded-xl px-6 py-4 inline-block shadow-elegant">
+            <div className="glass rounded-xl px-6 py-4 inline-block shadow-elegant w-full max-w-md">
               <p className="font-serif text-primary-900">{text.prePartyName}</p>
               <p className="text-primary-700 mb-4 leading-relaxed">
                 Fredag {text.prePartyDate} kl. {text.prePartyTime} har vi booket{" "}
                 <span className="font-medium">{text.prePartyName}</span> for en
                 uformell sammenkomst kvelden før. Alle er hjertelig velkomne!
               </p>
-              SI IFRA HVIS DERE KOMMER
               <Link
                 href={text.prePartyAddressUrl}
                 target="_blank"
@@ -91,6 +93,7 @@ export default function Home() {
               >
                 {text.prePartyAddress}
               </Link>
+              <PrePartySignup />
             </div>
           </div>
         </section>
@@ -217,7 +220,7 @@ export default function Home() {
         </section>
 
         {/* ── GAVE-info ── */}
-        <section className="pb-10 sm:py-14 px-4">
+        <section className="pb-10 px-4">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-serif text-2xl sm:text-3xl text-primary-900 mb-3 gradient-text">
               Gave
@@ -246,8 +249,8 @@ export default function Home() {
           <p className="text-primary-700 mb-6 max-w-sm mx-auto leading-relaxed">
             Vi har satt av tid til taler under middagen, og det hadde vært så
             hyggelig å høre noen ord fra våre kjære gjester! Hvis du ønsker å
-            holde en tale eller et annet type innslag, trykk på knappen over
-            for å gi våre toastmastere beskjed.
+            holde en tale eller et annet type innslag, trykk på knappen over for
+            å gi våre toastmastere beskjed.
           </p>
         </section>
       </div>

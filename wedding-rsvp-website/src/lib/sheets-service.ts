@@ -528,8 +528,9 @@ export class SheetsService {
    */
   async registerSpeech(data: {
     name: string;
-    email?: string;
+    contact?: string;
     durationMinutes: number;
+    intro?: string;
     message?: string;
   }): Promise<boolean> {
     try {
@@ -537,14 +538,14 @@ export class SheetsService {
 
       const submissionDate = new Date().toISOString();
       const values = [
-        [data.name, data.email || "", data.durationMinutes.toString(), data.message || "", submissionDate],
+        [data.name, data.contact || "", data.durationMinutes.toString(), data.intro || "", data.message || "", submissionDate],
       ];
 
       // Ensure header row exists by checking first
       const existing = await withRetry(async () => {
         return await this.sheets.spreadsheets.values.get({
           spreadsheetId: this.spreadsheetId,
-          range: `${SPEECH_SHEET_NAME}!A1:E1`,
+          range: `${SPEECH_SHEET_NAME}!A1:F1`,
         });
       });
 
@@ -554,9 +555,9 @@ export class SheetsService {
         await withRetry(async () => {
           await this.sheets.spreadsheets.values.update({
             spreadsheetId: this.spreadsheetId,
-            range: `${SPEECH_SHEET_NAME}!A1:E1`,
+            range: `${SPEECH_SHEET_NAME}!A1:F1`,
             valueInputOption: "RAW",
-            resource: { values: [["Navn", "E-post", "Varighet (min)", "Melding", "Registrert"]] },
+            resource: { values: [["Navn", "E-post/Telefon", "Varighet (min)", "Introduksjon", "Melding", "Registrert"]] },
           });
         });
       }
@@ -564,7 +565,7 @@ export class SheetsService {
       await withRetry(async () => {
         await this.sheets.spreadsheets.values.append({
           spreadsheetId: this.spreadsheetId,
-          range: `${SPEECH_SHEET_NAME}!A:E`,
+          range: `${SPEECH_SHEET_NAME}!A:F`,
           valueInputOption: "RAW",
           resource: { values },
         });
@@ -574,6 +575,52 @@ export class SheetsService {
       return true;
     } catch (error) {
       logger.error("Failed to register speech", error as Error);
+      throw handleSheetsError(error);
+    }
+  }
+
+  /**
+   * Register pre-party attendance — one row per name in "KveldenFør" sheet
+   */
+  async registerPreParty(names: string[]): Promise<boolean> {
+    try {
+      const SHEET = "KveldenFør";
+      const submissionDate = new Date().toISOString();
+
+      // Ensure header row exists
+      const existing = await withRetry(async () => {
+        return await this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: `${SHEET}!A1:B1`,
+        });
+      });
+
+      if ((existing.data.values || []).length === 0) {
+        await withRetry(async () => {
+          await this.sheets.spreadsheets.values.update({
+            spreadsheetId: this.spreadsheetId,
+            range: `${SHEET}!A1:B1`,
+            valueInputOption: "RAW",
+            resource: { values: [["Navn", "Registrert"]] },
+          });
+        });
+      }
+
+      const rows = names.map((name) => [name.trim(), submissionDate]);
+
+      await withRetry(async () => {
+        await this.sheets.spreadsheets.values.append({
+          spreadsheetId: this.spreadsheetId,
+          range: `${SHEET}!A:B`,
+          valueInputOption: "RAW",
+          resource: { values: rows },
+        });
+      });
+
+      logger.info("Pre-party registrations added", { count: names.length });
+      return true;
+    } catch (error) {
+      logger.error("Failed to register pre-party", error as Error);
       throw handleSheetsError(error);
     }
   }

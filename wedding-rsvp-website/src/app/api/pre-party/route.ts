@@ -3,16 +3,11 @@ import { z } from "zod";
 import { sheetsService } from "@/lib/sheets-service";
 import type { APIResponse } from "@/types";
 
-const speechSchema = z.object({
-  name: z.string().min(1, "Navn er påkrevd").max(100).trim(),
-  contact: z.string().max(200).optional().default(""),
-  durationMinutes: z
-    .number()
-    .int()
-    .min(1, "Varighet må være minst 1 minutt")
-    .max(7, "Varighet kan ikke overstige 7 minutter"),
-  intro: z.string().max(1000).optional().default(""),
-  message: z.string().max(1000).optional().default(""),
+const schema = z.object({
+  names: z
+    .array(z.string().min(1).max(100).trim())
+    .min(1, "Minst ett navn er påkrevd")
+    .max(20),
 });
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
@@ -21,28 +16,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     let data;
     try {
-      data = speechSchema.parse(body);
+      data = schema.parse(body);
     } catch (error: any) {
       const msg =
         error.errors?.map((e: any) => e.message).join(", ") || "Ugyldig data";
       return NextResponse.json(
-        {
-          success: false,
-          error: "Valideringsfeil",
-          message: msg,
-        } as APIResponse,
+        { success: false, error: "Valideringsfeil", message: msg } as APIResponse,
         { status: 400 },
       );
     }
 
-    await sheetsService.registerSpeech(data);
+    await sheetsService.registerPreParty(data.names);
 
     return NextResponse.json(
-      { success: true, message: "Tale registrert!" } as APIResponse,
+      { success: true, message: "Påmelding registrert!" } as APIResponse,
       { status: 200 },
     );
   } catch (error) {
-    console.error("Speech registration error:", error);
+    console.error("Pre-party registration error:", error);
     return NextResponse.json(
       {
         success: false,
