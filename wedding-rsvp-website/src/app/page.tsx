@@ -79,19 +79,19 @@ export default function Home() {
               Kvelden før bryllupet
             </h2>
             <div className="glass rounded-xl px-6 py-4 inline-block shadow-elegant w-full max-w-md">
-              <p className="font-serif text-primary-900">{text.prePartyName}</p>
-              <Link
-                href={text.prePartyAddressUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={`text-sm ${linkCls}`}
-              >
-                {text.prePartyAddress}
-              </Link>
+              {/*<p className="font-serif text-primary-900">{text.prePartyName}</p>*/}
+              {/*<Link*/}
+              {/*  href={text.prePartyAddressUrl}*/}
+              {/*  target="_blank"*/}
+              {/*  rel="noreferrer noopener"*/}
+              {/*  className={`text-sm ${linkCls}`}*/}
+              {/*>*/}
+              {/*  {text.prePartyAddress}*/}
+              {/*</Link>*/}
               <p className="text-primary-700 my-4 leading-relaxed">
-                Fredag {text.prePartyDate} kl. {text.prePartyTime} har vi booket{" "}
-                <span className="font-medium">{text.prePartyName}</span> for en
-                uformell sammenkomst.
+                Fredag kveld rundt kl.{" "}
+                <span className="font-medium">{text.prePartyTime}</span> skal vi
+                ha en uformell sammenkomst. Lokasjon blir bekreftet snart.
               </p>
               <PrePartySignup />
             </div>
