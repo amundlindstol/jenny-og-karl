@@ -22,9 +22,9 @@ export const text = {
   addressUrl: "https://maps.app.goo.gl/58jRof4L78cwPQi39",
 
   // Pre-party evening before
-  prePartyName: "Park Café",
-  prePartyAddress: "Strandgata 6, 4950 Risør",
-  prePartyAddressUrl: "https://maps.app.goo.gl/parkCafeRisor",
+  prePartyName: "S.O",
+  prePartyAddress: "S.O, Risør",
+  prePartyAddressUrl: "https://maps.app.goo.gl/BvsQ28y66J67JySf8",
   prePartyDate: "7. august 2026",
   prePartyTime: "18:00",
 

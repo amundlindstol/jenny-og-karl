@@ -79,19 +79,17 @@ export default function Home() {
               Kvelden før bryllupet
             </h2>
             <div className="glass rounded-xl px-6 py-4 inline-block shadow-elegant w-full max-w-md">
-              {/*<p className="font-serif text-primary-900">{text.prePartyName}</p>*/}
-              {/*<Link*/}
-              {/*  href={text.prePartyAddressUrl}*/}
-              {/*  target="_blank"*/}
-              {/*  rel="noreferrer noopener"*/}
-              {/*  className={`text-sm ${linkCls}`}*/}
-              {/*>*/}
-              {/*  {text.prePartyAddress}*/}
-              {/*</Link>*/}
               <p className="text-primary-700 my-4 leading-relaxed">
-                Fredag kveld rundt kl.{" "}
+                Fredag kveld kl.{" "}
                 <span className="font-medium">{text.prePartyTime}</span> skal vi
-                ha en uformell sammenkomst. Lokasjon blir bekreftet snart.
+                ha en uformell sammenkomst på <Link
+                href={text.prePartyAddressUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={`text-sm ${linkCls}`}
+              >
+                {text.prePartyAddress}
+              </Link>
               </p>
               <PrePartySignup />
             </div>
@@ -104,7 +102,7 @@ export default function Home() {
             <h2 className="font-serif text-2xl sm:text-3xl text-primary-900 text-center mb-8 gradient-text">
               Program for dagen
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
                 {
                   time: "12:30",
@@ -144,6 +142,11 @@ export default function Home() {
                       </Link>
                     </>
                   ),
+                },
+                {
+                  time: "02:00",
+                  title: "Lokalet stenger",
+                  desc: "",
                 },
               ].map(({ time, title, desc }) => (
                 <div
