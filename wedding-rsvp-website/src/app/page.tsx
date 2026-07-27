@@ -90,6 +90,9 @@ export default function Home() {
               >
                 {text.prePartyAddress}
               </Link>
+              <p className="text-primary-700 my-4 leading-relaxed">
+                👔👗 <span className="font-medium">Dresscode:</span> Semi-formal
+              </p>
               </p>
               <PrePartySignup />
             </div>
