@@ -235,7 +235,7 @@ export default function Home() {
               <p className="text-primary-700 leading-relaxed">
                 Brudeparet ønsker seg en god fest og god stemning. Dersom man
                 likevel ønsker å gi en gave, tar de gjerne imot et bidrag til
-                bryllupsreisen.
+                bryllupsreisen. Kontonummer: 2801 56 06217
               </p>
             </div>
           </div>
