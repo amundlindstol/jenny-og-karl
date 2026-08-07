@@ -126,6 +126,7 @@ export default function Home() {
                       >
                         {text.churchAddress}
                       </Link>
+                      Etter vielsen ønsker vi at gjestene drar direkte til festlokalet på Moen.
                     </>
                   ),
                 },
